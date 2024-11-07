@@ -1,0 +1,44 @@
+
+.custom-button {
+  --background: #5fbded;
+  --color: #ffffff;
+  --border-radius: 4px;
+  padding: 12px 20px;
+  margin: 10px 0; 
+}
+
+.custom-button:focus, .custom-button:hover {
+  --background: #5fbded; 
+}
+
+
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+
+.form-label {
+  color: #ffffff !important;
+}
+
+
+ion-item.input-item {
+  --background: transparent; 
+}
+
+
+ion-header {
+  --background: #004d74; 
+  color: #ffffff; 
+}
+
+
+ion-button {
+  --background: #004d74; 
+  --color: #ffffff; 
+}
+
+
+ion-icon {
+  color: #ffffff; 
+}

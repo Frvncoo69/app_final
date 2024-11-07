@@ -1,0 +1,154 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  .banner-image {
+    margin-left: 38px;
+    width: 80%; /* Ajusta al ancho del contenedor */
+    height: auto; /* Ajusta el margen según tus necesidades (16px es un ejemplo) */
+    width: 80%;
+    height: auto;
+  }
+  
+  /* Colores de fondo para cada tarjeta */
+  .card-1 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 1 */
+  }
+  .card-2 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 2 */
+  }
+  .card-3 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 3 */
+  }
+  .card-4 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 4 */
+  }
+  .card-5 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 5 */
+  }
+  .card-1,
+  .card-2,
+  .card-3,
+  .card-4,
+  .card-5,
+  .card-6 {
+    --background: #ffffff; /* Color de fondo para la tarjeta 6 */
+    --background: #ffffff;
+  }
+  
+  /* Estilos para el contenido dentro de las tarjetas */
+  .card-1 ion-card-content,
+  .card-2 ion-card-content,
+  .card-3 ion-card-content,
+  .card-4 ion-card-content,
+  .card-5 ion-card-content,
+  .card-6 ion-card-content {
+    color: #000000; /* Color del texto en negro */
+  }
+  .card-1 ion-card-content h2,
+  .card-1 ion-card-content p,
+  .card-2 ion-card-content h2,
+  .card-2 ion-card-content p,
+  .card-3 ion-card-content h2,
+  .card-3 ion-card-content p,
+  .card-4 ion-card-content h2,
+  .card-4 ion-card-content p,
+  .card-5 ion-card-content h2,
+  .card-5 ion-card-content p,
+  .card-6 ion-card-content h2,
+  .card-6 ion-card-content p {
+    color: #000000; /* Color del texto y precio en negro */
+    color: #000000;
+  }
+  
+  /* Reducir el tamaño de la fuente de las etiquetas h6 */
+  .card-1 ion-card-content h6,
+  .card-2 ion-card-content h6,
+  .card-3 ion-card-content h6,
+  .card-4 ion-card-content h6,
+  .card-5 ion-card-content h6,
+  .card-6 ion-card-content h6 {
+    font-size: 20px; /* Ajusta el tamaño de la fuente a lo que prefieras */
+    font-size: 20px;
+  }
+  
+  /* Estilos adicionales para mejorar la apariencia de las tarjetas */
+  ion-card {
+    border-radius: 20px; /* Redondear las esquinas de las tarjetas */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Agregar sombra para un efecto de profundidad */
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column; /* Asegura que el contenido se apile verticalmente */
+    flex-direction: column;
+  }
+  
+  ion-card-content {
+    display: flex;
+    flex-direction: column; /* Asegura que el contenido se apile verticalmente dentro de la tarjeta */
+    flex: 1; /* Permite que el contenido ocupe todo el espacio disponible */
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  ion-button {
+    margin-top: auto; /* Empuja el botón al final del contenedor flex */
+    --background: transparent; /* Elimina el color de fondo del botón */
+    --color: inherit; /* Hereda el color del texto del botón del elemento padre */
+    --border-radius: 0; /* Opcional: elimina el radio de borde para un diseño plano */
+    margin-top: auto;
+    --background: transparent;
+    --color: inherit;
+    --border-radius: 0;
+  }
+  
+  /* Asegurarse de que todas las tarjetas tengan el mismo tamaño */
+  ion-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  ion-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  ion-col {
+    display: flex;
+    align-items: stretch; /* Estira las tarjetas para que todas tengan la misma altura */
+    align-items: stretch;
+  }
+  
+  /* Estilo para el encabezado */
+  ion-header {
+    --background: #004d74; /* Fondo del encabezado */
+    color: #ffffff; /* Color del texto en el encabezado */
+    --background: #004d74;
+    color: #ffffff;
+  }
+  
+  /* Estilo para los botones del encabezado */
+  ion-button {
+    --background: #004d74; /* Fondo del botón */
+    --color: #ffffff; /* Color del texto en el botón */
+    --background: #004d74;
+    --color: #ffffff;
+  }
+  
+  /* Estilo para los íconos dentro de los botones */
+  ion-icon {
+    color: #ffffff; /* Color de los íconos */
+    color: #ffffff;
+  }
+  /* Estilo para el precio */
+  .card-1 ion-card-content .precio,
+  .card-2 ion-card-content .precio,
+  .card-3 ion-card-content .precio,
+  .card-4 ion-card-content .precio,
+  .card-5 ion-card-content .precio,
+  .card-6 ion-card-content .precio {
+    color: #000000;
+    font-weight: bold; /* Negrita para que resalte más */
+    font-size: 24px; /* Tamaño de fuente más grande */
+  }

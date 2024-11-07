@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Mouse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Campo para el nombre del mouse -->
+  <ion-item>
+    <ion-label position="floating">Nombre del Mouse</ion-label>
+    <ion-input [(ngModel)]="mouse.nombre"></ion-input>
+  </ion-item>
+
+  <!-- Campo para el precio -->
+  <ion-item>
+    <ion-label position="floating">Precio</ion-label>
+    <ion-input type="number" [(ngModel)]="mouse.precio"></ion-input>
+  </ion-item>
+
+  <!-- Campo para el stock -->
+  <ion-item>
+    <ion-label position="floating">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="mouse.stock"></ion-input>
+  </ion-item>
+
+  <!-- Campo para la descripción -->
+  <ion-item>
+    <ion-label position="floating">Descripción</ion-label>
+    <ion-textarea [(ngModel)]="mouse.descripcion"></ion-textarea>
+  </ion-item>
+
+  <!-- Botón para capturar una imagen usando la cámara -->
+  <ion-item>
+    <ion-button (click)="capturarFoto()">Capturar Imagen</ion-button>
+  </ion-item>
+
+  <!-- Botón para seleccionar una imagen desde la galería -->
+  <ion-item>
+    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+  </ion-item>
+
+  <!-- Vista previa de la imagen seleccionada o capturada -->
+  <ion-item *ngIf="mouse.imagen">
+    <ion-img [src]="mouse.imagen"></ion-img> <!-- Muestra la imagen capturada o seleccionada -->
+  </ion-item>
+
+  <!-- Botón para guardar los cambios -->
+  <ion-button expand="block" (click)="guardarCambios()">Guardar Cambios</ion-button>
+</ion-content>

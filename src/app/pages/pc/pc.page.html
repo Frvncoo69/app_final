@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
+    <img style="border-radius: 15px;" class="banner-image" alt="mousepromo" src="assets/icon/pcgamer.jpg"/>
+    <ion-row>
+      <!-- pc1 -->
+      <ion-col size="6">
+        <ion-card class="card-1" [routerLink]="'/pc1'">
+          <ion-img src="/assets/icon/pc1.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Pc gamer vibora black v1</h6>
+            <p><b>Stock: 8</b></p>
+            <p class="precio"><b>$389.990</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- pc 2 -->
+      <ion-col size="6">
+        <ion-card class="card-2">
+          <ion-img src="/assets/icon/pc2.jpg"></ion-img>
+          <ion-card-content>
+            <h6>PC Gamer AMD Ryzen 5 5500</h6>
+            <p><b>Stock: 2</b></p>
+            <p class="precio"><b>$789.990</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- pc 3 -->
+      <ion-col size="6">
+        <ion-card class="card-3">
+          <ion-img src="/assets/icon/pc3.jpg"></ion-img>
+          <ion-card-content>
+            <h6>PC GAMER AMD RYZEN 5 5600g</h6>
+            <p><b>Stock: 5</b></p>
+            <p class="precio"><b>$749.990</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- pc 4 -->
+      <ion-col size="6">
+        <ion-card class="card-4">
+          <ion-img src="/assets/icon/pc4.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Pc Gamer Spartan: Rz 3 2200g Pro</h6>
+            <p><b>Stock: 7</b></p>
+            <p class="precio"><b>$344.990</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- pc 5 -->
+      <ion-col size="6">
+        <ion-card class="card-5">
+          <ion-img src="/assets/icon/pc5.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Pc gamer i5 11400f</h6>
+            <p><b>Stock: 5</b></p>
+            <p class="precio"><b>$779.990</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- pc 6 -->
+      <ion-col size="6">
+        <ion-card class="card-6">
+          <ion-img src="/assets/icon/pc6.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Pc Gamer Intel I5 11400f</h6>
+            <p><b>Stock: 2</b></p>
+            <p class="precio"><b>$849.000</b></p> <!-- Clase precio añadida aquí -->
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

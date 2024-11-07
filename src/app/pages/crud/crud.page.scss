@@ -1,0 +1,66 @@
+/* Estilo para el botón "Agregar" con color #5fbded */
+ion-button.custom-agregar-btn {
+  --background: #5fbded !important;
+  --color: #ffffff !important;
+}
+
+/* Estilo para el botón "Modificar" */
+ion-button.modificar-btn {
+  --background: #5fbded !important;
+  --color: #ffffff !important;
+}
+
+/* Estilo para el botón "Eliminar" */
+ion-button[color="danger"] {
+  --background: #e03e3e !important; /* Color rojo para el botón de eliminar */
+  --color: #ffffff !important;
+}
+
+/* Estilo para el encabezado */
+ion-header {
+  --background: #004d74;
+  color: #ffffff;
+}
+
+/* Estilo para los botones del encabezado */
+ion-button {
+  --background: #004d74;
+  --color: #ffffff;
+}
+
+/* Estilo para los íconos dentro de los botones */
+ion-icon {
+  color: #ffffff;
+}
+
+/* Estilo para el contenido */
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+/* Estilo para el contenido sin fondo */
+.no-background {
+  --ion-background-color: transparent;
+}
+
+/* Estilo para el contenedor de botones centrados */
+.center-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+/* Estilo para el margen de los botones */
+.button-margin {
+  margin: 16px;
+}
+
+/* Estilo para las tarjetas de color blanco */
+ion-card.card-1,
+ion-card.card-2,
+ion-card.card-3,
+ion-card.card-4,
+ion-card.card-5,
+ion-card.card-6 {
+  background-color: white !important;
+}

@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
+  <img style="border-radius: 15px;" class="banner-image" alt="tcpromo" src="assets/icon/tecladopromo.jpg"/>
+  
+  <ion-grid>
+    <ion-row>
+      <!-- Teclado 1 -->
+      <ion-col size="6">
+        <ion-card class="card-1" [routerLink]="'/teclado1'">
+          <ion-img src="/assets/icon/teclado1.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado Mecánico Gamer Redragon Kumara K552</h6>
+            <p><b>Stock: 15</b></p>
+            <p class="precio"><b>$34.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Teclado 2 -->
+      <ion-col size="6">
+        <ion-card class="card-2">
+          <ion-img src="/assets/icon/teclado2.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado Gamer G413 Carbon Logitech</h6>
+            <p><b>Stock: 10</b></p>
+            <p class="precio"><b>$89.000</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Teclado 3 -->
+      <ion-col size="6">
+        <ion-card class="card-3">
+          <ion-img src="/assets/icon/teclado3.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado gamer xtech arminger xtk-510S</h6>
+            <p><b>Stock: 20</b></p>
+            <p class="precio"><b>$13.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Teclado 4 -->
+      <ion-col size="6">
+        <ion-card class="card-4">
+          <ion-img src="/assets/icon/teclado4.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado Gamer Xpg Mage Rgb Gaming Red Switch Acuario</h6>
+            <p><b>Stock: 20</b></p>
+            <p class="precio"><b>$12.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Teclado 5 -->
+      <ion-col size="6">
+        <ion-card class="card-5">
+          <ion-img src="/assets/icon/teclado5.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado Gamer Hp Gk100 Qwerty Español Con Luz Rgb - Progaming</h6>
+            <p><b>Stock: 30</b></p>
+            <p class="precio"><b>$10.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Teclado 6 -->
+      <ion-col size="6">
+        <ion-card class="card-6">
+          <ion-img src="/assets/icon/teclado6.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Teclado Mecánico con Retroiluminación</h6>
+            <p><b>Stock: 25</b></p>
+            <p class="precio"><b>$18.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

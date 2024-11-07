@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
+  <img style="border-radius: 15px;" class="banner-image" alt="audifonopromo" src="assets/icon/audifonospromo.jpg"/>
+  <ion-grid>
+    <ion-row>
+      <!-- Audífono 1 -->
+      <ion-col size="6">
+        <ion-card class="card-1" [routerLink]="'/audifonos1'">
+          <ion-img src="/assets/icon/audifono1.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Audífonos Gamer Profesional E1000 Usb Rgb 7.1 Pc</h6>
+            <p><b>Stock: 20</b></p>
+            <p><b>$16.990</b></p>
+            <p class="precio"><b>$16.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Audífono 2 -->
+      <ion-col size="6">
+        <ion-card class="card-2">
+          <ion-img src="/assets/icon/audifono2.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Audífono Gamer Logitech G535</h6>
+            <p><b>Stock: 10</b></p>
+            <p><b>$79.990</b></p>
+            <p class="precio"><b>$79.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Audífono 3 -->
+      <ion-col size="6">
+        <ion-card class="card-3">
+          <ion-img src="/assets/icon/audifono3.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Audífonos gamer a10</h6>
+            <p><b>Stock: 15</b></p>
+            <p><b>$21.990</b></p>
+            <p class="precio"><b>$21.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Audífono 4 -->
+      <ion-col size="6">
+        <ion-card class="card-4">
+          <ion-img src="/assets/icon/audifono4.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Audífonos gamer onikuma k20 camuflaje blanco con luz rgb led</h6>
+            <p><b>Stock: 30</b></p>
+            <p><b>$8.990</b></p>
+            <p class="precio"><b>$8.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Audífono 5 -->
+      <ion-col size="6">
+        <ion-card class="card-5">
+          <ion-img src="/assets/icon/audifono5.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Auriculares inalámbricos para PC</h6>
+            <p><b>Stock: 18</b></p>
+            <p><b>$28.990</b></p>
+            <p class="precio"><b>$28.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Audífono 6 -->
+      <ion-col size="6">
+        <ion-card class="card-6">
+          <ion-img src="/assets/icon/audifono6.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Audífonos Gamer Logitech G335, Wired, Auricular Tamaño Completo</h6>
+            <p><b>Stock: 23</b></p>
+            <p><b>$59.990</b></p>
+            <p class="precio"><b>$59.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

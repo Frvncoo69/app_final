@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-input type="password" placeholder="Ingrese su contraseña actual" [(ngModel)]="contrasenaIngresada"></ion-input>
+  </ion-item>
+  
+  <ion-button expand="block" (click)="verificarContrasena()">Verificar Contraseña</ion-button>
+</ion-content>

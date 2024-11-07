@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      Editar Perfil
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <img alt="Perfil" src="/assets/icon/perfil.jpg"/>
+  </ion-card>
+
+  <ion-list>
+    <ion-item class="profile-item">
+      <ion-label>Rut:</ion-label>
+      <ion-input type="text" [(ngModel)]="rut" readonly></ion-input>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Nombre:</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Apellido:</ion-label>
+      <ion-input type="text" [(ngModel)]="apellido"></ion-input>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Nombre de Usuario:</ion-label>
+      <ion-input type="text" [(ngModel)]="nombreUsuario"></ion-input>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Email:</ion-label>
+      <ion-input type="text" [(ngModel)]="correo"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="success" expand="full" class="custom-button" style="margin: 20px;" (click)="guardarCambios()">
+    Guardar Cambios
+  </ion-button>
+  <ion-button color="warning" expand="full" class="custom-button" [routerLink]="'/perfil'">
+    Cancelar
+  </ion-button>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Sillas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (submit)="agregarSillas()">
+    <ion-item>
+      <ion-label position="floating">Nombre de las Sillas</ion-label>
+      <ion-input [(ngModel)]="sillas.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input [(ngModel)]="sillas.precio" type="number" name="precio" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Stock</ion-label>
+      <ion-input [(ngModel)]="sillas.stock" type="number" name="stock" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="sillas.descripcion" name="descripcion" required></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" (click)="capturarFoto()">Capturar Foto</ion-button>
+    <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+
+    <ion-button type="submit" expand="block">Agregar Sillas</ion-button>
+  </form>
+</ion-content>

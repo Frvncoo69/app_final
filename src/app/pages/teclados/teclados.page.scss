@@ -1,0 +1,111 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  /* Imagen del banner */
+  .banner-image {
+    margin-left: 38px;
+    width: 80%;
+    height: auto;
+  }
+  
+  /* Colores de fondo para cada tarjeta */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6 {
+    --background: #ffffff; /* Fondo blanco para todas las tarjetas */
+  }
+  
+  /* Estilo del contenido dentro de las tarjetas */
+  .card-1 ion-card-content,
+  .card-2 ion-card-content,
+  .card-3 ion-card-content,
+  .card-4 ion-card-content,
+  .card-5 ion-card-content,
+  .card-6 ion-card-content {
+    color: #000000; /* Texto en negro */
+  }
+  
+  /* Estilo para títulos y párrafos en las tarjetas */
+  .card-1 ion-card-content h2, .card-1 ion-card-content p,
+  .card-2 ion-card-content h2, .card-2 ion-card-content p,
+  .card-3 ion-card-content h2, .card-3 ion-card-content p,
+  .card-4 ion-card-content h2, .card-4 ion-card-content p,
+  .card-5 ion-card-content h2, .card-5 ion-card-content p,
+  .card-6 ion-card-content h2, .card-6 ion-card-content p {
+    color: #000000;
+  }
+  
+  /* Ajuste del tamaño del texto en h6 */
+  .card-1 ion-card-content h6,
+  .card-2 ion-card-content h6,
+  .card-3 ion-card-content h6,
+  .card-4 ion-card-content h6,
+  .card-5 ion-card-content h6,
+  .card-6 ion-card-content h6 {
+    font-size: 20px;
+  }
+  
+  /* Estilo para los precios */
+  .card-1 ion-card-content .precio,
+  .card-2 ion-card-content .precio,
+  .card-3 ion-card-content .precio,
+  .card-4 ion-card-content .precio,
+  .card-5 ion-card-content .precio,
+  .card-6 ion-card-content .precio {
+    color: #000000;
+    font-weight: bold;
+    font-size: 26px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Estilo general para las tarjetas */
+  ion-card {
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estilo para el contenido dentro de ion-card */
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* Botones */
+  ion-button {
+    margin-top: auto;
+    --background: transparent;
+    --color: inherit;
+    --border-radius: 0;
+  }
+  
+  /* Asegurar el tamaño uniforme de las tarjetas */
+  ion-grid, ion-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  ion-col {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  /* Encabezado */
+  ion-header {
+    --background: #004d74;
+    color: #ffffff;
+  }
+  
+  /* Botones del encabezado */
+  ion-button {
+    --background: #004d74;
+    --color: #ffffff;
+  }
+  
+  /* Íconos dentro de los botones */
+  ion-icon {
+    color: #ffffff;
+  }
+  

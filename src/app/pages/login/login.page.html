@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="text-align: center;">TECNO STORE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-center">
+  <!-- Cuadro que encierra los campos de usuario y contraseña -->
+  <ion-card class="content-center">
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Inicio de Sesión</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <!-- Campo de Usuario -->
+      <ion-item>
+        <ion-input [(ngModel)]="email" placeholder="Ingrese su correo"></ion-input>
+      </ion-item>
+
+      <!-- Campo de Contraseña -->
+      <ion-item>
+        <ion-input [(ngModel)]="password" type="password" placeholder="Ingrese su contraseña">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <!-- Botón de Ingresar -->
+      <ion-button expand="block" class="custom-button" (click)="onLogin()"><mat-icon>vpn_key</mat-icon></ion-button>
+      <ion-button expand="block" class="custom-button" (click)="irPagina()">Crear Cuenta</ion-button>
+      <ion-button expand="block" class="custom-button" [routerLink]="'/recuperar'">Recuperar Contraseña</ion-button>
+      <img style="border-radius: 15px;" class="banner-image" alt="amd" src="/assets/icon/logo.jpeg"/>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

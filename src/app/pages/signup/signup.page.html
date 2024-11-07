@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TECNO STORE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="content-center">
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Crear Cuenta</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input placeholder="Rut" [(ngModel)]="rut"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Nombre" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Apellido" [(ngModel)]="apellido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Nombre Usuario" [(ngModel)]="nombreUsuario"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Correo" [(ngModel)]="correo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Crea una contraseña" [(ngModel)]="contrasena">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Valide su contraseña" [(ngModel)]="validarContrasena">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="create-account-button" (click)="crearCuenta()">Crear Cuenta</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

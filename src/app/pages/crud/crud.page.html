@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="'/perfil'">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="'/carrito'">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="no-background">
+
+  <!-- Botones para acceder a los CRUD -->
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-teclado'">
+    Agregar Teclados 
+  </ion-button>
+
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-monitor'">
+    Agregar Monitores
+  </ion-button>
+
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-audifono'">
+    Agregar Audifonos
+  </ion-button>
+
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-mouse'">
+    Agregar Mouse
+  </ion-button>
+
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-sillas'">
+    Agregar Sillas
+  </ion-button>
+
+  <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-pc'">
+    Agregar PC Armado
+  </ion-button>
+
+  <ion-card *ngFor="let producto of productos">
+    <ion-thumbnail>
+      <img [src]="producto.foto_prod" alt="Foto del producto">
+    </ion-thumbnail>
+    <ion-card-header>
+      <ion-card-title>{{ producto.nombre_prod }}</ion-card-title>
+      <ion-card-subtitle>Precio: {{ producto.precio_prod }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Stock: {{ producto.stock_prod }}</p>
+      <p>{{ producto.descripcion_prod }}</p>
+      <ion-button color="primary" [routerLink]="['/modificar']">Modificar</ion-button>
+      <ion-button color="danger" (click)="EliminarAlerta(producto.id_producto)">Eliminar</ion-button>
+      <ion-button color="primary" (click)="irproductoSolo(producto)">Ver Producto</ion-button>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-item *ngIf="productos.length === 0">
+    <ion-label>No se encontraron productos.</ion-label>
+  </ion-item>
+</ion-content>

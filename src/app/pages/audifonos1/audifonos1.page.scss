@@ -1,0 +1,59 @@
+/* Fondo del ion-content */
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+/* Estilo general para los botones personalizados */
+.custom-button {
+  --background: #5fbded;
+  --color: #ffffff;
+  --border-radius: 4px;
+  padding: 12px 20px;
+  margin: 10px 0;
+}
+
+.custom-button:focus, .custom-button:hover {
+  --background: #5fbded;
+}
+
+/* Estilo para la descripción del producto */
+.product-description {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* Ajustar tamaño del texto h6 en la descripción del producto */
+.product-description h6 {
+  font-size: 14px !important;
+  color: #000000;
+}
+
+/* Estilo para el texto y el precio en la descripción del producto */
+.product-description h2, .product-description p, .product-description h3 {
+  color: #000000;
+}
+
+/* Centrar el botón dentro de la columna */
+.center-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para el encabezado */
+ion-header {
+  --background: #004d74;
+  color: #ffffff;
+}
+
+/* Estilo para los botones del encabezado */
+ion-button {
+  --background: #004d74;
+  --color: #ffffff;
+}
+
+/* Estilo para los íconos dentro de los botones */
+ion-icon {
+  color: #ffffff;
+}

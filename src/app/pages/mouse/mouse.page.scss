@@ -1,0 +1,96 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  .banner-image {
+    margin-left: 38px;
+    width: 80%;
+    height: auto;
+  }
+  
+  /* Colores de fondo para cada tarjeta */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6 {
+    --background: #ffffff;
+  }
+  
+  /* Estilos para el contenido dentro de las tarjetas */
+  .card-1 ion-card-content,
+  .card-2 ion-card-content,
+  .card-3 ion-card-content,
+  .card-4 ion-card-content,
+  .card-5 ion-card-content,
+  .card-6 ion-card-content {
+    color: #000000;
+  }
+  
+  /* Ajustar tamaño del texto h6 en las tarjetas */
+  .card-1 ion-card-content h6,
+  .card-2 ion-card-content h6,
+  .card-3 ion-card-content h6,
+  .card-4 ion-card-content h6,
+  .card-5 ion-card-content h6,
+  .card-6 ion-card-content h6 {
+    font-size: 20px !important; /* Ajusta el tamaño de la fuente y usa !important */
+    color: #000000;
+  }
+  
+  ion-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  ion-button {
+    margin-top: auto;
+    --background: transparent;
+    --color: inherit;
+    --border-radius: 0;
+  }
+  
+  ion-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  ion-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  ion-col {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  ion-header {
+    --background: #004d74;
+    color: #ffffff;
+  }
+  
+  ion-button {
+    --background: #004d74;
+    --color: #ffffff;
+  }
+  
+  ion-icon {
+    color: #ffffff;
+  }
+  /* Estilo para el precio */
+  .card-1 ion-card-content .precio,
+  .card-2 ion-card-content .precio,
+  .card-3 ion-card-content .precio,
+  .card-4 ion-card-content .precio,
+  .card-5 ion-card-content .precio,
+  .card-6 ion-card-content .precio {
+    color: #000000;
+    font-weight: bold; /* Negrita para que resalte más */
+    font-size: 24px; /* Tamaño de fuente más grande */
+  }

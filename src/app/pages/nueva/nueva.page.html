@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/codigo"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TECNO STORE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-center">
+  <!-- Cuadro que encierra los campos de nueva contraseña -->
+  <ion-card class="custom-card">
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Ingresa Nueva Contraseña</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <!-- Campo de Nueva Contraseña -->
+      <ion-item>
+        <ion-input type="password" placeholder="Nueva contraseña">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <!-- Campo de Validación de Contraseña -->
+      <ion-item>
+        <ion-input type="password" placeholder="Valide su contraseña">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <!-- Botón de Inicio de Sesión -->
+      <ion-button expand="block" class="custom-button" [routerLink]="['/login']">Inicio de Sesión</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Silla</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nombre de la Silla</ion-label>
+    <ion-input [(ngModel)]="sillas.nombre"></ion-input>  <!-- Cambiado a 'sillas' -->
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Precio</ion-label>
+    <ion-input type="number" [(ngModel)]="sillas.precio"></ion-input> <!-- Cambiado -->
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="sillas.stock"></ion-input> <!-- Cambiado -->
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descripción</ion-label>
+    <ion-textarea [(ngModel)]="sillas.descripcion"></ion-textarea> <!-- Cambiado -->
+  </ion-item>
+
+  <ion-item>
+    <ion-button (click)="capturarFoto()">Capturar Imagen</ion-button>
+  </ion-item>
+
+  <ion-item>
+    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+  </ion-item>
+
+  <ion-item *ngIf="sillas.imagen">
+    <ion-img [src]="sillas.imagen"></ion-img>
+  </ion-item>
+
+  <ion-button expand="block" (click)="guardarCambios()">Guardar Cambios</ion-button>
+</ion-content>

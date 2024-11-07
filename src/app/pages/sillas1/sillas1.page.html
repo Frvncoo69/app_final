@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Imagen de la silla sin título encima -->
+        <ion-img src="/assets/icon/silla1.jpg" style="width: 100%;"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="product-description">
+        <h3>Silla Gamer Wetech Color Gris/Negro Modelo LS-1118</h3>
+        <p>
+          Diseñada para comodidad y soporte durante largas sesiones de juego, 
+          esta silla cuenta con un acolchado de alta densidad y un diseño ergonómico.
+          Ajustable y con respaldo reclinable, es ideal para jugadores que buscan estilo y confort.
+        </p>
+        <p><b>Stock: 5</b></p>
+        <h3><b>Precio: $81.290</b></h3>
+
+        <!-- Botón de agregar al carrito -->
+        <ion-button expand="block" class="custom-button" (click)="agregarAlCarrito()">
+          Agregar al carrito
+        </ion-button>
+
+        <!-- Botón para volver a la página de sillas -->
+        <ion-button expand="block" color="light" [routerLink]="'/sillas'">
+          Volver a sección de sillas
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

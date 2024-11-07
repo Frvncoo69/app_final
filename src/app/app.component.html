@@ -1,0 +1,56 @@
+<ion-app>
+  <ion-menu-toggle>
+    <ion-menu contentId="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menú</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content class="content">
+        <ion-list>
+          <ion-item class="custom-category-item" button routerLink="/teclados">
+            <ion-label>Teclados</ion-label>
+          </ion-item>
+
+          <ion-item class="custom-category-item" button routerLink="/monitores">
+            <ion-label>Monitores</ion-label>
+          </ion-item>
+          
+          <ion-item class="custom-category-item" button routerLink="/audifonos">
+            <ion-label>Audífonos</ion-label>
+          </ion-item>
+        
+          <ion-item class="custom-category-item" button routerLink="/mouse">
+            <ion-label>Mouse</ion-label>
+          </ion-item>
+
+          <ion-item class="custom-category-item" button routerLink="/sillas">
+            <ion-label>Sillas</ion-label>
+          </ion-item>
+
+          <ion-item class="custom-category-item" button routerLink="/pc">
+            <ion-label>PC Armado</ion-label>
+          </ion-item>
+
+          <ion-item class="custom-category-item" button routerLink="/contacto">
+            <ion-label>Contacto</ion-label>
+          </ion-item>
+
+          <ion-item class="custom-category-item" button routerLink="/crud">
+            <ion-label>Administrar</ion-label>
+          </ion-item>
+
+        </ion-list>
+        <img style="border-radius: 15px;" class="banner-image" alt="amd" src="/assets/icon/logo.jpeg"/>
+      </ion-content>
+    </ion-menu>
+  </ion-menu-toggle>
+
+  <ion-header [translucent]="true">
+    
+  </ion-header>
+
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

@@ -1,0 +1,52 @@
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+/* Estilos para el ion-content */
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+/* Estilos para centrar el contenido y ajustar el tamaño del botón */
+ion-card.content-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Estilos para el botón de Crear Cuenta */
+ion-button.create-account-button {
+  --background: #5fbded; /* Color celeste para el botón */
+  --color: #ffffff; /* Color del texto blanco */
+  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
+  --padding-start: 24px; /* Espaciado interior del botón */
+  --padding-end: 24px; /* Espaciado interior del botón */
+  --padding-top: 12px; /* Espaciado interior del botón */
+  --padding-bottom: 12px; /* Espaciado interior del botón */
+  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+}
+
+/* Estilos para el botón de Ingresar */
+ion-button[expand="block"].login-button {
+  --background: #5fbded; /* Color celeste para el botón */
+  --color: #ffffff; /* Color del texto blanco */
+  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
+  --padding-start: 24px; /* Espaciado interior del botón */
+  --padding-end: 24px; /* Espaciado interior del botón */
+  --padding-top: 12px; /* Espaciado interior del botón */
+  --padding-bottom: 12px; /* Espaciado interior del botón */
+  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+}
+
+/* Estilos para el botón de Recuperar Contraseña */
+ion-button[expand="block"].recover-button {
+  --background: #5fbded; /* Color celeste para el botón */
+  --color: #ffffff; /* Color del texto blanco */
+  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
+  --padding-start: 24px; /* Espaciado interior del botón */
+  --padding-end: 24px; /* Espaciado interior del botón */
+  --padding-top: 12px; /* Espaciado interior del botón */
+  --padding-bottom: 12px; /* Espaciado interior del botón */
+  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+}

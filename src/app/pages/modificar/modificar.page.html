@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      Modificar Producto
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="no-background">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Categoria:</ion-label>
+        <ion-input type="text" [(ngModel)]="categoria"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre:</ion-label>
+        <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Stock:</ion-label>
+        <ion-input type="number" [(ngModel)]="stock"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Precio:</ion-label>
+        <ion-input type="number" [(ngModel)]="precio"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Descripción:</ion-label>
+        <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Imagen:</ion-label>
+        <ion-input type="text" [(ngModel)]="imagen"></ion-input>
+      </ion-item>
+
+      <!-- Botones para guardar cambios o cancelar -->
+      <ion-button expand="block" color="success" (click)="guardarCambios()">Guardar Cambios</ion-button>
+      <ion-button expand="block" color="warning" [routerLink]="'/crud'">Cancelar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

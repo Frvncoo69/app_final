@@ -1,0 +1,65 @@
+/* Estilo adicional para el fondo blanco en ion-card */
+.contact-card {
+  background-color: white !important;
+}
+
+/* Estilo adicional para el texto negro en el contenido del card */
+.contact-content ion-label {
+  color: black !important;
+}
+
+/* Estilo para el título en negro */
+.title-black {
+  color: black !important;
+}
+
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+.content-center {
+  margin-top: 35%;
+}
+
+ion-card {
+  background-color: rgba(8, 134, 65, 0); 
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px; /* Espacio entre la imagen y los íconos */
+}
+
+ion-icon {
+  margin-top: 10px; /* Espaciado entre el ícono y la etiqueta */
+}
+
+ion-label {
+  margin-bottom: 15px; /* Espaciado entre las filas de íconos y etiquetas */
+  font-size: 14px; /* Ajusta el tamaño del texto según sea necesario */
+}
+
+/* Estilo para el encabezado */
+ion-header {
+  --background: #004d74; /* Fondo del encabezado */
+  color: #ffffff; /* Color del texto en el encabezado */
+}
+
+/* Estilo para los botones del encabezado */
+ion-button {
+  --background: #004d74; /* Fondo del botón */
+  --color: #ffffff; /* Color del texto en el botón */
+}
+
+/* Estilo para los íconos dentro de los botones */
+ion-icon {
+  color: #ffffff; /* Color de los íconos */
+}

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Teclado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (submit)="agregarTeclado()">
+    <ion-item>
+      <ion-label position="floating">Nombre del Teclado</ion-label>
+      <ion-input [(ngModel)]="teclado.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input [(ngModel)]="teclado.precio" type="number" name="precio" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Stock</ion-label>
+      <ion-input [(ngModel)]="teclado.stock" type="number" name="stock" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="teclado.descripcion" name="descripcion" required></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" (click)="capturarFoto()">Capturar Foto</ion-button>
+    <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+
+    <ion-button type="submit" expand="block">Agregar Teclado</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,23 @@
+/* Fondo del ion-content */
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+/* Estilo para el menú */
+ion-menu {
+  --background: #004d74; /* Fondo del menú */
+}
+
+/* Estilo para los elementos del menú */
+.custom-category-item {
+  --background: #004d74; /* Fondo de los ítems del menú */
+  --color: #ffffff; /* Color del texto en los ítems del menú */
+}
+
+.banner-image {
+  margin-top: 20px;
+  margin-left: 30px;
+  width: 80%; /* Ajusta al ancho del contenedor */
+  height: auto; /* Ajusta el margen según tus necesidades (16px es un ejemplo) */
+}
+

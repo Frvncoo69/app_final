@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-img src="/assets/icon/monitor1.jpg" style="width: 100%;"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="product-description">
+        <h3>Monitor 27" FHD 240HZ 1MS</h3>
+        <p>El Monitor Caixun 27" FHD destaca por su 240Hz y 1ms, brindando una experiencia de juego ultra fluida...</p>
+        <p><b>Stock: 15</b></p>
+        <h3><b>Precio: $191.990</b></h3>
+
+        <!-- Botón para agregar al carrito -->
+        <ion-button expand="block" class="custom-button" (click)="agregarAlCarrito()">
+          Agregar al carrito
+        </ion-button>
+
+        <!-- Botón para volver a la página de monitores -->
+        <ion-button expand="block" color="light" [routerLink]="'/monitores'">
+          Volver a sección de monitores
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

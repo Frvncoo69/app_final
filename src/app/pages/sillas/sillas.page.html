@@ -1,0 +1,105 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
+  <img style="border-radius: 15px;" class="banner-image" alt="sillas" src="assets/icon/sillagamer.jpg"/>
+  <ion-grid>
+    <ion-row>
+      <!-- Silla 1 -->
+      <ion-col size="6">
+        <ion-card class="card-1" [routerLink]="'/sillas1'">
+          <ion-img src="/assets/icon/silla1.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Silla Gamer Wetech Color Gris/Negro Modelo LS-1118</h6>
+            <p><b>Stock: 5</b></p>
+            <p class="precio"><b>$81.290</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Silla 2 -->
+      <ion-col size="6">
+        <ion-card class="card-2">
+          <ion-img src="/assets/icon/silla2.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Silla Gamer Reclinable B/N</h6>
+            <p><b>Stock: 10</b></p>
+            <p class="precio"><b>$77.000</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Silla 3 -->
+      <ion-col size="6">
+        <ion-card class="card-3">
+          <ion-img src="/assets/icon/silla3.jpg"></ion-img>
+          <ion-card-content>
+            <h6>SILLA GAMER LUMAX ROM</h6>
+            <p><b>Stock: 15</b></p>
+            <p class="precio"><b>$69.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Silla 4 -->
+      <ion-col size="6">
+        <ion-card class="card-4">
+          <ion-img src="/assets/icon/silla4.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Silla Gamer Racing Reclinable 180° Reposapiés Rojo</h6>
+            <p><b>Stock: 15</b></p>
+            <p class="precio"><b>$63.490</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Silla 5 -->
+      <ion-col size="6">
+        <ion-card class="card-5">
+          <ion-img src="/assets/icon/silla5.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Silla Gamer Ergonomica Kingshouse Con Apoyapies Azul</h6>
+            <p><b>Stock: 20</b></p>
+            <p class="precio"><b>$62.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Silla 6 -->
+      <ion-col size="6">
+        <ion-card class="card-6">
+          <ion-img src="/assets/icon/silla6.jpg"></ion-img>
+          <ion-card-content>
+            <h6>Silla Gamer Semi Profesional Con Reposa Pies</h6>
+            <p><b>Stock: 10</b></p>
+            <p class="precio"><b>$68.990</b></p>
+            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

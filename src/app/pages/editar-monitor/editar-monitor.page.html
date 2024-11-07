@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Monitor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Campo para el nombre del monitor -->
+  <ion-item>
+    <ion-label position="floating">Nombre del Monitor</ion-label>
+    <ion-input [(ngModel)]="monitor.nombre"></ion-input>
+  </ion-item>
+
+  <!-- Campo para el precio -->
+  <ion-item>
+    <ion-label position="floating">Precio</ion-label>
+    <ion-input type="number" [(ngModel)]="monitor.precio"></ion-input>
+  </ion-item>
+
+  <!-- Campo para el stock -->
+  <ion-item>
+    <ion-label position="floating">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="monitor.stock"></ion-input>
+  </ion-item>
+
+  <!-- Campo para la descripción -->
+  <ion-item>
+    <ion-label position="floating">Descripción</ion-label>
+    <ion-textarea [(ngModel)]="monitor.descripcion"></ion-textarea>
+  </ion-item>
+
+  <!-- Botón para capturar una imagen usando la cámara -->
+  <ion-item>
+    <ion-button (click)="capturarFoto()">Capturar Imagen</ion-button>
+  </ion-item>
+
+  <!-- Botón para seleccionar una imagen desde la galería -->
+  <ion-item>
+    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+  </ion-item>
+
+  <!-- Vista previa de la imagen -->
+  <ion-item *ngIf="monitor.imagen">
+    <ion-img [src]="monitor.imagen"></ion-img> <!-- Muestra la imagen capturada o seleccionada -->
+  </ion-item>
+
+  <!-- Botón para guardar los cambios -->
+  <ion-button expand="block" (click)="guardarCambios()">Guardar Cambios</ion-button>
+</ion-content>

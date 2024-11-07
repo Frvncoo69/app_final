@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar PC Armado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (submit)="agregarPC()">
+    <ion-item>
+      <ion-label position="floating">Nombre del PC</ion-label>
+      <ion-input [(ngModel)]="pc.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input [(ngModel)]="pc.precio" type="number" name="precio" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Stock</ion-label>
+      <ion-input [(ngModel)]="pc.stock" type="number" name="stock" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="pc.descripcion" name="descripcion" required></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" (click)="capturarFoto()">Capturar Foto</ion-button>
+    <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+
+    <ion-button type="submit" expand="block">Agregar PC</ion-button>
+  </form>
+</ion-content>

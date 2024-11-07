@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-img src="/assets/icon/galeria.jpg"></ion-img>
+    <ion-button expand="block" class="custom-button">
+      <ion-icon name="image-outline"></ion-icon>
+    </ion-button>
+
+    <ion-card-content>
+    
+        <ion-item class="input-item">
+          <ion-label class="form-label">Categoría:</ion-label>
+          <ion-input [(ngModel)]="categoria" name="categoria"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label class="form-label">Nombre:</ion-label>
+          <ion-input [(ngModel)]="nombre" name="nombre"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label class="form-label">Stock:</ion-label>
+          <ion-input type="number" [(ngModel)]="stock" name="stock"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label class="form-label">Precio:</ion-label>
+          <ion-input type="number" [(ngModel)]="precio" name="precio"></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" expand="block" class="button-agregar" (click)="agregarProducto()">Agregar Producto</ion-button>
+        <ion-button expand="block" class="button-cancelar" [routerLink]="'/crud'">Cancelar</ion-button>
+  
+    </ion-card-content>
+  </ion-card>
+</ion-content>

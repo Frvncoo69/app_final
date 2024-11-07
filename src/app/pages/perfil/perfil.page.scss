@@ -1,0 +1,91 @@
+/* Estilo general para los botones personalizados */
+.custom-button {
+  --background: #5fbded; /* Color celeste para el fondo del botón */
+  --color: #ffffff; /* Color blanco para el texto del botón */
+  --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
+  padding: 12px 20px; /* Ajusta el tamaño del botón */
+  margin: 10px 0; /* Añade márgenes verticales entre botones */
+}
+
+/* Hover y focus para los botones */
+.custom-button:focus,
+.custom-button:hover {
+  --background: #3d8fb5; /* Color más oscuro en hover o focus */
+}
+
+/* Contenido del fondo */
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+ion-content {
+  ion-list,
+  ion-item {
+    background: transparent;
+  }
+
+  ion-item {
+    --background: transparent;
+    --ion-item-background: transparent;
+  }
+}
+
+/* Contenedor centrado para botones */
+.center-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Grupo de botones */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacio entre botones */
+  padding: 20px;
+}
+
+/* Asegura que los ítems del perfil tengan fondo blanco y texto negro */
+ion-item.profile-item {
+  background-color: #ffffff !important;
+}
+
+ion-item.profile-item ion-label,
+ion-item.profile-item ion-text {
+  color: #000000; /* Texto negro */
+}
+
+/* Estilo del encabezado */
+ion-header {
+  --background: #004d74; /* Fondo azul oscuro */
+  color: #ffffff; /* Texto blanco */
+}
+
+/* Estilo para los botones del encabezado */
+ion-button {
+  --background: #004d74; /* Fondo azul oscuro */
+  --color: #ffffff; /* Texto blanco */
+}
+
+/* Íconos dentro de los botones */
+ion-icon {
+  color: #ffffff; /* Íconos en blanco */
+}
+
+/* Imagen de perfil */
+ion-card img {
+  border-radius: 50%; /* Hacer la imagen circular */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 0 auto; /* Centrar la imagen */
+  display: block;
+}
+
+/* Estilo adicional para mejorar la visualización en móviles */
+ion-card {
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+}

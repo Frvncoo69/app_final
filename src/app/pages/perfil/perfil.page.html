@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/carrito']">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <img alt="Perfil" [src]="photoUrl || '/assets/icon/perfil.jpg'" />
+    <ion-card-header>
+      <ion-card-subtitle>{{ nombreUsuario }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <div class="center-button-container">
+    <ion-button class="custom-button" (click)="updateProfilePhoto()">
+      <ion-icon name="camera-outline"></ion-icon> Agregar Foto
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item class="profile-item">
+      <ion-label>Rut:</ion-label>
+      <ion-text>{{ rut }}</ion-text>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Nombre:</ion-label>
+      <ion-text>{{ nombre }} {{ apellido }}</ion-text>
+    </ion-item>
+    <ion-item class="profile-item">
+      <ion-label>Email:</ion-label>
+      <ion-text>{{ email }}</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <div class="button-group">
+    <ion-button expand="full" class="custom-button" [routerLink]="'/editar'">
+      Editar Perfil
+    </ion-button>
+    <ion-button expand="full" class="custom-button" [routerLink]="'/cambiarcontrasena'">
+      Cambiar Contraseña
+    </ion-button>
+    <ion-button expand="full" class="custom-button" color="danger" (click)="eliminarPerfil()">
+      Eliminar Perfil
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-button>
+    <ion-button expand="full" class="custom-button" (click)="cerrarSesion()">
+      Cerrar Sesión
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>

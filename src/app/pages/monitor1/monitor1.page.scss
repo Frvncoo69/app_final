@@ -1,0 +1,67 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  /* Estilo general para los botones personalizados */
+.custom-button {
+    --background: #5fbded; /* Color celeste para el fondo del botón */
+    --color: #ffffff; /* Color blanco para el texto del botón */
+    --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
+    padding: 12px 20px; /* Ajusta el tamaño del botón para hacerlo más rectangular */
+    margin: 10px 0; /* Añade márgenes verticales si es necesario */
+  }
+  
+  .custom-button:focus, .custom-button:hover {
+    --background: #5fbded; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
+  }
+  
+  /* Mantener los estilos actuales */
+  ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  ion-content {
+    ion-list, ion-item {
+      background: transparent;
+    }
+  
+    ion-item {
+      --background: transparent;
+      --ion-item-background: transparent;
+    }
+  }
+  
+  /* Estilo para la descripción del producto */
+  .product-description {
+    background-color: #ffffff; /* Fondo blanco para la descripción */
+    padding: 16px; /* Añade un poco de relleno alrededor del contenido */
+    border-radius: 8px; /* Opcional: Añade bordes redondeados */
+  }
+  
+  .product-description h2, .product-description p, .product-description h3 {
+    color: #000000; /* Texto negro */
+  }
+  
+  /* Centrar el botón dentro de la columna */
+  .center-button-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+  }
+  
+  /* Estilo para el encabezado */
+ion-header {
+  --background: #004d74; /* Fondo del encabezado */
+  color: #ffffff; /* Color del texto en el encabezado */
+}
+
+/* Estilo para los botones del encabezado */
+ion-button {
+  --background: #004d74; /* Fondo del botón */
+  --color: #ffffff; /* Color del texto en el botón */
+}
+
+/* Estilo para los íconos dentro de los botones */
+ion-icon {
+  color: #ffffff; /* Color de los íconos */
+}

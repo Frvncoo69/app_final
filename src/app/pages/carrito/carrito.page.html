@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button [routerLink]="'/perfil'">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="'/carrito'">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="carrito.length > 0; else emptyCart">
+    <!-- Listado de productos en el carrito -->
+    <ion-item *ngFor="let producto of carrito">
+      <ion-thumbnail slot="start">
+        <img [src]="producto.foto_prod" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ producto.nombre_prod }}</h2>
+        <p>Precio: ${{ producto.precio_prod }}</p>
+      </ion-label>
+
+      <!-- Botones para incrementar y decrementar la cantidad -->
+      <ion-buttons slot="end">
+        <ion-button (click)="disminuirCantidad(producto)">
+          <ion-icon name="remove-outline"></ion-icon>
+        </ion-button>
+
+        <ion-label>{{ producto.cantidad }}</ion-label>
+
+        <ion-button (click)="aumentarCantidad(producto)">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <!-- Total de la compra -->
+    <ion-item lines="none">
+      <ion-label><h2>Total</h2></ion-label>
+      <ion-note slot="end" color="primary">
+        ${{ total }}
+      </ion-note>
+    </ion-item>
+
+    <!-- Botón para vaciar el carrito -->
+    <ion-button expand="block" color="danger" (click)="vaciarCarrito()">
+      Vaciar Carrito
+    </ion-button>
+
+    <!-- Botón para realizar el pago -->
+    <ion-button expand="block" color="primary" (click)="pagar()">
+      Pagar
+    </ion-button>
+  </ion-list>
+
+  <ng-template #emptyCart>
+    <h3 style="text-align: center;">El carrito está vacío</h3>
+  </ng-template>
+</ion-content>

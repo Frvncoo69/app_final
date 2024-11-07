@@ -1,0 +1,125 @@
+.custom-button {
+  --background: #5fbded;
+  --color: #ffffff;
+  --border-radius: 4px;
+  padding: 12px 20px;
+  margin: 10px 0;
+}
+
+.custom-button:focus,
+.custom-button:hover {
+  --background: #5fbded;
+}
+
+ion-content {
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+}
+
+.form-label {
+  color: #ffffff !important;
+}
+
+ion-item.input-item {
+  --background: transparent;
+}
+
+ion-header {
+  --background: #004d74;
+  color: #ffffff;
+}
+
+ion-button {
+  --background: #004d74;
+  --color: #ffffff;
+}
+
+ion-icon {
+  color: #ffffff;
+}
+
+.featured-title {
+  text-align: center;
+  background-color: #000000; /* Fondo negro */
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.6rem;
+}
+
+.card-fixed-size {
+  --background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+}
+
+ion-img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+}
+
+ion-card-content h6 {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+ion-card-content p {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+
+ion-button {
+  margin-top: auto;
+  --background: #004d74;
+  --color: #ffffff;
+  --border-radius: 0;
+}
+
+ion-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ion-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ion-col {
+  display: flex;
+  align-items: stretch;
+}
+
+.banner-image {
+  margin-left: 38px;
+  width: 80%; /* Ajusta al ancho del contenedor */
+  height: auto; /* Ajusta el margen según tus necesidades (16px es un ejemplo) */
+}
+
+ion-card-content h6,
+ion-card-content p {
+  color: #000000; /* Color negro para el texto dentro de las cards */
+}
+
+/* Estilo para el precio */
+.card-1 ion-card-content .precio,
+.card-2 ion-card-content .precio,
+.card-3 ion-card-content .precio,
+.card-4 ion-card-content .precio,
+.card-5 ion-card-content .precio,
+.card-6 ion-card-content .precio {
+  color: #000000;
+  font-weight: bold; /* Negrita para que resalte más */
+  font-size: 24px; /* Tamaño de fuente más grande */
+}
