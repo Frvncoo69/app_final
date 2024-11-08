@@ -291,10 +291,12 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
 
   //cierra la sesion
   async actualizarEstadoUsuario2(correo_usu: any): Promise<void> {
-    return this.database.executeSql('UPDATE tablaUsuario SET loggeo = ? WHERE correo_usu = ?', [0, correo_usu])
+    return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE correo_usu = ?', [0, correo_usu])
       .then(() => {
+        this.presentAlert("EXITO","estado cambiado");
       })
-      .catch(error => {
+      .catch(e => {
+        this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
       });
   }
 
