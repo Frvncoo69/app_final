@@ -1,3 +1,9 @@
+
+Aquí tienes el código HTML completo para tu página home, con las tarjetas de Intel y AMD, junto con el CSS correspondiente:
+
+HTML (home.page.html)
+html
+Copiar código
 <ion-app>
   <ion-header [translucent]="true">
     <ion-toolbar>
@@ -31,6 +37,20 @@
 
     <img style="border-radius: 15px;" class="banner-image" alt="amd" src="/assets/icon/logo.jpeg" />
     <h6 class="featured-title"><b>PRODUCTOS DESTACADOS</b></h6>
+
+    <!-- Tarjetas de Intel y AMD -->
+    <div class="card-container">
+      <div class="card" (click)="redirectToIntel()">
+        <img src="assets/icon/intel.jpg" alt="Intel Logo">
+        <h3>Intel</h3>
+        <p>Visita la página oficial de Intel.</p>
+      </div>
+      <div class="card" (click)="redirectToAmd()">
+        <img src="assets/icon/amd.jpg" alt="AMD Logo">
+        <h3>AMD</h3>
+        <p>Visita la página oficial de AMD.</p>
+      </div>
+    </div>
 
     <!-- Grid dinámico de productos filtrados -->
     <ion-grid>
