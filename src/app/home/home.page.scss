@@ -39,7 +39,7 @@ ion-icon {
 
 .featured-title {
   text-align: center;
-  background-color: #000000; /* Fondo negro */
+  background-color: #000000;
   color: #ffffff;
   padding: 10px;
   border-radius: 8px;
@@ -103,16 +103,15 @@ ion-col {
 
 .banner-image {
   margin-left: 38px;
-  width: 80%; /* Ajusta al ancho del contenedor */
-  height: auto; /* Ajusta el margen según tus necesidades (16px es un ejemplo) */
+  width: 80%;
+  height: auto;
 }
 
 ion-card-content h6,
 ion-card-content p {
-  color: #000000; /* Color negro para el texto dentro de las cards */
+  color: #000000;
 }
 
-/* Estilo para el precio */
 .card-1 ion-card-content .precio,
 .card-2 ion-card-content .precio,
 .card-3 ion-card-content .precio,
@@ -120,6 +119,45 @@ ion-card-content p {
 .card-5 ion-card-content .precio,
 .card-6 ion-card-content .precio {
   color: #000000;
-  font-weight: bold; /* Negrita para que resalte más */
-  font-size: 24px; /* Tamaño de fuente más grande */
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* Estilos para las tarjetas de Intel y AMD */
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.card {
+  width: 150px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  margin: 10px 0 5px;
+  font-size: 1.2em;
+  color: #004d74;
+}
+
+.card p {
+  font-size: 0.9em;
+  color: #555;
 }

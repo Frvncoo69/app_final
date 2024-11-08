@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { ApiNativaService } from 'src/app/services/api-nativa.service'; // Importación del servicio ApiNativaService
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,10 @@ export class HomePage implements OnInit {
   productos: any[] = [];  // Productos obtenidos de la base de datos
   productosFiltrados: any[] = [];  // Productos mostrados en la vista
 
-  constructor(private bdService: ServiceBDService) {}
+  constructor(
+    private bdService: ServiceBDService,
+    private apiNativaService: ApiNativaService // Inyección del servicio ApiNativaService
+  ) {}
 
   async ngOnInit() {
     await this.cargarProductos();  // Cargar los productos al iniciar
@@ -28,24 +32,27 @@ export class HomePage implements OnInit {
     }
   }
 
-// Método para filtrar productos según el texto ingresado en la barra de búsqueda
-buscarProducto(event: any) {
-  const texto = event.target.value;  // Obtener el texto tal como se ingresó
+  // Método para filtrar productos según el texto ingresado en la barra de búsqueda
+  buscarProducto(event: any) {
+    const texto = event.target.value;  // Obtener el texto tal como se ingresó
 
-  // Si no hay texto en el campo de búsqueda, mostrar todos los productos
-  if (texto.trim() === '') {
-    this.productosFiltrados = this.productos;
-  } else {
-    // Filtrar los productos que coincidan con el texto ingresado
-    this.productosFiltrados = this.productos.filter(producto =>
-      producto.nombre_prod.includes(texto)  // Comparación sin conversión
-    );
+    // Si no hay texto en el campo de búsqueda, mostrar todos los productos
+    if (texto.trim() === '') {
+      this.productosFiltrados = this.productos;
+    } else {
+      // Filtrar los productos que coincidan con el texto ingresado
+      this.productosFiltrados = this.productos.filter(producto =>
+        producto.nombre_prod.includes(texto)  // Comparación sin conversión
+      );
+    }
   }
-}
 
+  // Métodos para redirigir a las páginas de Intel y AMD
+  redirectToIntel() {
+    this.apiNativaService.openIntelPage();
+  }
 
-
-
-
-
+  redirectToAmd() {
+    this.apiNativaService.openAmdPage();
+  }
 }
