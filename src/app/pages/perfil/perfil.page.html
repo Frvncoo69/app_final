@@ -20,34 +20,38 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let userl of usuario">
+  <!-- Tarjeta de perfil con la imagen de perfil y nombre de usuario -->
+  <ion-card>
     <img alt="Perfil" [src]="photoUrl || '/assets/icon/perfil.jpg'" />
     <ion-card-header>
       <ion-card-subtitle>{{ nombreUsuario }}</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
+  <!-- Botón para actualizar la foto de perfil -->
   <div class="center-button-container">
     <ion-button class="custom-button" (click)="updateProfilePhoto()">
       <ion-icon name="camera-outline"></ion-icon> Agregar Foto
     </ion-button>
   </div>
 
-  <ion-list *ngFor="let userl of usuario">
+  <!-- Lista de información del usuario -->
+  <ion-list>
     <ion-item class="profile-item">
       <ion-label>Rut:</ion-label>
-      <ion-text>{{ userl.nombre_usuario }}</ion-text>
+      <ion-text>{{ usuario.rut_usu }}</ion-text>
     </ion-item>
     <ion-item class="profile-item">
       <ion-label>Nombre:</ion-label>
-      <ion-text>{{ userl.nombre_usu }} {{ userl.apellido_usu }}</ion-text>
+      <ion-text>{{ usuario.nombre_usu }} {{ usuario.apellido_usu }}</ion-text>
     </ion-item>
     <ion-item class="profile-item">
       <ion-label>Email:</ion-label>
-      <ion-text>{{ userl.correo_usu }}</ion-text>
+      <ion-text>{{ usuario.correo_usu }}</ion-text>
     </ion-item>
   </ion-list>
 
+  <!-- Botones para acciones del perfil -->
   <div class="button-group">
     <ion-button expand="full" class="custom-button" [routerLink]="'/editar'">
       Editar Perfil

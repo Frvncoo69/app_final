@@ -14,7 +14,7 @@ export class ServiceBDService {
   public database!: SQLiteObject;
 
   // Variables de creación de Tablas
-tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu BLOB , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
+tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu TEXT , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
 
 tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
@@ -190,11 +190,11 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
 
 
   //traer a un usuario en base a su estado logeado (revisen mi repo y la tabla usuario)
-  async consultarUsuarioConectado() {
-    return this.database.executeSql('SELECT * FROM usuario WHERE loggeo = 1', []).then(res => {
-      let items: Usuario[] = [];
-      if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) {
+  async consultarUsuarioConectado(): Promise<Usuario[]> {
+    return this.database.executeSql('SELECT * FROM usuario WHERE loggeo = 1', [])
+      .then(res => {
+        let items: Usuario[] = [];
+        for (let i = 0; i < res.rows.length; i++) {
           items.push({
             id_usu: res.rows.item(i).id_usu,
             rut_usu: res.rows.item(i).rut_usu,
@@ -209,12 +209,14 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
             id_rol: res.rows.item(i).id_rol
           });
         }
-      }
-      this.listadoUsuarioConectado.next(items as any);
-    });
+        return items; // Devolver el arreglo de usuarios conectados
+      })
+      .catch(error => {
+        console.error("Error al consultar usuario conectado: ", error);
+        return [];
+      });
   }
-
-
+  
 
   /////////////////////////////////////////////////////////7
 
