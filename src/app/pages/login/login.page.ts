@@ -38,13 +38,8 @@ export class LoginPage implements OnInit {
     try {
       const usuario = await this.dbService.validarUsuario(this.email, this.password);
       if (usuario) {
-        // Pasar el ID del usuario como parámetro al perfil
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-            idUsuario: usuario.id_usu
-          }
-        };
-        this.router.navigate(['/perfil'], navigationExtras);  // Navegación con extras
+        await this.dbService.actualizarEstadoUsuario(this.email);
+        this.router.navigate(['/perfil']); 
         await this.presentToast('Inicio de sesión exitoso');
       } else {
         await this.presentAlert('Usuario o contraseña incorrectas');

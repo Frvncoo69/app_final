@@ -20,7 +20,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
+  <ion-card *ngFor="let userl of usuario">
     <img alt="Perfil" [src]="photoUrl || '/assets/icon/perfil.jpg'" />
     <ion-card-header>
       <ion-card-subtitle>{{ nombreUsuario }}</ion-card-subtitle>
@@ -33,7 +33,7 @@
     </ion-button>
   </div>
 
-  <ion-list>
+  <ion-list *ngFor="let userl of usuario">
     <ion-item class="profile-item">
       <ion-label>Rut:</ion-label>
       <ion-text>{{ rut }}</ion-text>

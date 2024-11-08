@@ -14,7 +14,7 @@ export class ServiceBDService {
   public database!: SQLiteObject;
 
   // Variables de creación de Tablas
-tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu BLOB , estado_usu BOOLEAN NOT NULL,  loggeo BOOLEAN DEFAULT 0,  id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
+tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu BLOB , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
 
 tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
@@ -105,7 +105,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore46.db',
+        name: 'tecnostore47.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -257,7 +257,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   }
 
   // En tu ServiceBDService
-  validarUsuario(email: string, password: string): Promise<any> {
+  async validarUsuario(email: string, password: string): Promise<any> {
     return this.database.executeSql('SELECT * FROM usuario WHERE correo_usu = ? AND clave_usu = ?', [email, password])
       .then(res => {
         let usuario = null;
@@ -269,7 +269,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
             id_rol: res.rows.item(0).rol_id
           };
         }
-       return usuario;
+        return usuario;
       })
       .catch(e => {
         console.log('Error al validar usuario:'+JSON.stringify(e));
@@ -277,26 +277,56 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
       });
   }
 
+
+  //valida el uusario loggeado
+  async actualizarEstadoUsuario(correo_usu: any): Promise<void> {
+    return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE correo_usu = ?', [1, correo_usu])
+      .then(() => {
+        this.presentAlert("EXITO","estado cambiado");
+      })
+      .catch(e => {
+        this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
+      });
+  }
+
+  //cierra la sesion
+  async actualizarEstadoUsuario2(correo_usu: any): Promise<void> {
+    return this.database.executeSql('UPDATE tablaUsuario SET loggeo = ? WHERE correo_usu = ?', [0, correo_usu])
+      .then(() => {
+      })
+      .catch(error => {
+      });
+  }
+
+
+  async consultarUsuariosPorEstadoConectado(): Promise<Usuario[]> {
+    return this.database.executeSql('SELECT * FROM usuario WHERE loggeo = 1', []).then(res => {
+      let itemsUPEC: Usuario[] = [];
+  
+      if (res.rows.length > 0) {
+        itemsUPEC.push(res.rows.item(0)); // Solo queremos el primer usuario conectado
+      }
+      return itemsUPEC; // Retorna el arreglo de usuarios
+    }).catch(error => {
+      return []; // Retorna un arreglo vacío en caso de error
+    });
+  }
+
+
+  //obtiene al usuario logeado, (siempre sera 1)
+  
+
+
     // Método para obtener un usuario por su correo
     async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
       const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
       
       try {
         const result = await this.database.executeSql(query, [correo]);
-  
+    
         if (result.rows.length > 0) {
           const usuario = result.rows.item(0);  // Obtenemos el primer registro
-          return {
-            id: usuario.id_usu,
-            rut: usuario.rut_usu,
-            nombre: usuario.nombre_usu,
-            apellido: usuario.apellido_usu,
-            nombreUsuario: usuario.nombre_usuario,
-            clave_usu: usuario.clave_usu,  // Contraseña del usuario
-            correo: usuario.correo_usu,
-            estado: usuario.estado_usu,
-            rol: usuario.id_rol
-          };
+          return usuario;  // Retorna el registro completo
         } else {
           return null;  // Si no se encuentra el usuario, retorna null
         }
@@ -305,6 +335,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
         throw new Error('No se pudo obtener el usuario.');
       }
     }
+    
 
     async actualizarContrasena(id: number, nuevaContrasena: string): Promise<void> {
       const query = 'UPDATE usuario SET clave_usu = ? WHERE id_usu = ?';
