@@ -36,15 +36,15 @@
   <ion-list *ngFor="let userl of usuario">
     <ion-item class="profile-item">
       <ion-label>Rut:</ion-label>
-      <ion-text>{{ rut }}</ion-text>
+      <ion-text>{{ userl.nombre_usuario }}</ion-text>
     </ion-item>
     <ion-item class="profile-item">
       <ion-label>Nombre:</ion-label>
-      <ion-text>{{ nombre }} {{ apellido }}</ion-text>
+      <ion-text>{{ userl.nombre_usu }} {{ userl.apellido_usu }}</ion-text>
     </ion-item>
     <ion-item class="profile-item">
       <ion-label>Email:</ion-label>
-      <ion-text>{{ email }}</ion-text>
+      <ion-text>{{ userl.correo_usu }}</ion-text>
     </ion-item>
   </ion-list>
 

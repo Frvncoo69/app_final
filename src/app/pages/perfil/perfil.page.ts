@@ -19,6 +19,7 @@ export class PerfilPage implements OnInit {
   photoUrl: string = '/assets/icon/perfil.jpg';
   idUsuario: number = 0;
 
+
   usuario: any = [
     {
       id_usu: '',
@@ -125,6 +126,7 @@ export class PerfilPage implements OnInit {
     this.usuario = await this.bdService.consultarUsuariosPorEstadoConectado();
     await this.bdService.actualizarEstadoUsuario2(this.usuario.correo_usu);
     this.presentAlert('EXITO', 'Se cerro la Sesión.');
+    this.usuario = [];
     this.router.navigate(['/login']);
   }
 
