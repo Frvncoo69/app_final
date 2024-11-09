@@ -11,9 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-// Importar SQLite
+// Importar SQLite y Native Storage
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+
+// Importar HttpClientModule para las solicitudes HTTP
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,12 +25,14 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule, // Necesario para Angular Material
-    MatIconModule,            // Módulo de iconos de Angular Material
+    MatIconModule,           // Módulo de iconos de Angular Material
+    HttpClientModule         // Módulo para solicitudes HTTP
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SQLite,NativeStorage,                   // Agregar SQLite a los providers
-    provideAnimationsAsync(),
+    SQLite,                   // SQLite en los providers
+    NativeStorage,            // NativeStorage en los providers
+    provideAnimationsAsync(), // Proveedor de animaciones asincrónicas
   ],
   bootstrap: [AppComponent],
 })

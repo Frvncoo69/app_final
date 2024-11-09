@@ -1,9 +1,3 @@
-
-Aquí tienes el código HTML completo para tu página home, con las tarjetas de Intel y AMD, junto con el CSS correspondiente:
-
-HTML (home.page.html)
-html
-Copiar código
 <ion-app>
   <ion-header [translucent]="true">
     <ion-toolbar>
@@ -139,6 +133,25 @@ Copiar código
               <h6>Silla Gamer Racing Reclinable 180° Reposapiés Rojo</h6>
               <p><b>Stock: 18</b></p>
               <p class="precio"><b>$63.490</b></p>
+              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <h6 class="featured-title"><b>CONSOLAS DESTACADAS</b></h6>
+
+    <!-- Grid dinámico de consolas filtradas desde la API -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let consola of consolasFiltradas">
+          <ion-card class="card-fixed-size">
+            <ion-img [src]="consola.portada || '/assets/icon/default-product.jpg'"></ion-img>
+            <ion-card-content>
+              <h6>{{ consola.nombre }}</h6>
+              <p><b>Marca: {{ consola.marca }}</b></p>
+              <p><b>Lanzamiento: {{ consola.fecha_lanzamiento }}</b></p>
               <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
             </ion-card-content>
           </ion-card>

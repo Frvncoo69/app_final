@@ -77,4 +77,15 @@ export class CrudPage implements OnInit {
     };
     this.router.navigate(['/detalle-producto'], navigationExtras);
   }
+
+  modificarProducto(producto: any) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        productoData: producto
+      }
+    };
+    this.router.navigate(['/modificar'], navigationExtras);
+  }
+  
 }
+ 

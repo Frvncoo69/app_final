@@ -57,7 +57,7 @@
     <ion-card-content>
       <p>Stock: {{ producto.stock_prod }}</p>
       <p>{{ producto.descripcion_prod }}</p>
-      <ion-button color="primary" [routerLink]="['/modificar']">Modificar</ion-button>
+      <ion-button color="primary" (click)="modificarProducto(producto)">Modificar</ion-button>
       <ion-button color="danger" (click)="EliminarAlerta(producto.id_producto)">Eliminar</ion-button>
       <ion-button color="primary" (click)="irproductoSolo(producto)">Ver Producto</ion-button>
     </ion-card-content>

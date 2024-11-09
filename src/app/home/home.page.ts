@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
 import { ApiNativaService } from 'src/app/services/api-nativa.service'; // Importación del servicio ApiNativaService
+import { ConsolasService } from 'src/app/services/consolas.service';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,16 @@ export class HomePage implements OnInit {
   searchTerm: string = '';  // Valor del campo de búsqueda
   productos: any[] = [];  // Productos obtenidos de la base de datos
   productosFiltrados: any[] = [];  // Productos mostrados en la vista
+  consolasFiltradas: any[] = [];  // Consolas obtenidas de la API
 
-  constructor(
-    private bdService: ServiceBDService,
-    private apiNativaService: ApiNativaService // Inyección del servicio ApiNativaService
-  ) {}
+  constructor(private bdService: ServiceBDService,
+     private consolasService: ConsolasService,
+     private apiNativaService: ApiNativaService 
+    ) {}
 
   async ngOnInit() {
     await this.cargarProductos();  // Cargar los productos al iniciar
+    await this.cargarConsolas();  // Cargar las consolas al iniciar
   }
 
   // Método para cargar todos los productos desde la base de datos
@@ -29,6 +32,17 @@ export class HomePage implements OnInit {
       this.productosFiltrados = [...this.productos];  // Inicialmente, mostrar todos los productos
     } catch (error) {
       console.error('Error al cargar productos:', error);
+    }
+  }
+
+  // Método para cargar todas las consolas desde la API
+  async cargarConsolas() {
+    try {
+      const consolas = await this.consolasService.getConsolas().toPromise();
+      console.log('Consolas cargadas:', consolas);  // Verificación en consola
+      this.consolasFiltradas = [consolas];  // Mostrar todas las consolas
+    } catch (error) {
+      console.error('Error al cargar consolas:', error);
     }
   }
 
@@ -46,6 +60,7 @@ export class HomePage implements OnInit {
       );
     }
   }
+
 
   // Métodos para redirigir a las páginas de Intel y AMD
   redirectToIntel() {

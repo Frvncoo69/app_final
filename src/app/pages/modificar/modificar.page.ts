@@ -9,8 +9,7 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
   styleUrls: ['./modificar.page.scss'],
 })
 export class ModificarPage implements OnInit {
-  // Variables para almacenar los valores del formulario
-  id_producto!: number; // Usar el operador ! para indicar que será asignado
+  id_producto!: number; // ID del producto
   categoria: string = '';
   nombre: string = '';
   stock: number = 0;
@@ -26,23 +25,19 @@ export class ModificarPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.id_producto = Number(this.activatedRoute.snapshot.paramMap.get('id')); // Obtener el ID del producto desde la ruta
-    this.cargarProducto(this.id_producto); // Cargar el producto al inicializar
-  }
-
-  cargarProducto(id: number) {
-    this.serviceBD.seleccionarProductoPorId(id).then(producto => {
-      if (producto) {
-        this.categoria = producto.id_categoria; // Asigna la categoría
-        this.nombre = producto.nombre_prod;
-        this.stock = producto.stock_prod;
-        this.precio = producto.precio_prod;
-        this.descripcion = producto.descripcion_prod;
-        this.imagen = producto.foto_prod;
-      }
-    }).catch(error => {
-      console.error('Error al cargar el producto:', error);
-    });
+    // Comprobar si hay datos del producto en el estado de navegación
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras.state && navigation.extras.state['productoData']) {
+      const producto = navigation.extras.state['productoData'];
+      // Asignar los datos del producto a las variables
+      this.id_producto = producto.id_producto;
+      this.categoria = producto.id_categoria;
+      this.nombre = producto.nombre_prod;
+      this.stock = producto.stock_prod;
+      this.precio = producto.precio_prod;
+      this.descripcion = producto.descripcion_prod;
+      this.imagen = producto.foto_prod;
+    }
   }
 
   async guardarCambios() {
@@ -54,7 +49,7 @@ export class ModificarPage implements OnInit {
         position: 'bottom',
         color: 'danger',
       });
-      await toast.present(); // Asegúrate de usar await aquí
+      await toast.present();
       return;
     }
 
@@ -66,14 +61,14 @@ export class ModificarPage implements OnInit {
       this.stock,
       this.descripcion,
       this.imagen
-    ).then(async () => { // Asegúrate de usar async aquí
+    ).then(async () => {
       const toast = await this.toastController.create({
         message: 'Producto modificado correctamente',
         duration: 5000,
         position: 'bottom',
         color: 'success',
       });
-      await toast.present(); // Asegúrate de usar await aquí
+      await toast.present();
 
       // Redirige a la página 'crud'
       this.router.navigate(['/crud']);
@@ -84,7 +79,7 @@ export class ModificarPage implements OnInit {
         position: 'bottom',
         color: 'danger',
       });
-      await toast.present(); // Asegúrate de usar await aquí
+      await toast.present();
     });
   }
 }
