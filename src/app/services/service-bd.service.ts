@@ -18,7 +18,7 @@ tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMA
 
 tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
-tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta INTEGER NOT NULL, total_venta INTEGER NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
+tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta DATE NOT NULL, total_venta INTEGER NOT NULL, estado_retiro BOOLEAN NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
 
 tablaEstado: string = "CREATE TABLE IF NOT EXISTS estado (id_estado INTEGER PRIMARY KEY AUTOINCREMENT, nombre_est VARCHAR(20) NOT NULL);";
 
@@ -680,53 +680,8 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
   }
 
        
-  agregarACarrito(idUsuario: number, idProducto: number, cantidad: number) {
-    return this.database
-      .executeSql(
-        'INSERT INTO carrito (id_usu, id_producto, cantidad) VALUES (?, ?, ?)',
-        [idUsuario, idProducto, cantidad]
-      )
-      .then(() => {
-        console.log('Producto agregado al carrito correctamente');
-      })
-      .catch((error) => {
-        console.error('Error al agregar producto al carrito:', error);
-      });
-  }
-  
 
-  selectCarrito(idUsuario: number){
-    return this.database.executeSql('SELECT carrito.id_articulo_carrito, carrito.id_usu, carrito.id_producto, producto.nombre_prod, producto.precio_prod, producto.stock_prod, producto.foto_prod FROM carrito JOIN producto ON producto.id_producto = carrito.id_producto WHERE id_usu = ?').then(res=>{
-      let items : Carritos[]=[] /// remplazar any por Carritos
-      if(res.rows.length > 0){
-        for(let i = 0; i <res.rows.length; i++){
-          items.push({
-            id_articulo_carrito: res.rows.item(i).id_articulo_carrito ,
-            id_usu :res.rows.item(i).id_usu ,
-            id_producto: res.rows.item(i).id_producto ,
-            nombre_prod: res.rows.item(i).nombre_prod ,
-            precio_prod: res.rows.item(i).precio_prod ,
-            stock_prod: res.rows.item(i).stock_prod ,
-            foto_prod: res.rows.item(i).foto_prod,
-            cantidad: res.rows.item(i).cantidad
-          })
-          this.listadoCarrito.next(items as any)
-        }
-      }
-    }
-   )
-  }
 
-  actualizarCantidad(idArticuloCarrito: number, nuevaCantidad: number) {
-  return this.database.executeSql(
-    `UPDATE carrito SET cantidad = ? WHERE id_articulo_carrito = ?`,
-    [nuevaCantidad, idArticuloCarrito]
-  ).then(() => {
-    console.log('Cantidad actualizada correctamente');
-  }).catch(error => {
-    console.error('Error al actualizar la cantidad:', error);
-  });
-}
 
  ////////////////////////////////////
  
@@ -763,10 +718,69 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
 
 
   
+
+
+ /////////////////////////////////CRUD CARRITO////////////////////////////////////
+
+    //listar todos los items de venta en el carrito, por usuario conectado
+  //elparametro a usar es el id del usuario en sesion, de esta forma, se traeran los carros
+  //de los usuarios conectados
+
+
+
+  //verifica que la venta exista con ese usuario
+  async verificarOCrearVenta(idUsuario: any): Promise<number> {
+    const queryVerificar = `
+      SELECT id_venta 
+      FROM venta 
+      WHERE id_usu = ? AND id_estado = 1;
+    `;
+    
+    try {
+      const res = await this.database.executeSql(queryVerificar, [idUsuario]);
+      
+      if (res.rows.length > 0) {
+        const idVenta = res.rows.item(0).id_venta;
+        console.log('Venta activa encontrada con ID:', idVenta);
+        return idVenta;  // Retorna el ID de la venta activa
+      } else {
+        console.log('No se encontró venta activa, creando una nueva...');
+        return await this.crearVenta(idUsuario);  // Crea una nueva venta si no existe
+      }
+    } catch (error) {
+      console.error('Error al verificar o crear la venta:', error);
+      throw error;  // Lanza el error para ser manejado en otro lugar
+    }
+  }
+  
+  // Función para crear una nueva venta
+  async crearVenta(idUsuario: number): Promise<number> {
+    const queryCrear = `
+      INSERT INTO venta (f_venta, total_venta, estado_retiro, id_usu, id_estado) 
+      VALUES (?, ?, ?, ?, ?);
+    `;
+  
+    const fechaHoy = new Date();
+    const año = fechaHoy.getFullYear();
+    const mes = String(fechaHoy.getMonth() + 1).padStart(2, '0');  // Mes empieza en 0, por lo que sumamos 1
+    const dia = String(fechaHoy.getDate()).padStart(2, '0');
+    const hora = String(fechaHoy.getHours()).padStart(2, '0');
+    const minutos = String(fechaHoy.getMinutes()).padStart(2, '0');
+  
+    const fechaFormateada = `${año}-${mes}-${dia} ${hora}:${minutos}`;
+    const params = [fechaFormateada, 0, 0, idUsuario, 1];  // Estado = 1
+  
+    try {
+      const res = await this.database.executeSql(queryCrear, params);
+      console.log('Nueva venta creada con ID:', res.insertId);
+      return res.insertId;  // Retorna el ID de la nueva venta
+    } catch (error) {
+      console.error('Error al crear la venta:', error);
+      throw error;  // Lanza el error para ser manejado en otro lugar
+    }
+  }
+
 }
 
- 
 
-// tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito INTEGER PRIMARY KEY AUTOINCREMENT, id_usu INTEGER, id_producto INTEGER, cantidad INTEGER DEFAULT 1, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu) FOREIGN KEY (id_producto) REFERENCES producto(id_producto))"
 
-// tablaProducto: string = "CREATE TABLE IF NOT EXISTS producto (id_producto INTEGER PRIMARY KEY AUTOINCREMENT, nombre_prod VARCHAR(50) NOT NULL, precio_prod INTEGER NOT NULL, stock_prod INTEGER NOT NULL, descripcion_prod VARCHAR(100) NOT NULL, foto_prod BLOB, estatus_prod BOOLEAN DEFAULT 1, categoria_id INTEGER NOT NULL, FOREIGN KEY (categoria_id) REFERENCES categoria(id_categoria));";

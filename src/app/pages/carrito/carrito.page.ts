@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { ToastController } from '@ionic/angular';
-import { Carritos } from 'src/app/services/carritos';
+/*import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
 
 @Component({
@@ -11,99 +7,196 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  idusuario!: number;
-  carrito: Carritos[] = [];
-  total: number = 0;
+  productosDisponibles: any[] = [];
+  productosNODisponibles: any[] = [];
+  productosSinStock: any[] = [];
+  productos: any[] = [];
+  idVentaActiva: number | null = null;
+  mostrarSinStock: boolean = true;
+  totalVENTA: number = 0; 
+  wasaborrar: any[] = [];
+  wasmalasaborrar: any[] = [];
+  private alertaMostrada: boolean = false; // Bandera para controlar una sola alerta
+
 
   constructor(
-    private router: Router,
-    private toastController: ToastController,
-    private dbService: ServiceBDService,
-    private storage: NativeStorage
+    //private alertasService: AlertasService,
+    private bd: ServiceBDService,
+    private cd: ChangeDetectorRef // Detecta cambios manualmente si es necesario
   ) {}
 
+
   async ngOnInit() {
-    await this.obtenerUsuario();
-    if (this.idusuario) {
-      await this.cargarCarrito();
-    }
+    await this.cargarProductos();
   }
 
-  // Obtener el usuario logueado desde NativeStorage
-  async obtenerUsuario() {
+
+  async ionViewWillEnter() {
+    await this.cargarProductos();
+    await this.actualizarPrecioTotal();  // Llama al calcular el total
+  }*/
+
+
+  /*async obtenerVentaActiva() {
     try {
-      this.idusuario = await this.storage.getItem('Usuario_logueado');
+      const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
+      if (!idUsuario) {
+        this.alertasService.presentAlert('Error', 'Debes estar logueado.');
+        return;
+      }
+      this.idVentaActiva = await this.bd.verificarOCrearVenta(idUsuario);
+      console.log('ID de Venta Activa:', this.idVentaActiva);
     } catch (error) {
-      console.error('Error al obtener usuario logueado:', error);
+      console.error('Error al obtener la venta activa:', error);
+      this.alertasService.presentAlert('Error', 'No se pudo obtener la venta activa.');
     }
   }
 
-  // Cargar los productos del carrito
-  async cargarCarrito() {
+
+  async cargarProductos() {
+    await this.obtenerVentaActiva();
+    if (!this.idVentaActiva) return;
+  
     try {
-      await this.dbService.selectCarrito(this.idusuario);
-      this.dbService.fetchCarrito().subscribe((data) => {
-        this.carrito = data;
-        this.calcularTotal();
-      });
+      // Eliminar productos sin stock automáticamente
+      await this.borrarProductosSinStock();
+  
+      // Obtener productos en el carrito después de eliminar los sin stock
+      this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
+  
+      // Separar productos sin stock y disponibles
+      this.productosSinStock = this.productos.filter(p => p.estatus === 0); 
+      this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
+  
+      // Determinar si mostrar la sección de sin stock
+      this.mostrarSinStock = this.productosSinStock.length > 0;
+  
+      console.log('Productos sin stock:', this.productosSinStock);
+      console.log('Productos disponibles:', this.productosDisponibles);
+  
+      this.cd.detectChanges(); // Forzar actualización de la vista
     } catch (error) {
-      console.error('Error al cargar el carrito:', error);
+      console.error('Error al cargar productos del carrito:', error);
+      this.alertasService.presentAlert('Error', 'No se pudieron cargar los productos.');
+    }
+  }
+  
+  async continuar() {
+    await this.borrarProductosSinStock();
+    this.productosSinStock = [];
+    this.mostrarSinStock = false;
+    await this.actualizarPrecioTotal();  // Actualizamos el total.
+    await this.cargarProductos();
+  }
+
+  async incrementarCantidad(producto: any) {
+    // Consulta el stock actual desde la base de datos
+    const productos = await this.bd.consultarProductoPorId(producto.id_producto);
+
+    if (productos && productos.length > 0) {
+      const productoActual = productos[0]; // Extrae el producto con stock actualizado
+
+      if (producto.cantidad_d < productoActual.stock_prod) {
+        producto.cantidad_d++;
+        await this.bd.agregarCantidad(this.idVentaActiva, producto.id_producto);
+        this.actualizarPrecioTotal();
+      } else {
+        // Muestra una alerta si se alcanza el límite del stock
+        this.alertasService.presentAlert("Alcanzado límite de stock", "No queda más de ese producto en inventario");
+      }
+    } else {
+      console.error("Error al consultar el producto.");
+    }
+  }
+  
+  async decrementarCantidad(producto: any) {
+    if (producto.cantidad_d > 0) {
+      producto.cantidad_d--;  // Reducimos cantidad en la vista.
+      await this.bd.restarCantidad(this.idVentaActiva, producto.id_producto);
+      await this.cargarProductos();  // Recargar productos después de modificar.
+      this.actualizarPrecioTotal();  // Actualizamos el total.
     }
   }
 
-  // Calcular el total del carrito
+  async borrarProductosSinStock() {
+    try {
+      // Consulta directa para obtener productos sin stock en el carrito actual
+      const query = `
+        SELECT d.id_producto, p.nombre_prod
+        FROM detalle d
+        JOIN producto p ON d.id_producto = p.id_producto
+        WHERE d.id_venta = ? AND (p.stock_prod = 0 OR p.estatus = 0);
+      `;
+
+      const result = await this.bd.database.executeSql(query, [this.idVentaActiva]);
+      const productosSinStockEnCarrito = [];
+
+      for (let i = 0; i < result.rows.length; i++) {
+        productosSinStockEnCarrito.push(result.rows.item(i));
+      }
+
+      // Solo procede a eliminar y mostrar la alerta si hay productos sin stock en el carrito
+      if (productosSinStockEnCarrito.length > 0) {
+        for (let producto of productosSinStockEnCarrito) {
+          await this.bd.eliminarProductoDelCarrito(this.idVentaActiva, producto.id_producto);
+        }
+
+        // Muestra la alerta solo si no ha sido mostrada anteriormente
+        if (!this.alertaMostrada) {
+          this.alertasService.presentAlert('ÉXITO', 'Productos sin stock eliminados del carrito');
+          this.alertaMostrada = true; // Cambia la bandera para evitar futuras alertas
+        }
+      }
+
+    } catch (error) {
+      console.error('Error al eliminar productos sin stock del carrito:', error);
+      this.alertasService.presentAlert('ERROR', 'Error al eliminar productos sin stock: ' + error);
+    }
+  }
+
+  
+  
+
+  async RestarStockAlComprar() {
+    this.wasaborrar = this.productosDisponibles;
+    try {
+      for (let producto of this.wasaborrar) {
+        await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
+      }
+      await this.cargarProductos();  // Recargar productos
+      this.wasaborrar = [];
+    } catch (error) {
+      console.error('Error al eliminar productos sin stock:', error);
+    }
+  } 
+
+
+  async actualizarPrecioTotal() {
+    if (this.idVentaActiva) {
+      this.totalVENTA  = await this.bd.preciofinal(this.idVentaActiva);
+      this.cd.detectChanges();  // Forzamos la actualización de la vista
+    }
+  }
+
   calcularTotal() {
-    this.total = this.carrito.reduce(
-      (acc, producto) => acc + producto.precio_prod * producto.cantidad,
-      0
-    );
+    return this.productosDisponibles.reduce((total, producto) => total + producto.subtotal, 0);
   }
 
-  // Incrementar la cantidad de un producto
-  aumentarCantidad(producto: Carritos) {
-    producto.cantidad += 1;
-    this.dbService.actualizarCantidad(
-      producto.id_articulo_carrito,
-      producto.cantidad
-    ).then(() => this.calcularTotal());
+  alertascarro() {
+    this.alertasService.presentAlert('Gracias Por Su Compra', '');
   }
 
-  // Decrementar la cantidad de un producto (sin bajar de 1)
-  disminuirCantidad(producto: Carritos) {
-    if (producto.cantidad > 1) {
-      producto.cantidad -= 1;
-      this.dbService.actualizarCantidad(
-        producto.id_articulo_carrito,
-        producto.cantidad
-      ).then(() => this.calcularTotal());
-    }
+
+  async COMPRAAAAR(){
+    await this.RestarStockAlComprar();
+    const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
+    await this.bd.confirmarCompra(this.idVentaActiva, idUsuario, this.totalVENTA);
+    await this.bd.ActualizarStock();
+    await this.actualizarPrecioTotal();  // Actualizamos el total.
+    await this.cargarProductos();
   }
 
-  // Realizar el pago
-  async pagar() {
-    const toast = await this.toastController.create({
-      message: 'Compra realizada',
-      duration: 5000,
-      position: 'bottom',
-    });
-    await toast.present();
+  
+}*/
 
-    // Redirigir al home después del pago
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 5000);
-  }
 
-  // Vaciar el carrito
-  async vaciarCarrito() {
-    this.carrito = [];
-    this.total = 0;
-
-    const toast = await this.toastController.create({
-      message: 'Carrito vaciado',
-      duration: 5000,
-      position: 'bottom',
-    });
-    await toast.present();
-  }
-}
