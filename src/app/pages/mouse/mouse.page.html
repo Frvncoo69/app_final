@@ -26,13 +26,13 @@
     <ion-row>
       <!-- Mouse 1 -->
       <ion-col size="6" *ngFor="let mouse of productosMo">
-        <ion-card class="card-1" [routerLink]="'/mouse1'">
+        <ion-card class="card-1">
           <ion-img src="/assets/icon/mouse1.jpg"></ion-img>
           <ion-card-content>
             <h6>{{mouse.nombre_prod}}</h6>
             <p><b>{{mouse.stock_prod}}</b></p>
             <p class="precio"><b>{{mouse.precio_prod}}</b></p>
-            <ion-button expand="block" color="primary" (click)="irproductoSolo(mouse)"></ion-button>>Ver Producto</ion-button>
+            <ion-button expand="block" color="primary" (click)="irproductoSolo(mouse)">Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
