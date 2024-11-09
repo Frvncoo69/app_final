@@ -382,33 +382,6 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     }
   }
   
-  async seleccionarTeclados() {
-    try {
-      const res = await this.database.executeSql('SELECT * FROM producto', []);
-      const items: Producto[] = [];
-  
-      if (res.rows.length > 0) {
-        for (let i = 0; i < res.rows.length; i++) {
-          items.push({
-            id_producto: res.rows.item(i).id_producto,
-            nombre_prod: res.rows.item(i).nombre_prod,
-            precio_prod: res.rows.item(i).precio_prod,
-            stock_prod: res.rows.item(i).stock_prod,
-            descripcion_prod: res.rows.item(i).descripcion_prod,
-            foto_prod: res.rows.item(i).foto_prod,
-            estatus_prod: res.rows.item(i).estatus_prod,
-            id_categoria: res.rows.item(i).id_categoria,
-          });
-        }
-      }
-  
-      this.listadoTeclados.next(items as any);
-      return items
-    } catch (error) {
-      return []
-    }
-  }
-
   seleccionarProductoPorId(id: number) {
     return this.database.executeSql('SELECT * FROM producto WHERE id_producto = ?', [id]).then(res => {
       if (res.rows.length > 0) {
@@ -452,6 +425,137 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     });
   }
 
+  // Selecciona todos los teclados
+  seleccionarTeclados() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 1', []).then(res => {
+      let itemsT: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsT.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
+        }
+      }
+      return itemsT;
+    });
+  }
+
+    // Selecciona todos los Monitores
+    seleccionarMonitores() {
+      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 2', []).then(res => {
+        let itemsM: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            itemsM.push({
+              id_producto: res.rows.item(i).id_producto,
+              nombre_prod: res.rows.item(i).nombre_prod,
+              precio_prod: res.rows.item(i).precio_prod,
+              stock_prod: res.rows.item(i).stock_prod,
+              descripcion_prod: res.rows.item(i).descripcion_prod,
+              foto_prod: res.rows.item(i).foto_prod,
+              estatus_prod: res.rows.item(i).estatus_prod,
+              id_categoria: res.rows.item(i).id_categoria
+            });
+          }
+        }
+        return itemsM;
+      });
+    }
+
+     // Selecciona todos los Audifonos
+     seleccionarAudifonos() {
+      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 3', []).then(res => {
+        let itemsA: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            itemsA.push({
+              id_producto: res.rows.item(i).id_producto,
+              nombre_prod: res.rows.item(i).nombre_prod,
+              precio_prod: res.rows.item(i).precio_prod,
+              stock_prod: res.rows.item(i).stock_prod,
+              descripcion_prod: res.rows.item(i).descripcion_prod,
+              foto_prod: res.rows.item(i).foto_prod,
+              estatus_prod: res.rows.item(i).estatus_prod,
+              id_categoria: res.rows.item(i).id_categoria
+            });
+          }
+        }
+        return itemsA;
+      });
+    }
+
+     // Selecciona todos los Mouses
+     seleccionarMouse() {
+      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 4', []).then(res => {
+        let itemsMo: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            itemsMo.push({
+              id_producto: res.rows.item(i).id_producto,
+              nombre_prod: res.rows.item(i).nombre_prod,
+              precio_prod: res.rows.item(i).precio_prod,
+              stock_prod: res.rows.item(i).stock_prod,
+              descripcion_prod: res.rows.item(i).descripcion_prod,
+              foto_prod: res.rows.item(i).foto_prod,
+              estatus_prod: res.rows.item(i).estatus_prod,
+              id_categoria: res.rows.item(i).id_categoria
+            });
+          }
+        }
+        return itemsMo;
+      });
+    }
+
+     // Selecciona todos las Sillas
+     seleccionarSillas() {
+      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 5', []).then(res => {
+        let itemsS: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            itemsS.push({
+              id_producto: res.rows.item(i).id_producto,
+              nombre_prod: res.rows.item(i).nombre_prod,
+              precio_prod: res.rows.item(i).precio_prod,
+              stock_prod: res.rows.item(i).stock_prod,
+              descripcion_prod: res.rows.item(i).descripcion_prod,
+              foto_prod: res.rows.item(i).foto_prod,
+              estatus_prod: res.rows.item(i).estatus_prod,
+              id_categoria: res.rows.item(i).id_categoria
+            });
+          }
+        }
+        return itemsS;
+      });
+    }
+
+     // Selecciona todos los PC
+     seleccionarPC() {
+      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 6', []).then(res => {
+        let itemsP: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            itemsP.push({
+              id_producto: res.rows.item(i).id_producto,
+              nombre_prod: res.rows.item(i).nombre_prod,
+              precio_prod: res.rows.item(i).precio_prod,
+              stock_prod: res.rows.item(i).stock_prod,
+              descripcion_prod: res.rows.item(i).descripcion_prod,
+              foto_prod: res.rows.item(i).foto_prod,
+              estatus_prod: res.rows.item(i).estatus_prod,
+              id_categoria: res.rows.item(i).id_categoria
+            });
+          }
+        }
+        return itemsP;
+      });
+    }
   // Agregar un producto
   agregarProducto(nombre: string, precio: number, stock: number, descripcion: string, foto: Blob, id_categoria: number) {
     return this.database.executeSql('INSERT INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)', [nombre, precio, stock, descripcion, foto, 'disponible', id_categoria]).then(res => {
@@ -530,7 +634,7 @@ async obtenerProductosTeclados() {
 }
 
 
-modificarProducto(id: number, nombre: string, precio: number, stock: number, descripcion: string, imagen: Blob | string) {
+async modificarProducto(id: number, nombre: string, precio: number, stock: number, descripcion: string, imagen: Blob | string) {
   return this.database.executeSql(
     'UPDATE producto SET nombre_prod = ?, precio_prod = ?, stock_prod = ?, descripcion_prod = ?, foto_prod = ? WHERE id_producto = ?',
     [nombre, precio, stock, descripcion, imagen, id]

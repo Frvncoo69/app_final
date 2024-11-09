@@ -25,79 +25,14 @@
   <ion-grid>
     <ion-row>
       <!-- Monitor 1 -->
-      <ion-col size="6">
-        <ion-card class="card-1" [routerLink]="'/monitor1'">
+      <ion-col size="6" *ngFor="let monitor of productosM">
+        <ion-card class="card-1">
           <ion-img src="/assets/icon/monitor1.jpg"></ion-img>
           <ion-card-content>
-            <h6>Monitor 27" FHD 240HZ 1MS</h6>
-            <p class="stock"><b>Stock: 15</b></p>
-            <p class="precio"><b>$191.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Monitor 2 -->
-      <ion-col size="6">
-        <ion-card class="card-2">
-          <ion-img src="/assets/icon/monitor2.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Monitor Gamer Samsung Odyssey G3 S27ag32 Lcd 27 Negro</h6>
-            <p class="stock"><b>Stock: 15</b></p>
-            <p class="precio"><b>$178.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Monitor 3 -->
-      <ion-col size="6">
-        <ion-card class="card-3">
-          <ion-img src="/assets/icon/monitor3.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Monitor Gaming Aoc C27g2z 27 240hz 0.5ms</h6>
-            <p class="stock"><b>Stock: 12</b></p>
-            <p class="precio"><b>$219.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Monitor 4 -->
-      <ion-col size="6">
-        <ion-card class="card-4">
-          <ion-img src="/assets/icon/monitor4.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Monitor Gamer Led 24 Full Hd 180hz 1ms</h6>
-            <p class="stock"><b>Stock: 20</b></p>
-            <p class="precio"><b>$129.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Monitor 5 -->
-      <ion-col size="6">
-        <ion-card class="card-5">
-          <ion-img src="/assets/icon/monitor5.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Monitor Gamer Curvo Kolke 31,5 Full Hd 165hz 1ms Freesync Color Negro</h6>
-            <p class="stock"><b>Stock: 20</b></p>
-            <p class="precio"><b>$130.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Monitor 6 -->
-      <ion-col size="6">
-        <ion-card class="card-6">
-          <ion-img src="/assets/icon/monitor6.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Monitor Gamer Kolke 27 Ips Ejecutivo 100hz 1ms Freesync Color Negro</h6>
-            <p class="stock"><b>Stock: 15</b></p>
-            <p class="precio"><b>$100.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+            <h6>{{monitor.nombre_prod}}</h6>
+            <p class="stock"><b>{{monitor.stock_prod}}</b></p>
+            <p class="precio"><b>{{monitor.precio_prod}}</b></p>
+            <ion-button expand="block" color="primary" (click)="irproductoSolo(monitor)">Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

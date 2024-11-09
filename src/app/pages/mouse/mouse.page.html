@@ -25,79 +25,14 @@
   <ion-grid>
     <ion-row>
       <!-- Mouse 1 -->
-      <ion-col size="6">
+      <ion-col size="6" *ngFor="let mouse of productosMo">
         <ion-card class="card-1" [routerLink]="'/mouse1'">
           <ion-img src="/assets/icon/mouse1.jpg"></ion-img>
           <ion-card-content>
-            <h6>Mouse Gamer Redragon Vampire M720</h6>
-            <p><b>Stock: 15</b></p>
-            <p class="precio"><b>$19.900</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Mouse 2 -->
-      <ion-col size="6">
-        <ion-card class="card-2">
-          <ion-img src="/assets/icon/mouse2.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Mouse Gamer Logitech G203 RGB LIGHTSYNC, 6 botones programables, 8.000 DPI, Black</h6>
-            <p><b>Stock: 25</b></p>
-            <p class="precio"><b>$20.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Mouse 3 -->
-      <ion-col size="6">
-        <ion-card class="card-3">
-          <ion-img src="/assets/icon/mouse3.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Mouse Gamer Logitech G203 New Rgb Lightsync White</h6>
-            <p><b>Stock: 10</b></p>
-            <p class="precio"><b>$23.450</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Mouse 4 -->
-      <ion-col size="6">
-        <ion-card class="card-4">
-          <ion-img src="/assets/icon/mouse4.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Logitech G Ratón inalámbrico Lightspeed - Azul</h6>
-            <p><b>Stock: 15</b></p>
-            <p class="precio"><b>$29.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Mouse 5 -->
-      <ion-col size="6">
-        <ion-card class="card-5">
-          <ion-img src="/assets/icon/mouse5.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Mouse Gamer Monster Thunderstorm</h6>
-            <p><b>Stock: 30</b></p>
-            <p class="precio"><b>$7.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <!-- Mouse 6 -->
-      <ion-col size="6">
-        <ion-card class="card-6">
-          <ion-img src="/assets/icon/mouse6.jpg"></ion-img>
-          <ion-card-content>
-            <h6>Mouse Gamer Hourglass Óptico RGB USB Negro</h6>
-            <p><b>$13.990</b></p>
-            <p class="precio"><b>$13.990</b></p>
-            <ion-button expand="block" color="primary">Ver Producto</ion-button>
+            <h6>{{mouse.nombre_prod}}</h6>
+            <p><b>{{mouse.stock_prod}}</b></p>
+            <p class="precio"><b>{{mouse.precio_prod}}</b></p>
+            <ion-button expand="block" color="primary" (click)="irproductoSolo(mouse)"></ion-button>>Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

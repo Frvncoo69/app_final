@@ -15,10 +15,13 @@ export class CrudPage implements OnInit {
 
   constructor(private alertController: AlertController, private serviceBD: ServiceBDService, private router: Router) { }
 
-  ngOnInit() {
+  
+  async ionViewWillEnter() {
     this.cargarProductos(); // Cargar productos al inicializar
   }
-
+  async ngOnInit() {
+    this.cargarProductos(); // Cargar productos al inicializar
+  }
   // Función para obtener todos los productos
   cargarProductos() {
     this.serviceBD.seleccionarProductos().then((productos) => {

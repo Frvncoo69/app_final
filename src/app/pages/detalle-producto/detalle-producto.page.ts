@@ -23,13 +23,35 @@ export class DetalleProductoPage implements OnInit {
       });
     }
   
-    ngOnInit() {
-      this.bd.dbState().subscribe(async (data) => {
-        if (data) {
-          
-        }
-      });
-    }
+    ngOnInit() {};
+
+    async cargarTecladoUnico(){
+
+    };
+
+    async cargarMonitorUnico(){
+      
+    };
+
+    async cargarAudifonoUnico(){
+      
+    };
+
+    async cargarUnico(){
+      
+    };
+
+    async cargarMouseUnico(){
+      
+    };
+
+    async cargarSillaUnico(){
+      
+    };
+
+    async cargarPCUnico(){
+      
+    };
 
     //async agregarCarrito() {
         //await this.bd.agregarDetalleVenta(
