@@ -42,7 +42,7 @@ export class Audifonos1Page implements OnInit {
   // Muestra un toast y agrega el producto al carrito
   async alarmaCarrito() {
     try {
-      await this.dbService.agregarACarrito(this.idusuario, this.audifono.id_producto, 1);
+      //await this.dbService.agregarACarrito(this.idusuario, this.audifono.id_producto, 1);
       const toast = await this.toastController.create({
         message: 'Se añadió al carrito.',
         duration: 5000,

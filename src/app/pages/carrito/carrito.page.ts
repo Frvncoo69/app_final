@@ -1,4 +1,5 @@
-/*import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AlertasService } from 'src/app/services/alertas.service';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CarritoPage implements OnInit {
 
 
   constructor(
-    //private alertasService: AlertasService,
+    private alertasService: AlertasService,
     private bd: ServiceBDService,
     private cd: ChangeDetectorRef // Detecta cambios manualmente si es necesario
   ) {}
@@ -34,10 +35,10 @@ export class CarritoPage implements OnInit {
   async ionViewWillEnter() {
     await this.cargarProductos();
     await this.actualizarPrecioTotal();  // Llama al calcular el total
-  }*/
+  }
 
 
-  /*async obtenerVentaActiva() {
+  async obtenerVentaActiva() {
     try {
       const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
       if (!idUsuario) {
@@ -48,7 +49,7 @@ export class CarritoPage implements OnInit {
       console.log('ID de Venta Activa:', this.idVentaActiva);
     } catch (error) {
       console.error('Error al obtener la venta activa:', error);
-      this.alertasService.presentAlert('Error', 'No se pudo obtener la venta activa.');
+      this.alertasService.presentAlert('Error', 'No se pudo obtener la venta activa.' + JSON.stringify(error));
     }
   }
 
@@ -65,9 +66,9 @@ export class CarritoPage implements OnInit {
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
       // Separar productos sin stock y disponibles
-      this.productosSinStock = this.productos.filter(p => p.estatus === 0); 
+      this.productosSinStock = this.productos.filter(p => p.estatus_prod === 0); 
       this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
-  
+
       // Determinar si mostrar la sección de sin stock
       this.mostrarSinStock = this.productosSinStock.length > 0;
   
@@ -125,7 +126,7 @@ export class CarritoPage implements OnInit {
         SELECT d.id_producto, p.nombre_prod
         FROM detalle d
         JOIN producto p ON d.id_producto = p.id_producto
-        WHERE d.id_venta = ? AND (p.stock_prod = 0 OR p.estatus = 0);
+        WHERE d.id_venta = ? AND (p.stock_prod = 0 OR p.estatus_prod = 0);
       `;
 
       const result = await this.bd.database.executeSql(query, [this.idVentaActiva]);
@@ -150,7 +151,7 @@ export class CarritoPage implements OnInit {
 
     } catch (error) {
       console.error('Error al eliminar productos sin stock del carrito:', error);
-      this.alertasService.presentAlert('ERROR', 'Error al eliminar productos sin stock: ' + error);
+      this.alertasService.presentAlert('ERROR', 'Error al eliminar productos sin stock: ' + JSON.stringify(error));
     }
   }
 
@@ -191,12 +192,11 @@ export class CarritoPage implements OnInit {
     await this.RestarStockAlComprar();
     const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
     await this.bd.confirmarCompra(this.idVentaActiva, idUsuario, this.totalVENTA);
-    await this.bd.ActualizarStock();
+    //await this.bd.ActualizarStock();
     await this.actualizarPrecioTotal();  // Actualizamos el total.
     await this.cargarProductos();
   }
 
   
-}*/
-
+}
 

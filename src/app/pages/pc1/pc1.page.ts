@@ -36,7 +36,7 @@ export class Pc1Page implements OnInit {
   // Agregar el PC al carrito
   async agregarAlCarrito() {
     try {
-      await this.dbService.agregarACarrito(this.idusuario, this.idProducto, this.cantidad);
+      //await this.dbService.agregarACarrito(this.idusuario, this.idProducto, this.cantidad);
       this.mostrarAlertaCarrito(); // Mostrar el toast de confirmación
     } catch (error) {
       console.error('Error al agregar al carrito:', error);

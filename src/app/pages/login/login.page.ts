@@ -20,7 +20,9 @@ export class LoginPage implements OnInit {
     private dbService: ServiceBDService
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.dbService.actualizarEstadoUsuario3();
+  }
 
   async onLogin() {
     // Validación del correo y contraseña

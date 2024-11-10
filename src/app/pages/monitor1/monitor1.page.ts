@@ -37,7 +37,7 @@ export class Monitor1Page implements OnInit {
   async agregarAlCarrito() {
     try {
       // Llamar al servicio para agregar al carrito
-      await this.dbService.agregarACarrito(this.idusuario, this.idProducto, this.cantidad);
+      //await this.dbService.agregarACarrito(this.idusuario, this.idProducto, this.cantidad);
       this.mostrarAlertaCarrito(); // Mostrar el toast de confirmación
     } catch (error) {
       console.error('Error al agregar al carrito:', error);

@@ -41,11 +41,7 @@ export class Teclado1Page implements OnInit {
     }
 
     try {
-      await this.dbService.agregarACarrito(
-        this.idusuario,
-        this.idProducto,
-        this.cantidad
-      );
+      //await this.dbService.agregarACarrito(this.idusuario,this.idProducto,this.cantidad);
       this.mostrarAlertaCarrito(); // Mostrar el mensaje de confirmación
     } catch (error) {
       console.error('Error al agregar al carrito:', error);

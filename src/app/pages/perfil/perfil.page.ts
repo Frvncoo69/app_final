@@ -49,6 +49,7 @@ export class PerfilPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.cargarDatosUsuario();
     this.ionViewWillEnter(); // Llama a la carga de datos al iniciar
   }
 

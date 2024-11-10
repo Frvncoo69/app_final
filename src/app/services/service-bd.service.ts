@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Producto } from './producto';
 import { Carritos } from './carritos'; 
 import { Usuario } from './usuario';
+import { AlertasService } from './alertas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,13 @@ tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMA
 
 tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
-tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta DATE NOT NULL, total_venta INTEGER NOT NULL, estado_retiro BOOLEAN NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
+tablaEstado: string = "CREATE TABLE IF NOT EXISTS estado (id_estado INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(20) NOT NULL);";
 
-tablaEstado: string = "CREATE TABLE IF NOT EXISTS estado (id_estado INTEGER PRIMARY KEY AUTOINCREMENT, nombre_est VARCHAR(20) NOT NULL);";
+tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta DATE NOT NULL, total_venta INTEGER NOT NULL, estado_retiro BOOLEAN NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
 
 tablaProducto: string = "CREATE TABLE IF NOT EXISTS producto (id_producto INTEGER PRIMARY KEY AUTOINCREMENT, nombre_prod VARCHAR(50) NOT NULL, precio_prod INTEGER NOT NULL, stock_prod INTEGER NOT NULL, descripcion_prod VARCHAR(100) NOT NULL, foto_prod BLOB, estatus_prod BOOLEAN DEFAULT 1, id_categoria INTEGER NOT NULL, FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria));";
 
-tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad_det INTEGER NOT NULL, subtotal_det INTEGER NOT NULL, id_venta INTEGER NOT NULL, id_producto INTEGER NOT NULL, FOREIGN KEY (id_venta) REFERENCES venta(id_venta), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
+tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad_d INTEGER NOT NULL, subtotal INTEGER NOT NULL, id_venta INTEGER NOT NULL, id_producto INTEGER NOT NULL, FOREIGN KEY (id_venta) REFERENCES venta(id_venta), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
 
 tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY AUTOINCREMENT, nombre_cat VARCHAR(50) NOT NULL);";
 
@@ -32,6 +33,9 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
 
 
   //INSERT
+  //estados de la venta
+  estadoventa1: string = "INSERT OR IGNORE INTO estado (nombre) VALUES ('carrito');";
+  estadoventa2: string ="INSERT OR IGNORE INTO estado (nombre) VALUES ('retiro');"
   rolUsuario1: string = "INSERT OR IGNORE INTO rol (nombre_rol) VALUES ('administrador');";
   rolUsuario2: string = "INSERT OR IGNORE INTO rol (nombre_rol) VALUES ('cliente');";
   registroUsuario: string = "INSERT OR IGNORE INTO usuario (rut_usu, nombre_usu, apellido_usu, nombre_usuario, clave_usu, correo_usu, token, foto_usu, estado_usu, loggeo, id_rol) VALUES ('11.234.567-8', 'Felipe', 'Chávez', 'admin', 'Admin@123.', 'chavezfelipe179@gmail.com', 0, null, 1, 0, 1);";
@@ -58,7 +62,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   // Variable para el estado de la Base de datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
+  constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController, private alertasService: AlertasService) {
     this.createBD();
   }
 
@@ -105,7 +109,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore47.db',
+        name: 'tecnostore53.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -136,6 +140,8 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
       await this.database.executeSql(this.categoriaProducto4, []);
       await this.database.executeSql(this.categoriaProducto5, []);
       await this.database.executeSql(this.categoriaProducto6, []);
+      await this.database.executeSql(this.estadoventa1, []);
+      await this.database.executeSql(this.estadoventa2, []);
 
       const productoExisten = await this.database.executeSql('SELECT COUNT(*) AS total FROM producto', [])
       if (productoExisten.rows.item(0).total === 0) {
@@ -216,7 +222,12 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
         return [];
       });
   }
-  
+
+  obtenerIdUsuarioLogueado() {
+    // Suponiendo que ya tienes una función que consulta el usuario logueado
+    return this.database.executeSql('SELECT id_usu FROM usuario WHERE loggeo = ?', [1])
+        .then(res => res.rows.length > 0 ? res.rows.item(0).id_usu : null);
+}
 
   /////////////////////////////////////////////////////////7
 
@@ -301,6 +312,17 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
         this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
       });
   }
+    //cierra la sesion
+    async actualizarEstadoUsuario3(): Promise<void> {
+      return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE loggeo = 1', [0])
+        .then(() => {
+          this.presentAlert("EXITO","estado cambiado (cerrar sesiones)");
+        })
+        .catch(e => {
+          this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
+        });
+    }
+  
 
 
   async consultarUsuariosPorEstadoConectado(): Promise<Usuario[]> {
@@ -725,7 +747,42 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
     //listar todos los items de venta en el carrito, por usuario conectado
   //elparametro a usar es el id del usuario en sesion, de esta forma, se traeran los carros
   //de los usuarios conectados
+//listar todos los items de venta en el carrito, por usuario conectado
+  //elparametro a usar es el id del usuario en sesion, de esta forma, se traeran los carros
+  //de los usuarios conectados^
 
+
+
+  async obtenerCarroPorUsuario(idVenta: number): Promise<any[]> {
+    const query = `
+      SELECT 
+        d.id_detalle, 
+        d.cantidad_d, 
+        d.subtotal,
+        p.nombre_prod, 
+        p.foto_prod,  
+        d.id_venta, 
+        d.id_producto 
+      FROM detalle d
+      INNER JOIN producto p ON d.id_producto = p.id_producto
+      INNER JOIN venta v ON d.id_venta = v.id_venta
+      WHERE d.id_venta = ?;
+    `;
+  
+    try {
+      const res = await this.database.executeSql(query, [idVenta]);
+      const itemsD: any[] = [];
+  
+      for (let i = 0; i < res.rows.length; i++) {
+        itemsD.push(res.rows.item(i));
+      }
+  
+      return itemsD;
+    } catch (error) {
+      this.alertasService.presentAlert('Error al obtener los detalles de la venta:','errors: ' + JSON.stringify(error));
+      return [];
+    }
+  }
 
 
   //verifica que la venta exista con ese usuario
@@ -779,6 +836,240 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
       throw error;  // Lanza el error para ser manejado en otro lugar
     }
   }
+
+
+
+  //añadir al carrito
+  async agregarDetalleVenta(idVenta: number, precio: number, idProducto: number): Promise<void> {
+    const subtotal = precio * 1;  // Precio por la cantidad inicial de 1
+    const query =` 
+      INSERT INTO detalle (cantidad_d, subtotal, id_venta, id_producto) 
+      VALUES (?, ?, ?, ?);`
+    ;
+    const params = [1, subtotal, idVenta, idProducto];
+
+    try {
+      await this.database.executeSql(query, params);
+      console.log('Producto añadido al carrito.');
+    } catch (error) {
+      console.error('Error al agregar el detalle de venta:', error);
+      throw error;
+    }
+  }
+
+  //////////////////////////////////////
+
+  async consultarProductoPorId(idProducto: any) {
+    try {
+        const resp = await this.database.executeSql(
+            'SELECT id_producto, nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria FROM producto WHERE id_producto = ?',
+            [idProducto]
+        );
+
+        let itemsP: Producto[] = [];
+        if (resp.rows.length > 0) {
+            for (var i = 0; i < resp.rows.length; i++) {
+              itemsP.push({
+                    id_producto: resp.rows.item(i).id_producto,
+                    nombre_prod: resp.rows.item(i).nombre_prod,
+                    precio_prod: resp.rows.item(i).precio_prod,
+                    stock_prod: resp.rows.item(i).stock_prod,
+                    descripcion_prod: resp.rows.item(i).descripcion_prod,
+                    foto_prod: resp.rows.item(i).foto_prod,
+                    estatus_prod: resp.rows.item(i).estatus_prod,
+                    id_categoria: resp.rows.item(i).id_categoria,
+                });
+            }
+        }
+        return itemsP;
+    } catch (error) {
+        return null; // Retornar null en caso de error
+    }
+}
+
+async agregarCantidad(idVenta: any, idProducto: any): Promise<void> {
+  // Consulta el producto para verificar su stock
+  const productos = await this.consultarProductoPorId(idProducto);
+  
+  if (productos && productos.length > 0) {
+    const productoActual = productos[0];
+    const query = `
+      UPDATE detalle 
+      SET cantidad_d = MIN(cantidad_d + 1, ${productoActual.stock_prod})
+      WHERE id_venta = ? AND id_producto = ?;
+    `;
+    try {
+      await this.database.executeSql(query, [idVenta, idProducto]);
+    } catch (error) {
+      console.error('Error al agregar cantidad:', error);
+      throw error;
+    }
+  } else {
+    console.error("Producto no encontrado o error al consultar el stock.");
+  }
+}
+
+
+//restar stock
+async restarCantidad(idVenta: any, idProducto: any): Promise<void> {
+  const queryVerificar = `
+    SELECT cantidad_d 
+    FROM detalle 
+    WHERE id_venta = ? AND id_producto = ?;
+  `;
+
+  const queryRestar = `
+    UPDATE detalle 
+    SET cantidad_d = cantidad_d - 1 
+    WHERE id_venta = ? AND id_producto = ?;
+  `;
+
+  const queryEliminar = `
+    DELETE FROM detalle 
+    WHERE id_venta = ? AND id_producto = ?;
+  `;
+
+  try {
+    const res = await this.database.executeSql(queryVerificar, [idVenta, idProducto]);
+    if (res.rows.length > 0) {
+      const cantidad = res.rows.item(0).cantidad_d;
+
+      if (cantidad > 1) {
+        await this.database.executeSql(queryRestar, [idVenta, idProducto]);
+      } else {
+        await this.database.executeSql(queryEliminar, [idVenta, idProducto]);
+      }
+    }
+  } catch (error) {
+    console.error('Error al restar cantidad:', error);
+    throw error;
+  }
+}
+
+//ejecutar la venta
+async confirmarCompra(idVenta: any, idUser: any, total: any): Promise<void> {
+  const query = `
+    UPDATE venta 
+    SET 
+      total = ?,
+      id_estado = 2 
+    WHERE id_venta = ?;
+  `;
+
+  try {
+    await this.database.executeSql(query, [total,idVenta]);
+    this.alertasService.presentAlert("¡Compra Exitosa!","¡GRACIAS!");
+    await this.verificarOCrearVenta(idUser);
+  } catch (error) {
+    console.error('Error al confirmar la compra:', error);
+    throw error;
+  }
+}
+
+//eliminar antes de continuar la compra los productos sin stock
+async eliminarProductosSinStock(idVenta: number): Promise<void> {
+  const query = `
+    DELETE FROM detalle 
+    WHERE id_venta = ? 
+      AND (cantidad_d = 0 OR 
+           id_producto IN (
+             SELECT id_producto 
+             FROM producto 
+             WHERE estatus_prod = 0
+           ));
+  `;
+
+  try {
+    await this.database.executeSql(query, [idVenta]);
+    console.log('Productos sin stock o no disponibles eliminados del carrito.');
+  } catch (error) {
+    console.error('Error al eliminar productos sin stock o no disponibles:', error);
+    throw error;
+  }
+}
+
+//elimina los productos malos xd
+async eliminarProductoDelCarrito(idVenta: any, idProducto: any): Promise<void> {
+  const query = `DELETE FROM detalle WHERE id_venta = ? AND id_producto = ?`;
+  try {
+    await this.database.executeSql(query, [idVenta, idProducto]);
+  } catch (error) {
+    console.error('Error al eliminar producto del carrito:', error);
+    throw error;
+  }
+}
+
+async restarStock(idProducto: number, cantidad: number): Promise<void> {
+  const query = `
+    UPDATE producto 
+    SET stock_prod = stock_prod - ? 
+    WHERE id_producto = ?;
+  `;
+  try {
+    await this.database.executeSql(query, [cantidad, idProducto]);
+    console.log(`Stock del producto ${idProducto} reducido en ${cantidad}`);
+  } catch (error) {
+    console.error(`Error al restar stock del producto ${idProducto}:`, error);
+    throw error;
+  }
+}
+
+  ////////
+
+//calcular precio final 
+async preciofinal(idVenta: any): Promise<number> {
+  const query = `
+    SELECT SUM(cantidad_d * subtotal) AS total 
+    FROM detalle 
+    WHERE id_venta = ?;
+  `;
+
+  try {
+    const res = await this.database.executeSql(query, [idVenta]);
+    if (res.rows.length > 0 && res.rows.item(0).total != null) {
+      return res.rows.item(0).total;
+    }
+    return 0;
+  } catch (error) {
+    console.error('Error al calcular el precio final:', error);
+    throw error;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
