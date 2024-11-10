@@ -40,4 +40,13 @@ export class TecladosPage implements OnInit {
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
 
+    irtecladoSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          tecladoVa: x
+        }
+      };
+      this.router.navigate(['/teclado1'], navigationExtras);
+    }
+
 }

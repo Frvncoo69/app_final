@@ -1,108 +1,85 @@
-/* Fondo del ion-content */
 ion-content {
-  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
-  --padding-start: 10px;
-  --padding-end: 10px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-}
-
-/* Estilo para el encabezado */
-ion-header {
-  --background: #004d74;
-  color: #ffffff;
-}
-
-/* Estilo para los botones del encabezado */
-ion-button {
-  --background: #004d74;
-  --color: #ffffff;
-}
-
-/* Estilo para los íconos dentro de los botones */
-ion-icon {
-  color: #ffffff;
-}
-
-/* Estilo para el ion-thumbnail */
-ion-thumbnail {
-  width: 120px;
-  height: 120px;
-}
-
-ion-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Mantiene la proporción de la imagen */
-  border-radius: 8px; /* Opcional: redondear esquinas */
-}
-
-/* Estilo del ítem del carrito con fondo blanco */
-ion-item {
-  --background: #ffffff; /* Fondo blanco para los productos del carrito */
-  border-radius: 10px; /* Esquinas redondeadas */
-  margin-bottom: 10px; /* Espacio entre ítems */
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-}
-
-/* Estilo del contenedor del ítem */
-.item-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul */
   padding: 10px;
-  min-height: 120px;
 }
 
-/* Alinear horizontalmente los elementos dentro del ion-label */
-.horizontal-align {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.producto-card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  overflow: hidden;
 }
 
-.horizontal-align h6, .horizontal-align p {
-  margin: 0 4px;
+.producto-card ion-thumbnail {
+  height: 120px;  /* Altura ajustada */
+  width: 120px;   /* Ancho ajustado */
 }
 
-/* Estilo del contenido del ítem */
-.item-details {
-  flex: 1;
-  margin-right: 10px;
-  color: black; /* Asegura que el texto se vea bien sobre el fondo blanco */
+.producto-card ion-thumbnail img {
+  height: 100%;   /* La imagen ocupa toda la altura del contenedor */
+  width: 100%;    /* La imagen ocupa todo el ancho del contenedor */
+  object-fit: contain;  /* La imagen se ajusta completamente sin recortarse */
+  border-radius: 10px; /* Mantén las esquinas redondeadas */
 }
 
-/* Contenedor de las acciones (por ejemplo: cantidad, botones) */
-.action-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.titulo-producto {
+  font-size: 1rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Botón de basura */
-.trash-button {
-  margin-top: 10px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-  --font-size: 24px;
-}
-
-/* Número grande en la acción */
-.large-label {
-  font-size: 24px;
+.precio {
+  margin: 5px 0;
   font-weight: bold;
-  margin: 0 15px;
-}
-
-/* Color del texto en ion-item */
-.colorp {
   color: black;
 }
 
-/* Ajustar tamaño del texto h6 */
-ion-label h6 {
-  font-size: 16px;
+.botones-cantidad {
+  display: flex;
+  align-items: center; /* Alinea los botones verticalmente al centro */
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  padding: 10px;
+}
+
+.input-cantidad {
+  width: 60px;
+  text-align: center;
+  font-size: 1rem;
+  margin: 0 10px; /* Espacio entre el botón y el input */
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 8px 12px;
+  background: #f1f1f1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.total-precio {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.boton-comprar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.btncompra {
+  width: 70%; 
+  border-radius: 30px;
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

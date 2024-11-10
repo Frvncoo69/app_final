@@ -109,7 +109,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore53.db',
+        name: 'tecnostore54.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -1033,6 +1033,17 @@ async preciofinal(idVenta: any): Promise<number> {
   } catch (error) {
     console.error('Error al calcular el precio final:', error);
     throw error;
+  }
+}
+
+async consultarProdsCarro(id_producto: any, idVenta: any): Promise<boolean> {
+  try {
+    const query = 'SELECT * FROM detalle WHERE id_producto = ? AND id_venta = ?';
+    const data = await this.database.executeSql(query, [id_producto, idVenta]);
+    return data.rows.length > 0; // Devuelve true si encuentra el producto
+  } catch (error) {
+    console.error('Error al consultar el producto en el carrito:', error);
+    return false; // En caso de error, devolvemos false
   }
 }
 
