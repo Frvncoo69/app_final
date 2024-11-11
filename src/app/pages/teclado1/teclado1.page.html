@@ -33,7 +33,7 @@
       <p>{{ productoSolo.descripcion_prod }}</p>
       
       <ion-col size="6">
-        <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()">
+        <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()" *ngIf="productoSolo.stock_prod >= 1">
           <ion-icon slot="start" name="cart"></ion-icon>
           Añadir al carrito
         </ion-button>
