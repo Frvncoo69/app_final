@@ -204,9 +204,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/nuevacontrasena/nuevacontrasena.module').then( m => m.NuevacontrasenaPageModule)
   },
   {
+    path: 'consola-detalle/:id',
+    loadChildren: () => import('./pages/consola-detalle/consola-detalle.module').then( m => m.ConsolaDetallePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  }
+  },
+  
 
 
 

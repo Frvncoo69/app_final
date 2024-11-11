@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
-import { ApiNativaService } from 'src/app/services/api-nativa.service'; // Importación del servicio ApiNativaService
+import { ApiNativaService } from 'src/app/services/api-nativa.service';
 import { ConsolasService } from 'src/app/services/consolas.service';
+import { firstValueFrom } from 'rxjs';  // Importa firstValueFrom
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -9,60 +12,57 @@ import { ConsolasService } from 'src/app/services/consolas.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  searchTerm: string = '';  // Valor del campo de búsqueda
-  productos: any[] = [];  // Productos obtenidos de la base de datos
-  productosFiltrados: any[] = [];  // Productos mostrados en la vista
-  consolasFiltradas: any[] = [];  // Consolas obtenidas de la API
+  searchTerm: string = '';
+  productos: any[] = [];
+  productosFiltrados: any[] = [];
+  consolasFiltradas: any[] = [];
 
-  constructor(private bdService: ServiceBDService,
-     private consolasService: ConsolasService,
-     private apiNativaService: ApiNativaService 
-    ) {}
+  constructor(
+    private bdService: ServiceBDService,
+    private consolasService: ConsolasService,
+    private apiNativaService: ApiNativaService,
+    private router: Router
+
+  ) { }
 
   async ngOnInit() {
-    await this.cargarProductos();  // Cargar los productos al iniciar
-    await this.cargarConsolas();  // Cargar las consolas al iniciar
+    await this.cargarProductos();
+    await this.cargarConsolas();
   }
 
-  // Método para cargar todos los productos desde la base de datos
   async cargarProductos() {
     try {
       this.productos = await this.bdService.obtenerTodosLosProductos();
-      console.log('Productos cargados:', this.productos);  // Verificación en consola
-      this.productosFiltrados = [...this.productos];  // Inicialmente, mostrar todos los productos
+      this.productosFiltrados = [...this.productos];
     } catch (error) {
       console.error('Error al cargar productos:', error);
     }
   }
 
-  // Método para cargar todas las consolas desde la API
   async cargarConsolas() {
     try {
-      const consolas = await this.consolasService.getConsolas().toPromise();
-      console.log('Consolas cargadas:', consolas);  // Verificación en consola
-      this.consolasFiltradas = [consolas];  // Mostrar todas las consolas
+      const consolas = await firstValueFrom(this.consolasService.getConsolas());
+      this.consolasFiltradas = consolas || [];
+      console.log('Consolas cargadas:', this.consolasFiltradas); // Verificación en consola
     } catch (error) {
       console.error('Error al cargar consolas:', error);
+      this.consolasFiltradas = [];
     }
   }
 
-  // Método para filtrar productos según el texto ingresado en la barra de búsqueda
+  // Función para navegar a los detalles de la consola
+  verDetalleConsola(id: number) {
+    this.router.navigate(['/consola-detalle', id]);
+  }
+
+
   buscarProducto(event: any) {
-    const texto = event.target.value;  // Obtener el texto tal como se ingresó
-
-    // Si no hay texto en el campo de búsqueda, mostrar todos los productos
-    if (texto.trim() === '') {
-      this.productosFiltrados = this.productos;
-    } else {
-      // Filtrar los productos que coincidan con el texto ingresado
-      this.productosFiltrados = this.productos.filter(producto =>
-        producto.nombre_prod.includes(texto)  // Comparación sin conversión
-      );
-    }
+    const texto = event.target.value;
+    this.productosFiltrados = texto.trim() === ''
+      ? this.productos
+      : this.productos.filter(producto => producto.nombre_prod.includes(texto));
   }
 
-
-  // Métodos para redirigir a las páginas de Intel y AMD
   redirectToIntel() {
     this.apiNativaService.openIntelPage();
   }

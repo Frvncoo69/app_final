@@ -77,66 +77,8 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-
-        <ion-col size="6">
-          <ion-card class="card-fixed-size card-2">
-            <ion-img src="/assets/icon/monitor2.jpg"></ion-img>
-            <ion-card-content>
-              <h6>Monitor Gamer Samsung Odyssey G3 S27ag32 Lcd 27 Negro</h6>
-              <p><b>Stock: 15</b></p>
-              <p class="precio"><b>$178.990</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card class="card-fixed-size card-3">
-            <ion-img src="/assets/icon/mouse6.jpg"></ion-img>
-            <ion-card-content>
-              <h6>Mouse Gamer Hourglass Óptico RGB USB Negro</h6>
-              <p><b>Stock: 25</b></p>
-              <p class="precio"><b>$13.990</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card class="card-fixed-size card-4">
-            <ion-img src="/assets/icon/audifono6.jpg"></ion-img>
-            <ion-card-content>
-              <h6>Audífonos Gamer Logitech G335, Wired, Auricular Tamaño Completo</h6>
-              <p><b>Stock: 23</b></p>
-              <p class="precio"><b>$59.990</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card class="card-fixed-size card-5">
-            <ion-img src="/assets/icon/pc4.jpg"></ion-img>
-            <ion-card-content>
-              <h6>Pc Gamer Spartan: Rz 3 2200g Pro</h6>
-              <p><b>Stock: 5</b></p>
-              <p class="precio"><b>$344.990</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-card class="card-fixed-size card-6">
-            <ion-img src="/assets/icon/silla4.jpg"></ion-img>
-            <ion-card-content>
-              <h6>Silla Gamer Racing Reclinable 180° Reposapiés Rojo</h6>
-              <p><b>Stock: 18</b></p>
-              <p class="precio"><b>$63.490</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+        
+        <!-- Otros productos estáticos -->
       </ion-row>
     </ion-grid>
 
@@ -152,7 +94,9 @@
               <h6>{{ consola.nombre }}</h6>
               <p><b>Marca: {{ consola.marca }}</b></p>
               <p><b>Lanzamiento: {{ consola.fecha_lanzamiento }}</b></p>
-              <ion-button expand="block" color="primary">Agregar al carrito</ion-button>
+              <ion-button expand="block" color="primary" (click)="verDetalleConsola(consola.id)">
+                Ver Detalles
+              </ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>
