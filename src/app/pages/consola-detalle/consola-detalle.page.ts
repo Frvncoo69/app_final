@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConsolasService } from 'src/app/services/consolas.service';
-import { firstValueFrom } from 'rxjs';  // Importa firstValueFrom
+import { firstValueFrom } from 'rxjs';  // Importa firstValueFromng
 
 @Component({
   selector: 'app-consola-detalle',

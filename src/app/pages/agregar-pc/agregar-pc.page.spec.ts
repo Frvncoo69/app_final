@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AgregarPcPage } from './agregar-pc.page';
+import { AgregarPCPage } from './agregar-pc.page';
 
-describe('AgregarPcPage', () => {
-  let component: AgregarPcPage;
-  let fixture: ComponentFixture<AgregarPcPage>;
+describe('AgregarPCPage', () => {
+  let component: AgregarPCPage;
+  let fixture: ComponentFixture<AgregarPCPage>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgregarPcPage);
+    fixture = TestBed.createComponent(AgregarPCPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
