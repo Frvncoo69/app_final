@@ -24,10 +24,11 @@
   <img style="border-radius: 15px;" class="banner-image" alt="monitorpromo" src="assets/icon/monitorpromo.jpg"/>
   <ion-grid>
     <ion-row>
-      <!-- Monitor 1 -->
+      <!-- Monitor Dinámico -->
       <ion-col size="6" *ngFor="let monitor of productosM">
         <ion-card class="card-1">
-          <ion-img src="/assets/icon/monitor1.jpg"></ion-img>
+          <!-- Imagen dinámica de cada monitor -->
+          <ion-img [src]="monitor.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{monitor.nombre_prod}}</h6>
             <p class="stock"><b>{{monitor.stock_prod}}</b></p>

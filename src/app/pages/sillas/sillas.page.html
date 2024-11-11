@@ -23,10 +23,11 @@
   <img style="border-radius: 15px;" class="banner-image" alt="sillas" src="assets/icon/sillagamer.jpg"/>
   <ion-grid>
     <ion-row>
-      <!-- Silla 1 -->
+      <!-- Silla Dinámica -->
       <ion-col size="6" *ngFor="let silla of productosS">
         <ion-card class="card-1">
-          <ion-img src="/assets/icon/silla1.jpg"></ion-img>
+          <!-- Imagen dinámica de la silla -->
+          <ion-img [src]="silla.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{silla.nombre_prod}}</h6>
             <p><b>{{silla.stock_prod}}</b></p>

@@ -24,15 +24,15 @@
   <img style="border-radius: 15px;" class="banner-image" alt="audifonopromo" src="assets/icon/audifonospromo.jpg"/>
   <ion-grid>
     <ion-row>
-      <!-- Audífono 1 -->
+      <!-- Audífono Dinámico -->
       <ion-col size="6" *ngFor="let audifono of productosA">
         <ion-card class="card-1">
-          <ion-img src="/assets/icon/audifono1.jpg"></ion-img>
+          <!-- Imagen dinámica de cada audífono -->
+          <ion-img [src]="audifono.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{audifono.nombre_prod}}</h6>
             <p><b>{{audifono.stock_prod}}</b></p>
-            <p><b>{{audifono.precio_prod}}</b></p>
-            <p class="precio"><b>$16.990</b></p>
+            <p class="precio"><b>{{audifono.precio_prod}}</b></p>
             <ion-button expand="block" color="primary" (click)="iraudifonoSolo(audifono)">Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>

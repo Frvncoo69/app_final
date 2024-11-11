@@ -24,10 +24,11 @@
   <img style="border-radius: 15px;" class="banner-image" alt="tcpromo" src="assets/icon/tecladopromo.jpg"/>
   <ion-grid>
     <ion-row>
-        <!-- Teclado 1 -->
-        <ion-col size="6" *ngFor="let teclado of productosT ">
+        <!-- Teclado Dinámico -->
+        <ion-col size="6" *ngFor="let teclado of productosT">
           <ion-card class="card-1">
-            <ion-img src="/assets/icon/teclado1.jpg"></ion-img>
+            <!-- Imagen dinámica -->
+            <ion-img [src]="teclado.foto_prod"></ion-img>
             <ion-card-content>
               <h6>{{teclado.nombre_prod}}</h6>
               <p><b>{{teclado.stock_prod}}</b></p>

@@ -22,16 +22,17 @@
 <ion-content>
   <ion-grid>
     <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
-    <img style="border-radius: 15px;" class="banner-image" alt="mousepromo" src="assets/icon/pcgamer.jpg"/>
+    <img style="border-radius: 15px;" class="banner-image" alt="pcpromo" src="assets/icon/pcgamer.jpg"/>
     <ion-row>
-      <!-- pc1 -->
+      <!-- PC Dinámico -->
       <ion-col size="6" *ngFor="let pc of productosP">
         <ion-card class="card-1">
-          <ion-img src="/assets/icon/pc1.jpg"></ion-img>
+          <!-- Imagen dinámica de cada PC -->
+          <ion-img [src]="pc.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{pc.nombre_prod}}</h6>
             <p><b>{{pc.stock_prod}}</b></p>
-            <p class="precio"><b>{{pc.precio_prod}}</b></p> <!-- Clase precio añadida aquí -->
+            <p class="precio"><b>{{pc.precio_prod}}</b></p>
             <ion-button expand="block" color="primary" (click)="irpcSolo(pc)">Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>

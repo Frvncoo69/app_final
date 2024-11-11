@@ -24,10 +24,11 @@
   <img style="border-radius: 15px;" class="banner-image" alt="mousepromo" src="assets/icon/mousegamer.jpg"/>
   <ion-grid>
     <ion-row>
-      <!-- Mouse 1 -->
+      <!-- Mouse Dinámico -->
       <ion-col size="6" *ngFor="let mouse of productosMo">
         <ion-card class="card-1">
-          <ion-img src="/assets/icon/mouse1.jpg"></ion-img>
+          <!-- Imagen dinámica de cada mouse -->
+          <ion-img [src]="mouse.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{mouse.nombre_prod}}</h6>
             <p><b>{{mouse.stock_prod}}</b></p>
@@ -39,3 +40,4 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
