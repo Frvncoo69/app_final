@@ -20,34 +20,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <!-- Imagen de la silla sin título encima -->
-        <ion-img src="/assets/icon/silla1.jpg" style="width: 100%;"></ion-img>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" class="product-description">
-        <h3>Silla Gamer Wetech Color Gris/Negro Modelo LS-1118</h3>
-        <p>
-          Diseñada para comodidad y soporte durante largas sesiones de juego, 
-          esta silla cuenta con un acolchado de alta densidad y un diseño ergonómico.
-          Ajustable y con respaldo reclinable, es ideal para jugadores que buscan estilo y confort.
-        </p>
-        <p><b>Stock: 5</b></p>
-        <h3><b>Precio: $81.290</b></h3>
-
-        <!-- Botón de agregar al carrito -->
-        <ion-button expand="block" class="custom-button" (click)="agregarAlCarrito()">
-          Agregar al carrito
-        </ion-button>
-
-        <!-- Botón para volver a la página de sillas -->
-        <ion-button expand="block" color="light" [routerLink]="'/sillas'">
-          Volver a sección de sillas
+  <ion-card *ngIf="productoSolo">
+    <ion-card-header>
+      <ion-card-title>{{ productoSolo.nombre_prod }}</ion-card-title>
+      <ion-card-subtitle>Precio: {{ productoSolo.precio_prod }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-thumbnail>
+        <img [src]="productoSolo.foto_prod" alt="Foto del producto">
+      </ion-thumbnail>
+      <p>Stock: {{ productoSolo.stock_prod }}</p>
+      <p>{{ productoSolo.descripcion_prod }}</p>
+      
+      <ion-col size="6">
+        <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()" *ngIf="productoSolo.stock_prod >= 1">
+          <ion-icon slot="start" name="cart"></ion-icon>
+          Añadir al carrito
         </ion-button>
       </ion-col>
-    </ion-row>
-  </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item *ngIf="!productoSolo">
+    <ion-label>No se encontraron detalles del producto.</ion-label>
+  </ion-item>
+ 
+  
 </ion-content>

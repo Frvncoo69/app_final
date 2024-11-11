@@ -40,5 +40,14 @@ export class MonitoresPage implements OnInit {
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
 
+    irmonitorSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          monitorVa: x
+        }
+      };
+      this.router.navigate(['/monitor1'], navigationExtras);
+    }
+
 
 }

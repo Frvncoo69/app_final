@@ -40,4 +40,13 @@ export class SillasPage implements OnInit {
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
 
+    irsillaSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          sillaVa: x
+        }
+      };
+      this.router.navigate(['/sillas1'], navigationExtras);
+    }
+
 }

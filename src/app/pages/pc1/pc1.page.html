@@ -20,35 +20,28 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <!-- Imagen del pc armado sin título encima -->
-        <ion-img src="/assets/icon/pc1.jpg" style="width: 100%;"></ion-img>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" class="product-description">
-        <h3>Pc gamer vibora black v1</h3>
-        <p>
-          Potente configuración con procesador AMD Ryzen 5 4600G, 16 GB de RAM 
-          y SSD de 256 GB. Incluye placa base A520 y fuente de 600W, ofreciendo
-          un rendimiento fluido y rápido para juegos exigentes y multitarea. Ideal para gamers
-          que buscan una máquina robusta y confiable.
-        </p>
-        <p><b>Stock: 8</b></p>
-        <h3><b>Precio: $389.990</b></h3>
-
-        <!-- Botón de agregar al carrito -->
-        <ion-button expand="block" class="custom-button" (click)="agregarAlCarrito()">
-          Agregar al carrito
-        </ion-button>
-
-        <!-- Botón para volver a la página de pc armados -->
-        <ion-button expand="block" color="light" [routerLink]="'/pc'">
-          Volver a sección de PC armados
+  <ion-card *ngIf="productoSolo">
+    <ion-card-header>
+      <ion-card-title>{{ productoSolo.nombre_prod }}</ion-card-title>
+      <ion-card-subtitle>Precio: {{ productoSolo.precio_prod }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-thumbnail>
+        <img [src]="productoSolo.foto_prod" alt="Foto del producto">
+      </ion-thumbnail>
+      <p>Stock: {{ productoSolo.stock_prod }}</p>
+      <p>{{ productoSolo.descripcion_prod }}</p>
+      
+      <ion-col size="6">
+        <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()" *ngIf="productoSolo.stock_prod >= 1">
+          <ion-icon slot="start" name="cart"></ion-icon>
+          Añadir al carrito
         </ion-button>
       </ion-col>
-    </ion-row>
-  </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item *ngIf="!productoSolo">
+    <ion-label>No se encontraron detalles del producto.</ion-label>
+  </ion-item>
 </ion-content>

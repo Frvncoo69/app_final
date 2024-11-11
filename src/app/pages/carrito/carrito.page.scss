@@ -1,7 +1,5 @@
 ion-content {
-  --background: none;
-  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul */
-  padding: 10px;
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
 .producto-card {

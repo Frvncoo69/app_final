@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular'; // Importa el ToastController
-import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx'; // Manejo de almacenamiento nativo
-import { ServiceBDService } from 'src/app/services/service-bd.service'; // Servicio de la base de datos
+import { ToastController } from '@ionic/angular';
+import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertasService } from 'src/app/services/alertas.service';
 
 @Component({
   selector: 'app-audifonos1',
@@ -9,56 +11,94 @@ import { ServiceBDService } from 'src/app/services/service-bd.service'; // Servi
   styleUrls: ['./audifonos1.page.scss'],
 })
 export class Audifonos1Page implements OnInit {
-  idusuario!: number;
+  idusuario!: number; // Usuario logueado
+  idProducto: number = 1; // ID de los audífonos
+  cantidad: number = 1; // Cantidad inicial
+  idUserLogged!: any;
+  idVentaActiva: number | null = null;
+  estaEnCarrito!: boolean; // Estado inicial
 
-  // Detalles del audífono a agregar al carrito
-  audifono = {
-    id_producto: 1,
-    nombre_prod: 'Audífonos Gamer E1000',
-    precio_prod: 16990,
-    stock_prod: 20,
-    foto_prod: '/assets/icon/audifono1.jpg',
-  };
+  productoSolo: any;
 
   constructor(
     private toastController: ToastController,
-    private storage: NativeStorage,
-    private dbService: ServiceBDService
-  ) {}
-
-  async ngOnInit() {
-    await this.obtenerUsuario();
+    private bd: ServiceBDService,
+    private storage: NativeStorage, 
+    private router: Router, 
+    private activedroute: ActivatedRoute,
+    private alertasService: AlertasService,
+  ) {
+    this.activedroute.queryParams.subscribe((res) => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.productoSolo = this.router.getCurrentNavigation()?.extras?.state?.['audifonoVa'];
+      }
+    });
   }
 
-  // Obtiene el ID del usuario logueado
-  async obtenerUsuario() {
+  async ionViewWillEnter() {
+    await this.validarSiEstaEnCarrito();
+  }
+
+  ngOnInit() {
+    this.bd.dbState().subscribe(async (data) => {
+      if (data) {
+        this.validarSiEstaEnCarrito();
+      }
+    });
+  }
+
+  /// CARRITO SECCION
+  async verificarOCrearVenta() {
     try {
-      this.idusuario = await this.storage.getItem('Usuario_logueado');
+      this.idUserLogged = await this.bd.obtenerIdUsuarioLogueado();
+      if (!this.idUserLogged) {
+        this.alertasService.presentAlert('Error', 'Debes estar logueado para añadir al carrito.');
+        return;
+      }
+  
+      const venta = await this.bd.verificarOCrearVenta(this.idUserLogged);
+      if (venta) {
+        this.idVentaActiva = venta;
+      } else {
+        this.idVentaActiva = await this.bd.crearVenta(this.idUserLogged);
+      }
     } catch (error) {
-      console.error('Error al obtener usuario logueado:', error);
+      console.error('Error al verificar o crear la venta:', error);
+      this.alertasService.presentAlert('Error', 'No se pudo verificar o crear la venta.');
     }
   }
 
-  // Muestra un toast y agrega el producto al carrito
-  async alarmaCarrito() {
+  async agregarAlCarrito() {
+    await this.verificarOCrearVenta();
     try {
-      //await this.dbService.agregarACarrito(this.idusuario, this.audifono.id_producto, 1);
-      const toast = await this.toastController.create({
-        message: 'Se añadió al carrito.',
-        duration: 5000,
-        position: 'bottom',
-        color: 'success',
-      });
-      toast.present();
+      if (!this.idVentaActiva) {
+        this.alertasService.presentAlert('Error', 'No se encontró una venta activa.');
+        return;
+      }
+      await this.validarSiEstaEnCarrito();
+      if (this.estaEnCarrito === true) {
+        return this.alertasService.presentAlert("ERROR", "EL PRODUCTO YA ESTÁ EN EL CARRITO");
+      }
+
+      await this.bd.agregarDetalleVenta(
+        this.idVentaActiva,
+        this.productoSolo.precio_prod,
+        this.productoSolo.id_producto
+      );
+      
+      await this.bd.preciofinal(this.idVentaActiva);
+      this.alertasService.presentAlert('Añadido al Carrito', 'Los audífonos fueron añadidos correctamente.');
     } catch (error) {
       console.error('Error al agregar al carrito:', error);
-      const toast = await this.toastController.create({
-        message: 'No se pudo agregar al carrito.',
-        duration: 5000,
-        position: 'bottom',
-        color: 'danger',
-      });
-      toast.present();
+      this.alertasService.presentAlert('Error', 'No se pudo añadir al carrito.');
+    }
+  }
+
+  async validarSiEstaEnCarrito() {
+    try {
+      this.estaEnCarrito = await this.bd.consultarProdsCarro(this.productoSolo.id_producto, this.idVentaActiva);
+    } catch (error) {
+      console.error('Error al verificar si el producto está en el carrito:', error);
     }
   }
 }

@@ -39,4 +39,13 @@ export class MousePage implements OnInit {
       };
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
+
+    irmouseSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          mouseVa: x
+        }
+      };
+      this.router.navigate(['/mouse1'], navigationExtras);
+    }
 }

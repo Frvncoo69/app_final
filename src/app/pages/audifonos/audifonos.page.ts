@@ -39,4 +39,13 @@ export class AudifonosPage implements OnInit {
       };
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
+
+    iraudifonoSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          audifonoVa: x
+        }
+      };
+      this.router.navigate(['/audifonos1'], navigationExtras);
+    }
 }

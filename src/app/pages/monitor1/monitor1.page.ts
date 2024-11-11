@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular'; 
-import { ServiceBDService } from 'src/app/services/service-bd.service'; // Servicio para BD
-import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx'; // Para el usuario logueado
+import { ToastController } from '@ionic/angular';
+import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertasService } from 'src/app/services/alertas.service';
 
 @Component({
   selector: 'app-monitor1',
@@ -10,48 +12,93 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx'; // 
 })
 export class Monitor1Page implements OnInit {
   idusuario!: number; // Usuario logueado
-  idProducto: number = 2; // ID del monitor (cámbialo según corresponda)
+  idProducto: number = 2; // ID del monitor
   cantidad: number = 1; // Cantidad inicial
+  idUserLogged!: any;
+  idVentaActiva: number | null = null;
+  estaEnCarrito!: boolean; // Estado inicial
+
+  productoSolo: any;
 
   constructor(
     private toastController: ToastController,
-    private dbService: ServiceBDService,
-    private storage: NativeStorage
-  ) {}
-
-  async ngOnInit() {
-    await this.obtenerUsuario(); // Obtener el usuario logueado al iniciar
+    private bd: ServiceBDService,
+    private storage: NativeStorage, 
+    private router: Router, 
+    private activedroute: ActivatedRoute,
+    private alertasService: AlertasService,
+  ) {
+    this.activedroute.queryParams.subscribe((res) => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.productoSolo = this.router.getCurrentNavigation()?.extras?.state?.['monitorVa'];
+      }
+    });
   }
 
-  // Obtener el usuario logueado desde NativeStorage
-  async obtenerUsuario() {
+  async ionViewWillEnter() {
+    await this.validarSiEstaEnCarrito();
+  }
+
+  ngOnInit() {
+    this.bd.dbState().subscribe(async (data) => {
+      if (data) {
+        this.validarSiEstaEnCarrito();
+      }
+    });
+  }
+
+  /// CARRITO SECCION
+  async verificarOCrearVenta() {
     try {
-      this.idusuario = await this.storage.getItem('Usuario_logueado');
-      console.log('Usuario logueado:', this.idusuario);
+      this.idUserLogged = await this.bd.obtenerIdUsuarioLogueado();
+      if (!this.idUserLogged) {
+        this.alertasService.presentAlert('Error', 'Debes estar logueado para añadir al carrito.');
+        return;
+      }
+  
+      const venta = await this.bd.verificarOCrearVenta(this.idUserLogged);
+      if (venta) {
+        this.idVentaActiva = venta;
+      } else {
+        this.idVentaActiva = await this.bd.crearVenta(this.idUserLogged);
+      }
     } catch (error) {
-      console.error('Error al obtener usuario logueado:', error);
+      console.error('Error al verificar o crear la venta:', error);
+      this.alertasService.presentAlert('Error', 'No se pudo verificar o crear la venta.');
     }
   }
 
-  // Agregar el monitor al carrito
   async agregarAlCarrito() {
+    await this.verificarOCrearVenta();
     try {
-      // Llamar al servicio para agregar al carrito
-      //await this.dbService.agregarACarrito(this.idusuario, this.idProducto, this.cantidad);
-      this.mostrarAlertaCarrito(); // Mostrar el toast de confirmación
+      if (!this.idVentaActiva) {
+        this.alertasService.presentAlert('Error', 'No se encontró una venta activa.');
+        return;
+      }
+      await this.validarSiEstaEnCarrito();
+      if (this.estaEnCarrito === true) {
+        return this.alertasService.presentAlert("ERROR", "EL PRODUCTO YA ESTÁ EN EL CARRITO");
+      }
+
+      await this.bd.agregarDetalleVenta(
+        this.idVentaActiva,
+        this.productoSolo.precio_prod,
+        this.productoSolo.id_producto
+      );
+      
+      await this.bd.preciofinal(this.idVentaActiva);
+      this.alertasService.presentAlert('Añadido al Carrito', 'El monitor fue añadido correctamente.');
     } catch (error) {
       console.error('Error al agregar al carrito:', error);
+      this.alertasService.presentAlert('Error', 'No se pudo añadir al carrito.');
     }
   }
 
-  // Mostrar un mensaje de confirmación (toast)
-  async mostrarAlertaCarrito() {
-    const toast = await this.toastController.create({
-      message: 'Monitor añadido al carrito.',
-      duration: 5000, // Duración del toast
-      position: 'bottom',
-      color: 'success',
-    });
-    toast.present();
+  async validarSiEstaEnCarrito() {
+    try {
+      this.estaEnCarrito = await this.bd.consultarProdsCarro(this.productoSolo.id_producto, this.idVentaActiva);
+    } catch (error) {
+      console.error('Error al verificar si el producto está en el carrito:', error);
+    }
   }
 }

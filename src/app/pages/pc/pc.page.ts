@@ -40,4 +40,13 @@ export class PcPage implements OnInit {
       this.router.navigate(['/detalle-producto'], navigationExtras);
     }
 
+    irpcSolo(x: any) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          pcVa: x
+        }
+      };
+      this.router.navigate(['/pc1'], navigationExtras);
+    }
+
 }
