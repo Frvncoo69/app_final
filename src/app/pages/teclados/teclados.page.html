@@ -9,10 +9,10 @@
       </ion-button>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/perfil']">
+      <ion-button [routerLink]="'/perfil'">
         <ion-icon slot="icon-only" name="person-outline"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/carrito']">
+      <ion-button [routerLink]="'/carrito'">
         <ion-icon name="bag-handle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -24,19 +24,19 @@
   <img style="border-radius: 15px;" class="banner-image" alt="tcpromo" src="assets/icon/tecladopromo.jpg"/>
   <ion-grid>
     <ion-row>
-        <!-- Teclado Dinámico -->
-        <ion-col size="6" *ngFor="let teclado of productosT">
-          <ion-card class="card-1">
-            <!-- Imagen dinámica -->
-            <ion-img [src]="teclado.foto_prod"></ion-img>
-            <ion-card-content>
-              <h6>{{teclado.nombre_prod}}</h6>
-              <p><b>{{teclado.stock_prod}}</b></p>
-              <p class="precio"><b>{{teclado.precio_prod}}</b></p>
-              <ion-button expand="block" color="primary" (click)="irtecladoSolo(teclado)">Ver Producto</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+      <!-- Teclado Dinámico -->
+      <ion-col size="6" *ngFor="let teclado of productosT">
+        <ion-card class="card-1">
+          <!-- Imagen dinámica -->
+          <ion-img [src]="teclado.foto_prod"></ion-img>
+          <ion-card-content>
+            <h6>{{teclado.nombre_prod}}</h6>
+            <p class="stock">Stock: {{teclado.stock_prod}}</p>
+            <p class="precio">$ {{teclado.precio_prod}}</p>
+            <ion-button expand="block" color="primary" (click)="irtecladoSolo(teclado)">Ver Producto</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

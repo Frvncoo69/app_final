@@ -1,16 +1,46 @@
+/* Fondo y estilo del Action Sheet */
+.custom-action-sheet {
+  --background: #004d74;
+  color: #ffffff;
+}
+
+.custom-action-sheet .action-sheet-button {
+  --background: #5fbded;
+  --color: #ffffff;
+  font-weight: bold;
+  padding: 12px;
+  margin: 4px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.custom-action-sheet .action-sheet-cancel {
+  --background: #f44;
+  --color: #ffffff;
+  font-weight: bold;
+  padding: 12px;
+  margin: 4px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Efectos al presionar o pasar el mouse */
+.custom-action-sheet .action-sheet-button:focus,
+.custom-action-sheet .action-sheet-button:hover,
+.custom-action-sheet .action-sheet-cancel:focus,
+.custom-action-sheet .action-sheet-cancel:hover {
+  opacity: 0.9;
+}
+
+/* Estilo específico para botones de Guardar Cambios y Cancelar */
 .custom-button {
   --background: #5fbded;
   --color: #ffffff;
   --border-radius: 4px;
   padding: 12px 20px;
   margin: 10px 0;
-}
-
-.custom-button-image {
-  --background: #5fbded;
-  --color: #ffffff;
-  --border-radius: 4px;
-  padding: 12px 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .custom-button-cancelar {
@@ -18,16 +48,25 @@
   --color: #ffffff;
   --border-radius: 4px;
   padding: 12px 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: center;
 }
 
-.custom-button:focus, .custom-button:hover {
-  --background: #5fbded;
+/* Efecto hover y focus para los botones personalizados */
+.custom-button:focus, 
+.custom-button:hover,
+.custom-button-cancelar:focus,
+.custom-button-cancelar:hover {
+  opacity: 0.9;
 }
 
+/* Fondo personalizado de la página */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
+/* Estilo de los elementos ion-item */
 ion-content ion-list, ion-content ion-item {
   background: transparent;
 }
@@ -37,6 +76,7 @@ ion-content ion-item {
   --ion-item-background: transparent;
 }
 
+/* Centrado de botones en contenedores específicos */
 .center-button-container {
   display: flex;
   justify-content: center;
@@ -51,20 +91,18 @@ ion-item.input-item {
   background-color: transparent;
 }
 
+/* Estilo para etiquetas de formulario */
 ion-label.form-label {
   color: #ffffff;
 }
 
+/* Estilos de cabecera */
 ion-header {
   --background: #004d74;
   color: #ffffff;
 }
 
-ion-button {
-  --background: #004d74;
-  --color: #ffffff;
-}
-
+/* Color para íconos */
 ion-icon {
   color: #ffffff;
 }

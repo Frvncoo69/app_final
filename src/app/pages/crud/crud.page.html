@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start"> 
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title style="text-align: center;">
@@ -8,7 +8,7 @@
         TECNO STORE
       </ion-button>
     </ion-title>
-    <ion-buttons slot="end"> 
+    <ion-buttons slot="end">
       <ion-button [routerLink]="'/perfil'">
         <ion-icon slot="icon-only" name="person-outline"></ion-icon>
       </ion-button>
@@ -20,11 +20,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="no-background">
- 
+  
+  <!-- Barra de búsqueda -->
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="filtrarProductos($event)"
+    placeholder="Buscar productos">
+  </ion-searchbar>
 
-  <!-- Botones para acceder a los CRUD -->
+  <!-- Botones para agregar productos en diferentes categorías -->
   <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-teclado'">
-    Agregar Teclados 
+    Agregar Teclados
   </ion-button>
 
   <ion-button expand="block" class="center-buttons button-margin custom-agregar-btn" [routerLink]="'/agregar-monitor'">
@@ -47,15 +53,8 @@
     Agregar PC Armado
   </ion-button>
 
-   <!-- Barra de búsqueda -->
-   <ion-searchbar
-   [(ngModel)]="searchTerm"
-   (ionInput)="filtrarProductos($event)"
-   placeholder="Buscar productos">
- </ion-searchbar>
-
-  <!-- Lista de productos -->
-  <ion-card *ngFor="let producto of productosFiltrados">
+  <!-- Tarjetas de productos -->
+  <ion-card *ngFor="let producto of productosFiltrados" class="product-card">
     <ion-thumbnail>
       <img [src]="producto.foto_prod" alt="Foto del producto">
     </ion-thumbnail>
@@ -66,12 +65,15 @@
     <ion-card-content>
       <p>Stock: {{ producto.stock_prod }}</p>
       <p>{{ producto.descripcion_prod }}</p>
-      <ion-button color="primary" (click)="irproductoSolo(producto)">Ver Producto</ion-button>
-      <ion-button color="primary" (click)="modificarProducto(producto)">Modificar</ion-button>
-      <ion-button color="danger" (click)="EliminarAlerta(producto.id_producto)">Eliminar</ion-button>
+      <div class="button-group">
+        <ion-button size="small" color="primary" class="modificar-btn" (click)="irproductoSolo(producto)">Ver</ion-button>
+        <ion-button size="small" color="primary" class="modificar-btn" (click)="modificarProducto(producto)">Modificar</ion-button>
+        <ion-button size="small" color="danger" (click)="EliminarAlerta(producto.id_producto)">Eliminar</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 
+  <!-- Mensaje de "No se encontraron productos" -->
   <ion-item *ngIf="productosFiltrados.length === 0">
     <ion-label>No se encontraron productos.</ion-label>
   </ion-item>

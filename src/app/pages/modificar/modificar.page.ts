@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ActionSheetController } from '@ionic/angular';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
 import { CamaraService } from 'src/app/services/camara.service';
 
@@ -22,6 +22,7 @@ export class ModificarPage implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
+    private actionSheetController: ActionSheetController, // Añadido ActionSheetController
     private serviceBD: ServiceBDService,
     private camaraService: CamaraService
   ) {}
@@ -40,35 +41,36 @@ export class ModificarPage implements OnInit {
     }
   }
 
+  // Cambiado de ToastController a ActionSheetController para opciones de captura de imagen
   async capturarImagen() {
-    try {
-      const action = await this.toastController.create({
-        header: 'Seleccione una opción',
-        buttons: [
-          {
-            text: 'Cámara',
-            handler: async () => {
-              const blobImage = await this.camaraService.takePhoto();
-              this.convertBlobToBase64(blobImage);
-            },
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Seleccione una opción',
+      buttons: [
+        {
+          text: 'Cámara',
+          handler: async () => {
+            const blobImage = await this.camaraService.takePhoto();
+            this.convertBlobToBase64(blobImage);
           },
-          {
-            text: 'Galería',
-            handler: async () => {
-              const blobImage = await this.camaraService.pickImage();
-              this.convertBlobToBase64(blobImage);
-            },
+          cssClass: 'action-sheet-button' // Clase CSS personalizada
+        },
+        {
+          text: 'Galería',
+          handler: async () => {
+            const blobImage = await this.camaraService.pickImage();
+            this.convertBlobToBase64(blobImage);
           },
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
-        ],
-      });
-      await action.present();
-    } catch (error) {
-      console.error('Error al capturar o seleccionar la imagen', error);
-    }
+          cssClass: 'action-sheet-button' // Clase CSS personalizada
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'action-sheet-cancel' // Clase CSS personalizada
+        }
+      ],
+      cssClass: 'custom-action-sheet' // Clase CSS para el contenedor
+    });
+    await actionSheet.present();
   }
 
   convertBlobToBase64(blob: Blob) {

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start"> 
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title style="text-align: center;">
@@ -8,11 +8,11 @@
         TECNO STORE
       </ion-button>
     </ion-title>
-    <ion-buttons slot="end"> 
-      <ion-button [routerLink]="['/perfil']">
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="'/perfil'">
         <ion-icon slot="icon-only" name="person-outline"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/carrito']">
+      <ion-button [routerLink]="'/carrito'">
         <ion-icon name="bag-handle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -31,8 +31,8 @@
           <ion-img [src]="monitor.foto_prod"></ion-img>
           <ion-card-content>
             <h6>{{monitor.nombre_prod}}</h6>
-            <p class="stock"><b>{{monitor.stock_prod}}</b></p>
-            <p class="precio"><b>{{monitor.precio_prod}}</b></p>
+            <p class="stock">Stock: {{monitor.stock_prod}}</p>
+            <p class="precio">$ {{monitor.precio_prod}}</p>
             <ion-button expand="block" color="primary" (click)="irmonitorSolo(monitor)">Ver Producto</ion-button>
           </ion-card-content>
         </ion-card>

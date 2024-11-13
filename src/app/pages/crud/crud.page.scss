@@ -12,7 +12,7 @@ ion-button.modificar-btn {
 
 /* Estilo para el botón "Eliminar" */
 ion-button[color="danger"] {
-  --background: #e03e3e !important; /* Color rojo para el botón de eliminar */
+  --background: #e03e3e !important;
   --color: #ffffff !important;
 }
 
@@ -33,34 +33,48 @@ ion-icon {
   color: #ffffff;
 }
 
-/* Estilo para el contenido */
+/* Fondo personalizado de la página */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
-/* Estilo para el contenido sin fondo */
+/* Sin fondo para el contenido */
 .no-background {
   --ion-background-color: transparent;
 }
 
-/* Estilo para el contenedor de botones centrados */
+/* Centrado y márgenes de botones */
 .center-buttons {
   display: flex;
   justify-content: center;
   margin: 16px 0;
 }
 
-/* Estilo para el margen de los botones */
 .button-margin {
   margin: 16px;
 }
 
-/* Estilo para las tarjetas de color blanco */
-ion-card.card-1,
-ion-card.card-2,
-ion-card.card-3,
-ion-card.card-4,
-ion-card.card-5,
-ion-card.card-6 {
+/* Estilo para las tarjetas de productos */
+.product-card {
   background-color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 16px;
+  padding: 16px;
+}
+
+/* Grupo de botones en las tarjetas */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Tamaño reducido para los botones en las tarjetas */
+.button-group ion-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  font-size: 14px;
 }
