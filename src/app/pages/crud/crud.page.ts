@@ -10,8 +10,14 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
 })
 export class CrudPage implements OnInit {
   productos: any[] = []; // Arreglo para almacenar los productos
+  productosFiltrados: any[] = []; // Arreglo para almacenar los productos filtrados
+  searchTerm: string = ''; // Término de búsqueda
 
-  constructor(private alertController: AlertController, private serviceBD: ServiceBDService, private router: Router) { }
+  constructor(
+    private alertController: AlertController, 
+    private serviceBD: ServiceBDService, 
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.cargarProductos(); // Cargar productos al inicializar
@@ -25,9 +31,18 @@ export class CrudPage implements OnInit {
   cargarProductos() {
     this.serviceBD.seleccionarProductos().then((productos) => {
       this.productos = productos;
+      this.productosFiltrados = productos; // Inicialmente, muestra todos los productos
     }).catch((error) => {
       console.error('Error al cargar los productos:', error);
     });
+  }
+
+  // Función para filtrar productos en base al término de búsqueda
+  filtrarProductos(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.productosFiltrados = this.productos.filter(producto =>
+      producto.nombre_prod.toLowerCase().includes(query)
+    );
   }
 
   // Función para mostrar la alerta de confirmación y eliminar el producto
@@ -56,6 +71,7 @@ export class CrudPage implements OnInit {
   eliminarProducto(id_producto: string) {
     this.serviceBD.eliminarProducto(id_producto).then(() => {
       this.productos = this.productos.filter(producto => producto.id_producto !== id_producto);
+      this.productosFiltrados = this.productosFiltrados.filter(producto => producto.id_producto !== id_producto);
     }).catch((error) => {
       console.error('Error al eliminar el producto:', error);
     });
