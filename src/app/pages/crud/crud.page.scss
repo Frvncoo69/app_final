@@ -36,6 +36,7 @@ ion-icon {
 /* Fondo personalizado de la página */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  background-blend-mode: darken;
 }
 
 /* Sin fondo para el contenido */
@@ -77,4 +78,23 @@ ion-content {
   --padding-top: 4px;
   --padding-bottom: 4px;
   font-size: 14px;
+}
+
+/* Contenedor para centrar la barra de búsqueda */
+.searchbar-container {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px; /* Espacio a los lados para evitar que se desborde */
+  margin-top: 16px;
+}
+
+/* Ajustes para la barra de búsqueda */
+ion-searchbar {
+  --background: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+  --color: #004d74; /* Color del texto de búsqueda */
+  --placeholder-color: #004d74; /* Color del texto de marcador de posición */
+  --icon-color: #004d74; /* Color del icono de búsqueda */
+  width: 100%; /* Para ocupar todo el ancho disponible dentro del contenedor */
+  max-width: 600px; /* Límite de ancho máximo para que no sea demasiado ancha en pantallas grandes */
+  border-radius: 8px;
 }

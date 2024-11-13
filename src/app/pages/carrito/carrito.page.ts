@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -23,6 +24,7 @@ export class CarritoPage implements OnInit {
   constructor(
     private alertasService: AlertasService,
     private bd: ServiceBDService,
+    private router: Router,
     private cd: ChangeDetectorRef // Detecta cambios manualmente si es necesario
   ) {}
 
@@ -188,15 +190,31 @@ export class CarritoPage implements OnInit {
   }
 
 
-  async COMPRAAAAR(){
-    await this.RestarStockAlComprar();
-    const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
-    await this.bd.confirmarCompra(this.idVentaActiva, idUsuario, this.totalVENTA);
-    //await this.bd.ActualizarStock();
-    await this.actualizarPrecioTotal();  // Actualizamos el total.
-    await this.cargarProductos();
-  }
+  async COMPRAAAAR() {
+    // Muestra el mensaje de confirmación usando AlertasService
+    await this.alertasService.presentAlert('Compra realizada', 'La compra está realizada, ya puedes retirar en tienda.');
 
-  
+    if (this.idVentaActiva) {
+        // Obtener los productos en el carrito
+        const productosEnCarrito = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
+
+        // Llama a restarStock para cada producto en el carrito
+        for (let producto of productosEnCarrito) {
+            await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
+        }
+
+        // Vacía el carrito después de reducir el stock
+        await this.bd.vaciarCarrito(this.idVentaActiva);
+    }
+
+    // Redirige al usuario al inicio después de mostrar la alerta
+    this.router.navigate(['/home']);
+}
+
+
+
+
+
+
 }
 

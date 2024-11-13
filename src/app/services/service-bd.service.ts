@@ -109,7 +109,7 @@ export class ServiceBDService {
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore58.db',
+        name: 'tecnostore59.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -1082,6 +1082,19 @@ export class ServiceBDService {
       reader.readAsDataURL(blob);
     });
   }
+
+//vaciar carrito 
+async vaciarCarrito(idVenta: number): Promise<void> {
+  const query = `DELETE FROM detalle WHERE id_venta = ?`;
+  try {
+      await this.database.executeSql(query, [idVenta]);
+      console.log('Carrito vaciado después de la compra.');
+  } catch (error) {
+      console.error('Error al vaciar el carrito:', error);
+      throw error;
+  }
+}
+
 
 
 
