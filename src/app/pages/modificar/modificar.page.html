@@ -20,6 +20,7 @@
 <ion-content [fullscreen]="true" class="no-background">
   <ion-card>
     <ion-card-content>
+      
       <ion-item>
         <ion-label>Categoria:</ion-label>
         <ion-input type="text" [(ngModel)]="categoria"></ion-input>
@@ -42,17 +43,24 @@
 
       <ion-item>
         <ion-label>Descripción:</ion-label>
-        <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
+        <ion-textarea [(ngModel)]="descripcion"></ion-textarea>
       </ion-item>
 
+      <!-- Botón para capturar o seleccionar una imagen desde la cámara o galería -->
       <ion-item>
         <ion-label>Imagen:</ion-label>
-        <ion-input type="text" [(ngModel)]="imagen"></ion-input>
+        <ion-button expand="block" color="primary" (click)="capturarImagen()">Tomar o Seleccionar Foto</ion-button>
       </ion-item>
+
+      <!-- Vista previa de la imagen seleccionada -->
+      <ion-thumbnail *ngIf="imagen" class="ion-margin-top">
+        <img [src]="imagen" alt="Vista previa de la imagen">
+      </ion-thumbnail>
 
       <!-- Botones para guardar cambios o cancelar -->
       <ion-button expand="block" color="success" (click)="guardarCambios()">Guardar Cambios</ion-button>
       <ion-button expand="block" color="warning" [routerLink]="'/crud'">Cancelar</ion-button>
+    
     </ion-card-content>
   </ion-card>
 </ion-content>
