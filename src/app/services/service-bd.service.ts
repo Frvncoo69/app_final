@@ -109,7 +109,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore57.db',
+        name: 'tecnostore58.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -187,6 +187,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
         }
       }
       this.listadoUsuarios.next(items as any);
+      return items;
     });
   }
 

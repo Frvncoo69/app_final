@@ -208,9 +208,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/consola-detalle/consola-detalle.module').then( m => m.ConsolaDetallePageModule)
   },
   {
+    path: 'listarusuarios',
+    loadChildren: () => import('./pages/listarusuarios/listarusuarios.module').then( m => m.ListarusuariosPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+
   
 
 
