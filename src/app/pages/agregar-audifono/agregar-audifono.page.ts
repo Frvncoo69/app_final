@@ -17,6 +17,8 @@ export class AgregarAudifonoPage {
     imagen: null as Blob | null,
   };
 
+  imagenVistaPrevia: string | null = null;  // URL para la vista previa de la imagen
+
   constructor(
     private serviceBDService: ServiceBDService,
     private camaraService: CamaraService,
@@ -26,6 +28,7 @@ export class AgregarAudifonoPage {
   async capturarFoto() {
     try {
       this.audifono.imagen = await this.camaraService.takePhoto();
+      this.imagenVistaPrevia = URL.createObjectURL(this.audifono.imagen);
       console.log('Imagen capturada como Blob:', this.audifono.imagen);
     } catch (error) {
       console.error('Error al capturar la imagen:', error);
@@ -35,6 +38,7 @@ export class AgregarAudifonoPage {
   async seleccionarImagen() {
     try {
       this.audifono.imagen = await this.camaraService.pickImage();
+      this.imagenVistaPrevia = URL.createObjectURL(this.audifono.imagen);
       console.log('Imagen seleccionada como Blob:', this.audifono.imagen);
     } catch (error) {
       console.error('Error al seleccionar la imagen:', error);
@@ -42,7 +46,7 @@ export class AgregarAudifonoPage {
   }
 
   agregarAudifono() {
-    const categoriaId = 3; // Suponiendo que 5 es la categoría de audífonos
+    const categoriaId = 3;
 
     if (!this.audifono.imagen) {
       console.error('Error: La imagen no está definida.');
@@ -57,7 +61,7 @@ export class AgregarAudifonoPage {
       this.audifono.imagen,
       categoriaId
     ).then(() => {
-      this.router.navigateByUrl('/crud'); // Redirige a la lista de audífonos
+      this.router.navigateByUrl('/crud');
     }).catch(error => {
       console.error('Error al agregar el audífono:', error);
     });

@@ -17,6 +17,8 @@ export class AgregarPCPage {
     imagen: null as Blob | null,
   };
 
+  imagenVistaPrevia: string | null = null;  // URL para la vista previa de la imagen
+
   constructor(
     private serviceBDService: ServiceBDService,
     private camaraService: CamaraService,
@@ -26,6 +28,7 @@ export class AgregarPCPage {
   async capturarFoto() {
     try {
       this.pc.imagen = await this.camaraService.takePhoto();
+      this.imagenVistaPrevia = URL.createObjectURL(this.pc.imagen);  // Genera la URL de vista previa
       console.log('Imagen capturada:', this.pc.imagen);
     } catch (error) {
       console.error('Error al capturar la foto:', error);
@@ -35,6 +38,7 @@ export class AgregarPCPage {
   async seleccionarImagen() {
     try {
       this.pc.imagen = await this.camaraService.pickImage();
+      this.imagenVistaPrevia = URL.createObjectURL(this.pc.imagen);  // Genera la URL de vista previa
       console.log('Imagen seleccionada:', this.pc.imagen);
     } catch (error) {
       console.error('Error al seleccionar la imagen:', error);

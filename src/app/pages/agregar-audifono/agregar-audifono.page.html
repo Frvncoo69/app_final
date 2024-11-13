@@ -29,6 +29,11 @@
     <ion-button expand="block" (click)="capturarFoto()">Capturar Foto</ion-button>
     <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
 
+    <!-- Vista previa de la imagen capturada o seleccionada -->
+    <ion-item *ngIf="imagenVistaPrevia">
+      <img [src]="imagenVistaPrevia" alt="Vista previa de la imagen" style="width: 100%; max-height: 300px; object-fit: contain;"/>
+    </ion-item>
+
     <ion-button type="submit" expand="block">Agregar Audífono</ion-button>
   </form>
 </ion-content>

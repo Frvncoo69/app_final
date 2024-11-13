@@ -17,6 +17,8 @@ export class AgregarMonitorPage {
     imagen: null as Blob | null,
   };
 
+  imagenVistaPrevia: string | null = null;  // URL para la vista previa de la imagen
+
   constructor(
     private serviceBDService: ServiceBDService,
     private camaraService: CamaraService,
@@ -26,6 +28,7 @@ export class AgregarMonitorPage {
   async capturarFoto() {
     try {
       this.monitor.imagen = await this.camaraService.takePhoto();
+      this.imagenVistaPrevia = URL.createObjectURL(this.monitor.imagen);
       console.log('Imagen capturada como Blob:', this.monitor.imagen);
     } catch (error) {
       console.error('Error al capturar la imagen:', error);
@@ -35,6 +38,7 @@ export class AgregarMonitorPage {
   async seleccionarImagen() {
     try {
       this.monitor.imagen = await this.camaraService.pickImage();
+      this.imagenVistaPrevia = URL.createObjectURL(this.monitor.imagen);
       console.log('Imagen seleccionada como Blob:', this.monitor.imagen);
     } catch (error) {
       console.error('Error al seleccionar la imagen:', error);
@@ -42,7 +46,7 @@ export class AgregarMonitorPage {
   }
 
   agregarMonitor() {
-    const categoriaId = 2; // Suponiendo que 4 es la categoría de monitores
+    const categoriaId = 2;
 
     if (!this.monitor.imagen) {
       console.error('Error: La imagen no está definida.');
@@ -57,7 +61,7 @@ export class AgregarMonitorPage {
       this.monitor.imagen,
       categoriaId
     ).then(() => {
-      this.router.navigateByUrl('/crud'); // Redirige a la lista de monitores
+      this.router.navigateByUrl('/crud');
     }).catch(error => {
       console.error('Error al agregar el monitor:', error);
     });

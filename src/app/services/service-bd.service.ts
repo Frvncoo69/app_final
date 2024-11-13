@@ -3,7 +3,7 @@ import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Producto } from './producto';
-import { Carritos } from './carritos'; 
+import { Carritos } from './carritos';
 import { Usuario } from './usuario';
 import { AlertasService } from './alertas.service';
 
@@ -15,27 +15,27 @@ export class ServiceBDService {
   public database!: SQLiteObject;
 
   // Variables de creación de Tablas
-tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu TEXT , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu TEXT , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
 
-tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
+  tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
-tablaEstado: string = "CREATE TABLE IF NOT EXISTS estado (id_estado INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(20) NOT NULL);";
+  tablaEstado: string = "CREATE TABLE IF NOT EXISTS estado (id_estado INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(20) NOT NULL);";
 
-tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta DATE NOT NULL, total_venta INTEGER NOT NULL, estado_retiro BOOLEAN NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
+  tablaVenta: string = "CREATE TABLE IF NOT EXISTS venta (id_venta INTEGER PRIMARY KEY AUTOINCREMENT, f_venta DATE NOT NULL, total_venta INTEGER NOT NULL, estado_retiro BOOLEAN NOT NULL, id_usu INTEGER NOT NULL, id_estado INTEGER NOT NULL, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_estado) REFERENCES estado(id_estado));";
 
-tablaProducto: string = "CREATE TABLE IF NOT EXISTS producto (id_producto INTEGER PRIMARY KEY AUTOINCREMENT, nombre_prod VARCHAR(50) NOT NULL, precio_prod INTEGER NOT NULL, stock_prod INTEGER NOT NULL, descripcion_prod VARCHAR(100) NOT NULL, foto_prod BLOB, estatus_prod BOOLEAN DEFAULT 1, id_categoria INTEGER NOT NULL, FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria));";
+  tablaProducto: string = "CREATE TABLE IF NOT EXISTS producto (id_producto INTEGER PRIMARY KEY AUTOINCREMENT, nombre_prod VARCHAR(50) NOT NULL, precio_prod INTEGER NOT NULL, stock_prod INTEGER NOT NULL, descripcion_prod VARCHAR(100) NOT NULL, foto_prod BLOB, estatus_prod BOOLEAN DEFAULT 1, id_categoria INTEGER NOT NULL, FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria));";
 
-tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad_d INTEGER NOT NULL, subtotal INTEGER NOT NULL, id_venta INTEGER NOT NULL, id_producto INTEGER NOT NULL, FOREIGN KEY (id_venta) REFERENCES venta(id_venta), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
+  tablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle (id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad_d INTEGER NOT NULL, subtotal INTEGER NOT NULL, id_venta INTEGER NOT NULL, id_producto INTEGER NOT NULL, FOREIGN KEY (id_venta) REFERENCES venta(id_venta), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
 
-tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY AUTOINCREMENT, nombre_cat VARCHAR(50) NOT NULL);";
+  tablaCategoria: string = "CREATE TABLE IF NOT EXISTS categoria (id_categoria INTEGER PRIMARY KEY AUTOINCREMENT, nombre_cat VARCHAR(50) NOT NULL);";
 
-tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito INTEGER PRIMARY KEY AUTOINCREMENT, id_usu INTEGER, id_producto INTEGER, cantidad INTEGER DEFAULT 1, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
+  tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito INTEGER PRIMARY KEY AUTOINCREMENT, id_usu INTEGER, id_producto INTEGER, cantidad INTEGER DEFAULT 1, FOREIGN KEY (id_usu) REFERENCES usuario(id_usu), FOREIGN KEY (id_producto) REFERENCES producto(id_producto));";
 
 
   //INSERT
   //estados de la venta
   estadoventa1: string = "INSERT OR IGNORE INTO estado (nombre) VALUES ('carrito');";
-  estadoventa2: string ="INSERT OR IGNORE INTO estado (nombre) VALUES ('retiro');"
+  estadoventa2: string = "INSERT OR IGNORE INTO estado (nombre) VALUES ('retiro');"
   rolUsuario1: string = "INSERT OR IGNORE INTO rol (nombre_rol) VALUES ('administrador');";
   rolUsuario2: string = "INSERT OR IGNORE INTO rol (nombre_rol) VALUES ('cliente');";
   registroUsuario: string = "INSERT OR IGNORE INTO usuario (rut_usu, nombre_usu, apellido_usu, nombre_usuario, clave_usu, correo_usu, token, foto_usu, estado_usu, loggeo, id_rol) VALUES ('11.234.567-8', 'Felipe', 'Chávez', 'admin', 'Admin@123.', 'chavezfelipe179@gmail.com', 0, null, 1, 0, 1);";
@@ -76,31 +76,31 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     await alert.present();
   }
 
-  fetchUsuario(): Observable<Usuario[]>{
+  fetchUsuario(): Observable<Usuario[]> {
     return this.listadoUsuarios.asObservable();
   }
 
-  fetchUsuarioConectado(): Observable<Usuario[]>{
+  fetchUsuarioConectado(): Observable<Usuario[]> {
     return this.listadoUsuarioConectado.asObservable();
   }
 
-  fetchCarrito(): Observable<Carritos[]>{
+  fetchCarrito(): Observable<Carritos[]> {
     return this.listadoCarrito.asObservable();
   }
 
 
-  fetchProductoPorCategoria():  Observable<Producto[]>{
+  fetchProductoPorCategoria(): Observable<Producto[]> {
     return this.listadoProductoPorCategoria.asObservable();
   }
 
-  fetchlistadoTeclados():  Observable<Producto[]>{
+  fetchlistadoTeclados(): Observable<Producto[]> {
     return this.listadoTeclados.asObservable();
   }
 
-  fetchlistadoproductoSolo(): Observable<Producto[]>{
+  fetchlistadoproductoSolo(): Observable<Producto[]> {
     return this.listadoproductoSolo.asObservable();
   }
-  
+
   dbState() {
     return this.isDBReady.asObservable();
   }
@@ -227,8 +227,8 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   obtenerIdUsuarioLogueado() {
     // Suponiendo que ya tienes una función que consulta el usuario logueado
     return this.database.executeSql('SELECT id_usu FROM usuario WHERE loggeo = ?', [1])
-        .then(res => res.rows.length > 0 ? res.rows.item(0).id_usu : null);
-}
+      .then(res => res.rows.length > 0 ? res.rows.item(0).id_usu : null);
+  }
 
   /////////////////////////////////////////////////////////7
 
@@ -258,7 +258,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     });
   }
 
-    
+
   // Insertar un usuario
   async insertarUsuario(rut: string, nombre: string, apellido: string, username: string, clave: string, correo: string, estado: string, id_rol: number): Promise<void> {
     const query = 'INSERT INTO usuario (rut_usu, nombre_usu, apellido_usu, nombre_usuario, clave_usu, correo_usu, estado_usu, id_rol, token, foto_usu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, NULL)';
@@ -286,7 +286,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
         return usuario;
       })
       .catch(e => {
-        console.log('Error al validar usuario:'+JSON.stringify(e));
+        console.log('Error al validar usuario:' + JSON.stringify(e));
         return null; // Manejo de errores
       });
   }
@@ -296,10 +296,10 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   async actualizarEstadoUsuario(correo_usu: any): Promise<void> {
     return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE correo_usu = ?', [1, correo_usu])
       .then(() => {
-        this.presentAlert("EXITO","estado cambiado");
+        this.presentAlert("EXITO", "estado cambiado");
       })
       .catch(e => {
-        this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
+        this.presentAlert("ERROR", "esta wea no prendio" + JSON.stringify(e));
       });
   }
 
@@ -307,29 +307,29 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
   async actualizarEstadoUsuario2(correo_usu: any): Promise<void> {
     return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE correo_usu = ?', [0, correo_usu])
       .then(() => {
-        this.presentAlert("EXITO","estado cambiado");
+        this.presentAlert("EXITO", "estado cambiado");
       })
       .catch(e => {
-        this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
+        this.presentAlert("ERROR", "esta wea no prendio" + JSON.stringify(e));
       });
   }
-    //cierra la sesion
-    async actualizarEstadoUsuario3(): Promise<void> {
-      return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE loggeo = 1', [0])
-        .then(() => {
-          this.presentAlert("EXITO","estado cambiado (cerrar sesiones)");
-        })
-        .catch(e => {
-          this.presentAlert("ERROR","esta wea no prendio" + JSON.stringify(e));
-        });
-    }
-  
+  //cierra la sesion
+  async actualizarEstadoUsuario3(): Promise<void> {
+    return this.database.executeSql('UPDATE usuario SET loggeo = ? WHERE loggeo = 1', [0])
+      .then(() => {
+        this.presentAlert("EXITO", "estado cambiado (cerrar sesiones)");
+      })
+      .catch(e => {
+        this.presentAlert("ERROR", "esta wea no prendio" + JSON.stringify(e));
+      });
+  }
+
 
 
   async consultarUsuariosPorEstadoConectado(): Promise<Usuario[]> {
     return this.database.executeSql('SELECT * FROM usuario WHERE loggeo = 1', []).then(res => {
       let itemsUPEC: Usuario[] = [];
-  
+
       if (res.rows.length > 0) {
         itemsUPEC.push(res.rows.item(0)); // Solo queremos el primer usuario conectado
       }
@@ -341,48 +341,48 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
 
 
   //obtiene al usuario logeado, (siempre sera 1)
-  
 
 
-    // Método para obtener un usuario por su correo
-    async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
-      const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
-      
-      try {
-        const result = await this.database.executeSql(query, [correo]);
-    
-        if (result.rows.length > 0) {
-          const usuario = result.rows.item(0);  // Obtenemos el primer registro
-          return usuario;  // Retorna el registro completo
-        } else {
-          return null;  // Si no se encuentra el usuario, retorna null
-        }
-      } catch (error) {
-        console.error('Error al obtener el usuario por correo:', error);
-        throw new Error('No se pudo obtener el usuario.');
+
+  // Método para obtener un usuario por su correo
+  async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
+    const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
+
+    try {
+      const result = await this.database.executeSql(query, [correo]);
+
+      if (result.rows.length > 0) {
+        const usuario = result.rows.item(0);  // Obtenemos el primer registro
+        return usuario;  // Retorna el registro completo
+      } else {
+        return null;  // Si no se encuentra el usuario, retorna null
       }
+    } catch (error) {
+      console.error('Error al obtener el usuario por correo:', error);
+      throw new Error('No se pudo obtener el usuario.');
     }
-    
+  }
 
-    async actualizarContrasena(id: number, nuevaContrasena: string): Promise<void> {
-      const query = 'UPDATE usuario SET clave_usu = ? WHERE id_usu = ?';
-      
-      try {
-        await this.database.executeSql(query, [nuevaContrasena, id]);
-      } catch (error) {
-        console.error('Error al actualizar la contraseña:', error);
-        throw new Error('No se pudo actualizar la contraseña.');
-      }
+
+  async actualizarContrasena(id: number, nuevaContrasena: string): Promise<void> {
+    const query = 'UPDATE usuario SET clave_usu = ? WHERE id_usu = ?';
+
+    try {
+      await this.database.executeSql(query, [nuevaContrasena, id]);
+    } catch (error) {
+      console.error('Error al actualizar la contraseña:', error);
+      throw new Error('No se pudo actualizar la contraseña.');
     }
-    
-  
+  }
+
+
 
   ////PRODUCTOS 
   async seleccionarProductosPorCategoria(id_categoria: number): Promise<Producto[]> { // Cambia el tipo de retorno a Promise<Producto[]>
     try {
       const res = await this.database.executeSql('SELECT * FROM producto WHERE id_categoria = ?', [id_categoria]);
       const items: Producto[] = [];
-  
+
       if (res.rows.length > 0) {
         for (let i = 0; i < res.rows.length; i++) {
           items.push({
@@ -397,14 +397,14 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
           });
         }
       }
-  
+
       return items; // Retorna el array de productos
     } catch (e) {
       console.error('Error al seleccionar productos por categoría:', JSON.stringify(e));
       return []; // Retorna un array vacío en caso de error
     }
   }
-  
+
   seleccionarProductoPorId(id: number) {
     return this.database.executeSql('SELECT * FROM producto WHERE id_producto = ?', [id]).then(res => {
       if (res.rows.length > 0) {
@@ -423,22 +423,22 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
       }
     });
   }
-  
-  
+
+
 
   // Seleccionar todos los productos
   seleccionarProductos() {
     return this.database.executeSql('SELECT * FROM producto', []).then(res => {
       let items: any[] = [];
       if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) {
+        for (let i = 0; i < res.rows.length; i++) {
           items.push({
             id_producto: res.rows.item(i).id_producto,
             nombre_prod: res.rows.item(i).nombre_prod,
             precio_prod: res.rows.item(i).precio_prod,
             stock_prod: res.rows.item(i).stock_prod,
             descripcion_prod: res.rows.item(i).descripcion_prod,
-            foto_prod: res.rows.item(i).foto_prod,
+            foto_prod: res.rows.item(i).foto_prod,  // Base64 de la imagen
             estatus_prod: res.rows.item(i).estatus_prod,
             id_categoria: res.rows.item(i).id_categoria
           });
@@ -447,6 +447,7 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
       return items;
     });
   }
+  
 
   // Selecciona todos los teclados
   seleccionarTeclados() {
@@ -470,123 +471,135 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     });
   }
 
-    // Selecciona todos los Monitores
-    seleccionarMonitores() {
-      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 2', []).then(res => {
-        let itemsM: any[] = [];
-        if (res.rows.length > 0) {
-          for (var i = 0; i < res.rows.length; i++) {
-            itemsM.push({
-              id_producto: res.rows.item(i).id_producto,
-              nombre_prod: res.rows.item(i).nombre_prod,
-              precio_prod: res.rows.item(i).precio_prod,
-              stock_prod: res.rows.item(i).stock_prod,
-              descripcion_prod: res.rows.item(i).descripcion_prod,
-              foto_prod: res.rows.item(i).foto_prod,
-              estatus_prod: res.rows.item(i).estatus_prod,
-              id_categoria: res.rows.item(i).id_categoria
-            });
-          }
+  // Selecciona todos los Monitores
+  seleccionarMonitores() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 2', []).then(res => {
+      let itemsM: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsM.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
         }
-        return itemsM;
-      });
-    }
-
-     // Selecciona todos los Audifonos
-     seleccionarAudifonos() {
-      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 3', []).then(res => {
-        let itemsA: any[] = [];
-        if (res.rows.length > 0) {
-          for (var i = 0; i < res.rows.length; i++) {
-            itemsA.push({
-              id_producto: res.rows.item(i).id_producto,
-              nombre_prod: res.rows.item(i).nombre_prod,
-              precio_prod: res.rows.item(i).precio_prod,
-              stock_prod: res.rows.item(i).stock_prod,
-              descripcion_prod: res.rows.item(i).descripcion_prod,
-              foto_prod: res.rows.item(i).foto_prod,
-              estatus_prod: res.rows.item(i).estatus_prod,
-              id_categoria: res.rows.item(i).id_categoria
-            });
-          }
-        }
-        return itemsA;
-      });
-    }
-
-     // Selecciona todos los Mouses
-     seleccionarMouse() {
-      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 4', []).then(res => {
-        let itemsMo: any[] = [];
-        if (res.rows.length > 0) {
-          for (var i = 0; i < res.rows.length; i++) {
-            itemsMo.push({
-              id_producto: res.rows.item(i).id_producto,
-              nombre_prod: res.rows.item(i).nombre_prod,
-              precio_prod: res.rows.item(i).precio_prod,
-              stock_prod: res.rows.item(i).stock_prod,
-              descripcion_prod: res.rows.item(i).descripcion_prod,
-              foto_prod: res.rows.item(i).foto_prod,
-              estatus_prod: res.rows.item(i).estatus_prod,
-              id_categoria: res.rows.item(i).id_categoria
-            });
-          }
-        }
-        return itemsMo;
-      });
-    }
-
-     // Selecciona todos las Sillas
-     seleccionarSillas() {
-      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 5', []).then(res => {
-        let itemsS: any[] = [];
-        if (res.rows.length > 0) {
-          for (var i = 0; i < res.rows.length; i++) {
-            itemsS.push({
-              id_producto: res.rows.item(i).id_producto,
-              nombre_prod: res.rows.item(i).nombre_prod,
-              precio_prod: res.rows.item(i).precio_prod,
-              stock_prod: res.rows.item(i).stock_prod,
-              descripcion_prod: res.rows.item(i).descripcion_prod,
-              foto_prod: res.rows.item(i).foto_prod,
-              estatus_prod: res.rows.item(i).estatus_prod,
-              id_categoria: res.rows.item(i).id_categoria
-            });
-          }
-        }
-        return itemsS;
-      });
-    }
-
-     // Selecciona todos los PC
-     seleccionarPC() {
-      return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 6', []).then(res => {
-        let itemsP: any[] = [];
-        if (res.rows.length > 0) {
-          for (var i = 0; i < res.rows.length; i++) {
-            itemsP.push({
-              id_producto: res.rows.item(i).id_producto,
-              nombre_prod: res.rows.item(i).nombre_prod,
-              precio_prod: res.rows.item(i).precio_prod,
-              stock_prod: res.rows.item(i).stock_prod,
-              descripcion_prod: res.rows.item(i).descripcion_prod,
-              foto_prod: res.rows.item(i).foto_prod,
-              estatus_prod: res.rows.item(i).estatus_prod,
-              id_categoria: res.rows.item(i).id_categoria
-            });
-          }
-        }
-        return itemsP;
-      });
-    }
-  // Agregar un producto
-  agregarProducto(nombre: string, precio: number, stock: number, descripcion: string, foto: Blob, id_categoria: number) {
-    return this.database.executeSql('INSERT INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)', [nombre, precio, stock, descripcion, foto, 'disponible', id_categoria]).then(res => {
-      this.presentAlert("Agregar Producto", "Producto agregado");
-      this.seleccionarProductos();
-    }).catch(e => {
-      this.presentAlert('Agregar Producto', 'Error: ' + JSON.stringify(e));
+      }
+      return itemsM;
     });
+  }
+
+  // Selecciona todos los Audifonos
+  seleccionarAudifonos() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 3', []).then(res => {
+      let itemsA: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsA.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
+        }
+      }
+      return itemsA;
+    });
+  }
+
+  // Selecciona todos los Mouses
+  seleccionarMouse() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 4', []).then(res => {
+      let itemsMo: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsMo.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
+        }
+      }
+      return itemsMo;
+    });
+  }
+
+  // Selecciona todos las Sillas
+  seleccionarSillas() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 5', []).then(res => {
+      let itemsS: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsS.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
+        }
+      }
+      return itemsS;
+    });
+  }
+
+  // Selecciona todos los PC
+  seleccionarPC() {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_categoria = 6', []).then(res => {
+      let itemsP: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          itemsP.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod,
+            estatus_prod: res.rows.item(i).estatus_prod,
+            id_categoria: res.rows.item(i).id_categoria
+          });
+        }
+      }
+      return itemsP;
+    });
+  }
+  // Agregar un producto
+  async agregarProducto(
+    nombre: string,
+    precio: number,
+    stock: number,
+    descripcion: string,
+    foto: Blob,
+    id_categoria: number
+  ) {
+    try {
+      const fotoBase64 = await this.convertBlobToBase64(foto); // Convertir Blob a Base64
+      await this.database.executeSql(
+        'INSERT INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [nombre, precio, stock, descripcion, fotoBase64, 'disponible', id_categoria]
+      );
+      this.presentAlert('Agregar Producto', 'Producto agregado');
+      this.seleccionarProductos();
+    } catch (e) {
+      this.presentAlert('Agregar Producto', 'Error: ' + JSON.stringify(e));
+    }
   }
 
   // Eliminar un producto
@@ -599,76 +612,76 @@ tablaCarrito: string = "CREATE TABLE IF NOT EXISTS carrito (id_articulo_carrito 
     });
   }
 
-// Método para obtener un producto por su ID
-obtenerProductoPorId(id: string) {
-  return this.database.executeSql('SELECT * FROM producto WHERE id_producto = ?', [id])
-    .then(res => {
-      if (res.rows.length > 0) {
-        return {
-          id_producto: res.rows.item(0).id_producto, // ID del producto
-          nombre_prod: res.rows.item(0).nombre_prod,
-          precio_prod: res.rows.item(0).precio_prod,
-          stock_prod: res.rows.item(0).stock_prod,
-          descripcion_prod: res.rows.item(0).descripcion_prod,
-          foto_prod: res.rows.item(0).foto_prod // Imagen del producto
-        };
-      }
-      return null;
-    });
-}
-
-obtenerTodosLosProductos() {
-  return this.database.executeSql('SELECT * FROM producto', [])
-    .then(res => {
-      const productos = [];
-      for (let i = 0; i < res.rows.length; i++) {
-        productos.push({
-          id_producto: res.rows.item(i).id_producto,
-          nombre_prod: res.rows.item(i).nombre_prod,
-          precio_prod: res.rows.item(i).precio_prod,
-          stock_prod: res.rows.item(i).stock_prod,
-          descripcion_prod: res.rows.item(i).descripcion_prod,
-          foto_prod: res.rows.item(i).foto_prod
-        });
-      }
-      return productos;
-    }).catch(error => {
-      console.error('Error al obtener productos:', error);
-      return [];
-    });
-}
-
-async obtenerIdCategoriaTeclados(): Promise<number> {
-  const res = await this.database.executeSql('SELECT id_categoria FROM categoria WHERE nombre_cat = ?', ['Teclados']);
-  if (res.rows.length > 0) {
-    return res.rows.item(0).id_categoria;
+  // Método para obtener un producto por su ID
+  obtenerProductoPorId(id: string) {
+    return this.database.executeSql('SELECT * FROM producto WHERE id_producto = ?', [id])
+      .then(res => {
+        if (res.rows.length > 0) {
+          return {
+            id_producto: res.rows.item(0).id_producto, // ID del producto
+            nombre_prod: res.rows.item(0).nombre_prod,
+            precio_prod: res.rows.item(0).precio_prod,
+            stock_prod: res.rows.item(0).stock_prod,
+            descripcion_prod: res.rows.item(0).descripcion_prod,
+            foto_prod: res.rows.item(0).foto_prod // Imagen del producto
+          };
+        }
+        return null;
+      });
   }
-  throw new Error('Categoría no encontrada');
-}
 
-async obtenerProductosTeclados() {
-  try {
-    const idCategoriaTeclados = await this.obtenerIdCategoriaTeclados();
-    return await this.seleccionarTeclados(); // Ahora retornará los productos
-  } catch (error) {
-    console.error('Error al obtener productos de la categoría Teclados:', error);
-    return []; // Retorna un array vacío en caso de error
+  obtenerTodosLosProductos() {
+    return this.database.executeSql('SELECT * FROM producto', [])
+      .then(res => {
+        const productos = [];
+        for (let i = 0; i < res.rows.length; i++) {
+          productos.push({
+            id_producto: res.rows.item(i).id_producto,
+            nombre_prod: res.rows.item(i).nombre_prod,
+            precio_prod: res.rows.item(i).precio_prod,
+            stock_prod: res.rows.item(i).stock_prod,
+            descripcion_prod: res.rows.item(i).descripcion_prod,
+            foto_prod: res.rows.item(i).foto_prod
+          });
+        }
+        return productos;
+      }).catch(error => {
+        console.error('Error al obtener productos:', error);
+        return [];
+      });
   }
-}
+
+  async obtenerIdCategoriaTeclados(): Promise<number> {
+    const res = await this.database.executeSql('SELECT id_categoria FROM categoria WHERE nombre_cat = ?', ['Teclados']);
+    if (res.rows.length > 0) {
+      return res.rows.item(0).id_categoria;
+    }
+    throw new Error('Categoría no encontrada');
+  }
+
+  async obtenerProductosTeclados() {
+    try {
+      const idCategoriaTeclados = await this.obtenerIdCategoriaTeclados();
+      return await this.seleccionarTeclados(); // Ahora retornará los productos
+    } catch (error) {
+      console.error('Error al obtener productos de la categoría Teclados:', error);
+      return []; // Retorna un array vacío en caso de error
+    }
+  }
 
 
-async modificarProducto(id: number, nombre: string, precio: number, stock: number, descripcion: string, imagen: Blob | string) {
-  return this.database.executeSql(
-    'UPDATE producto SET nombre_prod = ?, precio_prod = ?, stock_prod = ?, descripcion_prod = ?, foto_prod = ? WHERE id_producto = ?',
-    [nombre, precio, stock, descripcion, imagen, id]
-  ).then(res => {
-    console.log('Producto modificado correctamente');
-    this.seleccionarProductos(); // Actualiza la lista de productos
-  }).catch(e => {
-    console.error('Error al modificar el producto:', e);
-    throw e;
-  });
-}
+  async modificarProducto(id: number, nombre: string, precio: number, stock: number, descripcion: string, imagen: Blob | string) {
+    return this.database.executeSql(
+      'UPDATE producto SET nombre_prod = ?, precio_prod = ?, stock_prod = ?, descripcion_prod = ?, foto_prod = ? WHERE id_producto = ?',
+      [nombre, precio, stock, descripcion, imagen, id]
+    ).then(res => {
+      console.log('Producto modificado correctamente');
+      this.seleccionarProductos(); // Actualiza la lista de productos
+    }).catch(e => {
+      console.error('Error al modificar el producto:', e);
+      throw e;
+    });
+  }
 
 
   // Funciones para gestionar la foto de perfil
@@ -702,18 +715,18 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
     }
   }
 
-       
 
 
 
- ////////////////////////////////////
- 
-    // Método para actualizar la foto de perfil en la base de datos
-   // Método para obtener datos de usuario por ID, incluyendo la foto
-   // ServiceBDService.ts
-   async obtenerUsuarioPorId(idUsuario: number): Promise<any> {
+
+  ////////////////////////////////////
+
+  // Método para actualizar la foto de perfil en la base de datos
+  // Método para obtener datos de usuario por ID, incluyendo la foto
+  // ServiceBDService.ts
+  async obtenerUsuarioPorId(idUsuario: number): Promise<any> {
     const res = await this.database.executeSql('SELECT * FROM usuario WHERE id_usu = ?', [idUsuario]);
-    
+
     if (res.rows.length > 0) {
       const user = res.rows.item(0);
       return {
@@ -740,15 +753,15 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
   }
 
 
-  
 
 
- /////////////////////////////////CRUD CARRITO////////////////////////////////////
 
-    //listar todos los items de venta en el carrito, por usuario conectado
+  /////////////////////////////////CRUD CARRITO////////////////////////////////////
+
+  //listar todos los items de venta en el carrito, por usuario conectado
   //elparametro a usar es el id del usuario en sesion, de esta forma, se traeran los carros
   //de los usuarios conectados
-//listar todos los items de venta en el carrito, por usuario conectado
+  //listar todos los items de venta en el carrito, por usuario conectado
   //elparametro a usar es el id del usuario en sesion, de esta forma, se traeran los carros
   //de los usuarios conectados^
 
@@ -769,18 +782,18 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
       INNER JOIN venta v ON d.id_venta = v.id_venta
       WHERE d.id_venta = ?;
     `;
-  
+
     try {
       const res = await this.database.executeSql(query, [idVenta]);
       const itemsD: any[] = [];
-  
+
       for (let i = 0; i < res.rows.length; i++) {
         itemsD.push(res.rows.item(i));
       }
-  
+
       return itemsD;
     } catch (error) {
-      this.alertasService.presentAlert('Error al obtener los detalles de la venta:','errors: ' + JSON.stringify(error));
+      this.alertasService.presentAlert('Error al obtener los detalles de la venta:', 'errors: ' + JSON.stringify(error));
       return [];
     }
   }
@@ -793,10 +806,10 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
       FROM venta 
       WHERE id_usu = ? AND id_estado = 1;
     `;
-    
+
     try {
       const res = await this.database.executeSql(queryVerificar, [idUsuario]);
-      
+
       if (res.rows.length > 0) {
         const idVenta = res.rows.item(0).id_venta;
         console.log('Venta activa encontrada con ID:', idVenta);
@@ -810,24 +823,24 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
       throw error;  // Lanza el error para ser manejado en otro lugar
     }
   }
-  
+
   // Función para crear una nueva venta
   async crearVenta(idUsuario: number): Promise<number> {
     const queryCrear = `
       INSERT INTO venta (f_venta, total_venta, estado_retiro, id_usu, id_estado) 
       VALUES (?, ?, ?, ?, ?);
     `;
-  
+
     const fechaHoy = new Date();
     const año = fechaHoy.getFullYear();
     const mes = String(fechaHoy.getMonth() + 1).padStart(2, '0');  // Mes empieza en 0, por lo que sumamos 1
     const dia = String(fechaHoy.getDate()).padStart(2, '0');
     const hora = String(fechaHoy.getHours()).padStart(2, '0');
     const minutos = String(fechaHoy.getMinutes()).padStart(2, '0');
-  
+
     const fechaFormateada = `${año}-${mes}-${dia} ${hora}:${minutos}`;
     const params = [fechaFormateada, 0, 0, idUsuario, 1];  // Estado = 1
-  
+
     try {
       const res = await this.database.executeSql(queryCrear, params);
       console.log('Nueva venta creada con ID:', res.insertId);
@@ -843,10 +856,10 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
   //añadir al carrito
   async agregarDetalleVenta(idVenta: number, precio: number, idProducto: number): Promise<void> {
     const subtotal = precio * 1;  // Precio por la cantidad inicial de 1
-    const query =` 
+    const query = ` 
       INSERT INTO detalle (cantidad_d, subtotal, id_venta, id_producto) 
       VALUES (?, ?, ?, ?);`
-    ;
+      ;
     const params = [1, subtotal, idVenta, idProducto];
 
     try {
@@ -862,94 +875,94 @@ async modificarProducto(id: number, nombre: string, precio: number, stock: numbe
 
   async consultarProductoPorId(idProducto: any) {
     try {
-        const resp = await this.database.executeSql(
-            'SELECT id_producto, nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria FROM producto WHERE id_producto = ?',
-            [idProducto]
-        );
+      const resp = await this.database.executeSql(
+        'SELECT id_producto, nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus_prod, id_categoria FROM producto WHERE id_producto = ?',
+        [idProducto]
+      );
 
-        let itemsP: Producto[] = [];
-        if (resp.rows.length > 0) {
-            for (var i = 0; i < resp.rows.length; i++) {
-              itemsP.push({
-                    id_producto: resp.rows.item(i).id_producto,
-                    nombre_prod: resp.rows.item(i).nombre_prod,
-                    precio_prod: resp.rows.item(i).precio_prod,
-                    stock_prod: resp.rows.item(i).stock_prod,
-                    descripcion_prod: resp.rows.item(i).descripcion_prod,
-                    foto_prod: resp.rows.item(i).foto_prod,
-                    estatus_prod: resp.rows.item(i).estatus_prod,
-                    id_categoria: resp.rows.item(i).id_categoria,
-                });
-            }
+      let itemsP: Producto[] = [];
+      if (resp.rows.length > 0) {
+        for (var i = 0; i < resp.rows.length; i++) {
+          itemsP.push({
+            id_producto: resp.rows.item(i).id_producto,
+            nombre_prod: resp.rows.item(i).nombre_prod,
+            precio_prod: resp.rows.item(i).precio_prod,
+            stock_prod: resp.rows.item(i).stock_prod,
+            descripcion_prod: resp.rows.item(i).descripcion_prod,
+            foto_prod: resp.rows.item(i).foto_prod,
+            estatus_prod: resp.rows.item(i).estatus_prod,
+            id_categoria: resp.rows.item(i).id_categoria,
+          });
         }
-        return itemsP;
+      }
+      return itemsP;
     } catch (error) {
-        return null; // Retornar null en caso de error
+      return null; // Retornar null en caso de error
     }
-}
+  }
 
-async agregarCantidad(idVenta: any, idProducto: any): Promise<void> {
-  // Consulta el producto para verificar su stock
-  const productos = await this.consultarProductoPorId(idProducto);
-  
-  if (productos && productos.length > 0) {
-    const productoActual = productos[0];
-    const query = `
+  async agregarCantidad(idVenta: any, idProducto: any): Promise<void> {
+    // Consulta el producto para verificar su stock
+    const productos = await this.consultarProductoPorId(idProducto);
+
+    if (productos && productos.length > 0) {
+      const productoActual = productos[0];
+      const query = `
       UPDATE detalle 
       SET cantidad_d = MIN(cantidad_d + 1, ${productoActual.stock_prod})
       WHERE id_venta = ? AND id_producto = ?;
     `;
-    try {
-      await this.database.executeSql(query, [idVenta, idProducto]);
-    } catch (error) {
-      console.error('Error al agregar cantidad:', error);
-      throw error;
+      try {
+        await this.database.executeSql(query, [idVenta, idProducto]);
+      } catch (error) {
+        console.error('Error al agregar cantidad:', error);
+        throw error;
+      }
+    } else {
+      console.error("Producto no encontrado o error al consultar el stock.");
     }
-  } else {
-    console.error("Producto no encontrado o error al consultar el stock.");
   }
-}
 
 
-//restar stock
-async restarCantidad(idVenta: any, idProducto: any): Promise<void> {
-  const queryVerificar = `
+  //restar stock
+  async restarCantidad(idVenta: any, idProducto: any): Promise<void> {
+    const queryVerificar = `
     SELECT cantidad_d 
     FROM detalle 
     WHERE id_venta = ? AND id_producto = ?;
   `;
 
-  const queryRestar = `
+    const queryRestar = `
     UPDATE detalle 
     SET cantidad_d = cantidad_d - 1 
     WHERE id_venta = ? AND id_producto = ?;
   `;
 
-  const queryEliminar = `
+    const queryEliminar = `
     DELETE FROM detalle 
     WHERE id_venta = ? AND id_producto = ?;
   `;
 
-  try {
-    const res = await this.database.executeSql(queryVerificar, [idVenta, idProducto]);
-    if (res.rows.length > 0) {
-      const cantidad = res.rows.item(0).cantidad_d;
+    try {
+      const res = await this.database.executeSql(queryVerificar, [idVenta, idProducto]);
+      if (res.rows.length > 0) {
+        const cantidad = res.rows.item(0).cantidad_d;
 
-      if (cantidad > 1) {
-        await this.database.executeSql(queryRestar, [idVenta, idProducto]);
-      } else {
-        await this.database.executeSql(queryEliminar, [idVenta, idProducto]);
+        if (cantidad > 1) {
+          await this.database.executeSql(queryRestar, [idVenta, idProducto]);
+        } else {
+          await this.database.executeSql(queryEliminar, [idVenta, idProducto]);
+        }
       }
+    } catch (error) {
+      console.error('Error al restar cantidad:', error);
+      throw error;
     }
-  } catch (error) {
-    console.error('Error al restar cantidad:', error);
-    throw error;
   }
-}
 
-//ejecutar la venta
-async confirmarCompra(idVenta: any, idUser: any, total: any): Promise<void> {
-  const query = `
+  //ejecutar la venta
+  async confirmarCompra(idVenta: any, idUser: any, total: any): Promise<void> {
+    const query = `
     UPDATE venta 
     SET 
       total = ?,
@@ -957,19 +970,19 @@ async confirmarCompra(idVenta: any, idUser: any, total: any): Promise<void> {
     WHERE id_venta = ?;
   `;
 
-  try {
-    await this.database.executeSql(query, [total,idVenta]);
-    this.alertasService.presentAlert("¡Compra Exitosa!","¡GRACIAS!");
-    await this.verificarOCrearVenta(idUser);
-  } catch (error) {
-    console.error('Error al confirmar la compra:', error);
-    throw error;
+    try {
+      await this.database.executeSql(query, [total, idVenta]);
+      this.alertasService.presentAlert("¡Compra Exitosa!", "¡GRACIAS!");
+      await this.verificarOCrearVenta(idUser);
+    } catch (error) {
+      console.error('Error al confirmar la compra:', error);
+      throw error;
+    }
   }
-}
 
-//eliminar antes de continuar la compra los productos sin stock
-async eliminarProductosSinStock(idVenta: number): Promise<void> {
-  const query = `
+  //eliminar antes de continuar la compra los productos sin stock
+  async eliminarProductosSinStock(idVenta: number): Promise<void> {
+    const query = `
     DELETE FROM detalle 
     WHERE id_venta = ? 
       AND (cantidad_d = 0 OR 
@@ -980,76 +993,85 @@ async eliminarProductosSinStock(idVenta: number): Promise<void> {
            ));
   `;
 
-  try {
-    await this.database.executeSql(query, [idVenta]);
-    console.log('Productos sin stock o no disponibles eliminados del carrito.');
-  } catch (error) {
-    console.error('Error al eliminar productos sin stock o no disponibles:', error);
-    throw error;
+    try {
+      await this.database.executeSql(query, [idVenta]);
+      console.log('Productos sin stock o no disponibles eliminados del carrito.');
+    } catch (error) {
+      console.error('Error al eliminar productos sin stock o no disponibles:', error);
+      throw error;
+    }
   }
-}
 
-//elimina los productos malos xd
-async eliminarProductoDelCarrito(idVenta: any, idProducto: any): Promise<void> {
-  const query = `DELETE FROM detalle WHERE id_venta = ? AND id_producto = ?`;
-  try {
-    await this.database.executeSql(query, [idVenta, idProducto]);
-  } catch (error) {
-    console.error('Error al eliminar producto del carrito:', error);
-    throw error;
+  //elimina los productos malos xd
+  async eliminarProductoDelCarrito(idVenta: any, idProducto: any): Promise<void> {
+    const query = `DELETE FROM detalle WHERE id_venta = ? AND id_producto = ?`;
+    try {
+      await this.database.executeSql(query, [idVenta, idProducto]);
+    } catch (error) {
+      console.error('Error al eliminar producto del carrito:', error);
+      throw error;
+    }
   }
-}
 
-async restarStock(idProducto: number, cantidad: number): Promise<void> {
-  const query = `
+  async restarStock(idProducto: number, cantidad: number): Promise<void> {
+    const query = `
     UPDATE producto 
     SET stock_prod = stock_prod - ? 
     WHERE id_producto = ?;
   `;
-  try {
-    await this.database.executeSql(query, [cantidad, idProducto]);
-    console.log(`Stock del producto ${idProducto} reducido en ${cantidad}`);
-  } catch (error) {
-    console.error(`Error al restar stock del producto ${idProducto}:`, error);
-    throw error;
+    try {
+      await this.database.executeSql(query, [cantidad, idProducto]);
+      console.log(`Stock del producto ${idProducto} reducido en ${cantidad}`);
+    } catch (error) {
+      console.error(`Error al restar stock del producto ${idProducto}:`, error);
+      throw error;
+    }
   }
-}
 
   ////////
 
-//calcular precio final 
-async preciofinal(idVenta: any): Promise<number> {
-  const query = `
+  //calcular precio final 
+  async preciofinal(idVenta: any): Promise<number> {
+    const query = `
     SELECT SUM(cantidad_d * subtotal) AS total 
     FROM detalle 
     WHERE id_venta = ?;
   `;
 
-  try {
-    const res = await this.database.executeSql(query, [idVenta]);
-    if (res.rows.length > 0 && res.rows.item(0).total != null) {
-      return res.rows.item(0).total;
+    try {
+      const res = await this.database.executeSql(query, [idVenta]);
+      if (res.rows.length > 0 && res.rows.item(0).total != null) {
+        return res.rows.item(0).total;
+      }
+      return 0;
+    } catch (error) {
+      console.error('Error al calcular el precio final:', error);
+      throw error;
     }
-    return 0;
-  } catch (error) {
-    console.error('Error al calcular el precio final:', error);
-    throw error;
   }
-}
 
-async consultarProdsCarro(id_producto: any, idVenta: any): Promise<boolean> {
-  try {
-    const query = 'SELECT * FROM detalle WHERE id_producto = ? AND id_venta = ?';
-    const data = await this.database.executeSql(query, [id_producto, idVenta]);
-    return data.rows.length > 0; // Devuelve true si encuentra el producto
-  } catch (error) {
-    console.error('Error al consultar el producto en el carrito:', error);
-    return false; // En caso de error, devolvemos false
+  async consultarProdsCarro(id_producto: any, idVenta: any): Promise<boolean> {
+    try {
+      const query = 'SELECT * FROM detalle WHERE id_producto = ? AND id_venta = ?';
+      const data = await this.database.executeSql(query, [id_producto, idVenta]);
+      return data.rows.length > 0; // Devuelve true si encuentra el producto
+    } catch (error) {
+      console.error('Error al consultar el producto en el carrito:', error);
+      return false; // En caso de error, devolvemos false
+    }
   }
-}
 
 
+  ////////////////////////////////////////
 
+  private async convertBlobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
 
 
 

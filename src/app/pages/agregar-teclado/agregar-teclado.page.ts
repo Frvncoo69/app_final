@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceBDService } from 'src/app/services/service-bd.service';  // Verifica que la ruta sea correcta
-import { CamaraService } from 'src/app/services/camara.service';  // Verifica que la ruta sea correcta
+import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { CamaraService } from 'src/app/services/camara.service';
 
 @Component({
   selector: 'app-agregar-teclado',
   templateUrl: './agregar-teclado.page.html',
   styleUrls: ['./agregar-teclado.page.scss'],
 })
-export class AgregarTecladoPage {  // <-- Verificación del nombre en mayúsculas
+export class AgregarTecladoPage {
   teclado = {
     nombre: '',
     precio: 0,
     stock: 0,
     descripcion: '',
-    imagen: null as Blob | null,  // Almacena la imagen como Blob o null
+    imagen: null as Blob | null,
   };
+
+  imagenVistaPrevia: string | null = null;  // URL para la vista previa de la imagen
 
   constructor(
     private serviceBDService: ServiceBDService,
@@ -27,6 +29,7 @@ export class AgregarTecladoPage {  // <-- Verificación del nombre en mayúscula
   async capturarFoto() {
     try {
       this.teclado.imagen = await this.camaraService.takePhoto();
+      this.imagenVistaPrevia = URL.createObjectURL(this.teclado.imagen);
       console.log('Imagen capturada como Blob:', this.teclado.imagen);
     } catch (error) {
       console.error('Error al capturar la imagen:', error);
@@ -37,6 +40,7 @@ export class AgregarTecladoPage {  // <-- Verificación del nombre en mayúscula
   async seleccionarImagen() {
     try {
       this.teclado.imagen = await this.camaraService.pickImage();
+      this.imagenVistaPrevia = URL.createObjectURL(this.teclado.imagen);
       console.log('Imagen seleccionada como Blob:', this.teclado.imagen);
     } catch (error) {
       console.error('Error al seleccionar la imagen:', error);
@@ -45,7 +49,7 @@ export class AgregarTecladoPage {  // <-- Verificación del nombre en mayúscula
 
   // Método para agregar el teclado con los datos ingresados
   agregarTeclado() {
-    const categoriaId = 1;  // Asumiendo que 9 es la categoría de teclados
+    const categoriaId = 1;
 
     if (!this.teclado.imagen) {
       console.error('Error: La imagen no está definida.');
@@ -57,10 +61,10 @@ export class AgregarTecladoPage {  // <-- Verificación del nombre en mayúscula
       this.teclado.precio,
       this.teclado.stock,
       this.teclado.descripcion,
-      this.teclado.imagen,  // Imagen en formato Blob
+      this.teclado.imagen,
       categoriaId
     ).then(() => {
-      this.router.navigateByUrl('/crud');  // Redirige a la lista de teclados
+      this.router.navigateByUrl('/crud');
     }).catch(error => {
       console.error('Error al agregar el teclado:', error);
     });
