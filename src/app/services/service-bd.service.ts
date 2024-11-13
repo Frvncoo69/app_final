@@ -249,7 +249,7 @@ export class ServiceBDService {
   }
 
   // Modificar un usuario
-  async modificarUsuario(id: string, nombre: string, apellido: string) {
+  async modificarUsuario(id: string, nombre: string, apellido: string, nombreUsuario: string, correo: string) {
     return this.database.executeSql('UPDATE usuario SET nombre_usu = ?, apellido_usu = ? WHERE id_usu = ?', [nombre, apellido, id]).then(res => {
       this.presentAlert("Modificar", "Usuario Modificado");
       this.seleccionarUsuarios();
@@ -257,6 +257,16 @@ export class ServiceBDService {
       this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
     });
   }
+
+  async obtenerUsuario() {
+    const query = 'SELECT * FROM usuario WHERE loggeo = 1 LIMIT 1';
+    const result = await this.database.executeSql(query, []);
+    if (result.rows.length > 0) {
+      return result.rows.item(0);
+    }
+    return null;
+  }
+
 
 
   // Insertar un usuario

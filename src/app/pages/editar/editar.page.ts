@@ -23,22 +23,36 @@ export class EditarPage implements OnInit {
     private dbService: ServiceBDService 
   ) { }
 
+  async ionViewWillEnter() {
+    this.cargarDatosUsuario(); // Cargar productos al inicializar
+  }
+
   ngOnInit() {
     this.cargarDatosUsuario(); 
   }
 
   async cargarDatosUsuario() {
-    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    this.rut = userData.rut;
-    this.nombre = userData.nombre;
-    this.apellido = userData.apellido;
-    this.correo = userData.correo;
-    this.nombreUsuario = userData.nombreUsuario; 
-    this.idUsuario = userData.id_usu; 
+    try {
+      const userData = await this.dbService.obtenerUsuario(); // Fetch from DB
+      if (userData) {
+        this.idUsuario = userData.id_usu;
+        this.rut = userData.rut_usu;
+        this.nombre = userData.nombre_usu;
+        this.apellido = userData.apellido_usu;
+        this.correo = userData.correo_usu;
+        this.nombreUsuario = userData.nombre_usuario;
+      }
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No se pudo cargar los datos del usuario.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
   async guardarCambios() {
-    // Validar que todos los campos estén llenos
     if (!this.nombre || !this.apellido || !this.nombreUsuario || !this.correo) {
       const alert = await this.alertController.create({
         header: 'Campos Vacíos',
@@ -49,21 +63,9 @@ export class EditarPage implements OnInit {
       return;
     }
 
-    // Actualizar usuario en la base de datos
     try {
-      await this.dbService.modificarUsuario(this.idUsuario, this.nombre, this.apellido); 
+      await this.dbService.modificarUsuario(this.idUsuario, this.nombre, this.apellido, this.nombreUsuario, this.correo); 
 
-      // Actualizar los datos en localStorage
-      localStorage.setItem('userData', JSON.stringify({
-        rut: this.rut,
-        nombre: this.nombre,
-        apellido: this.apellido,
-        correo: this.correo,
-        nombreUsuario: this.nombreUsuario,
-        id_usu: this.idUsuario 
-      }));
-
-      // Mostrar toast de éxito
       const toast = await this.toastController.create({
         message: 'Cambios realizados',
         duration: 5000,
@@ -71,7 +73,6 @@ export class EditarPage implements OnInit {
       });
       await toast.present();
 
-      // Redirigir a la página de perfil
       this.router.navigate(['/perfil']);
     } catch (error) {
       const alert = await this.alertController.create({
