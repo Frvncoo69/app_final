@@ -1,0 +1,64 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  /* Estilo del encabezado */
+  ion-header {
+    --background: #3880ff;
+  }
+  
+  ion-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Estilo de las tarjetas de retiro */
+  .retiro-card {
+    --ion-background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+  }
+  
+  ion-card-subtitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .retiro-card ion-card-content {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* QR Code container */
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .qr-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: 2px solid #3880ff;
+  }
+  
+  /* Mensaje sin pedidos */
+  .reseña-card {
+    --ion-background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .no-resenas-content {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: bold;
+  }
+  

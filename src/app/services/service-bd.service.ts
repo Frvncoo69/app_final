@@ -109,7 +109,7 @@ export class ServiceBDService {
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore59.db',
+        name: 'tecnostore65.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -973,22 +973,45 @@ export class ServiceBDService {
   //ejecutar la venta
   async confirmarCompra(idVenta: any, idUser: any, total: any): Promise<void> {
     const query = `
-    UPDATE venta 
-    SET 
-      total = ?,
-      id_estado = 2 
-    WHERE id_venta = ?;
-  `;
-
+      UPDATE venta 
+      SET 
+        total_venta = ?,
+        id_estado = 2  -- Estado "retiro"
+      WHERE id_venta = ?;
+    `;
+  
     try {
       await this.database.executeSql(query, [total, idVenta]);
       this.alertasService.presentAlert("¡Compra Exitosa!", "¡GRACIAS!");
+  
+      // Marca los productos de esta venta como listos para retiro
+      await this.marcarProductosParaRetiro(idVenta);
+      
+      // Crea una nueva venta activa para futuras compras
       await this.verificarOCrearVenta(idUser);
     } catch (error) {
       console.error('Error al confirmar la compra:', error);
       throw error;
     }
   }
+
+  async marcarProductosParaRetiro(idVenta: number): Promise<void> {
+    const query = `
+      UPDATE detalle
+      SET estado = 2 -- Estado "retiro" en detalle (si es necesario)
+      WHERE id_venta = ?;
+    `;
+  
+    try {
+      await this.database.executeSql(query, [idVenta]);
+      console.log(`Productos de la venta ${idVenta} marcados para retiro.`);
+    } catch (error) {
+      console.error('Error al marcar productos para retiro:', error);
+      throw error;
+    }
+  }
+  
+  
 
   //eliminar antes de continuar la compra los productos sin stock
   async eliminarProductosSinStock(idVenta: number): Promise<void> {
@@ -1094,6 +1117,63 @@ async vaciarCarrito(idVenta: number): Promise<void> {
       throw error;
   }
 }
+
+//////////////////////////////CRUD RETIROS////////////////////////////////////////
+
+async consultarRetiros(idU: any) {
+  const query = `
+    SELECT 
+      v.id_venta,
+      v.f_venta AS f_venta,
+      v.total_venta AS total_venta,
+      v.estado_retiro,
+      d.cantidad_d AS cantidad,  -- Alias para cantidad de productos en detalle
+      d.subtotal,
+      p.nombre_prod,
+      p.precio_prod,
+      p.foto_prod
+    FROM 
+      venta v
+    INNER JOIN 
+      detalle d ON d.id_venta = v.id_venta
+    INNER JOIN 
+      producto p ON d.id_producto = p.id_producto
+    WHERE 
+      v.id_estado = 2 AND v.id_usu = ?;
+  `;
+
+  try {
+    const res = await this.database.executeSql(query, [idU]);
+    let itemsV: any[] = [];
+
+    if (res.rows.length > 0) {
+      for (let i = 0; i < res.rows.length; i++) {
+        itemsV.push({
+          id_venta: res.rows.item(i).id_venta,
+          f_venta: res.rows.item(i).f_venta,
+          total_venta: res.rows.item(i).total_venta,
+          estado_retiro: res.rows.item(i).estado_retiro,
+          cantidad: res.rows.item(i).cantidad,
+          subtotal: res.rows.item(i).subtotal,
+          nombre_prod: res.rows.item(i).nombre_prod,
+          precio_prod: res.rows.item(i).precio_prod,
+          foto_prod: res.rows.item(i).foto_prod,
+        });
+      }
+    }
+
+    return itemsV;
+  } catch (error) {
+    console.error('Error al consultar retiros:', error);
+    throw error;
+  }
+}
+
+
+
+///////////////////////////////////////////////////
+
+
 
 
 

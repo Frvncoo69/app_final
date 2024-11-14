@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      <ion-button fill="clear" [routerLink]="['/home']">
+        TECNO STORE
+      </ion-button>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ng-container *ngIf="arregloVenta && arregloVenta.length > 0; else noPedidos">
+    <ion-card *ngFor="let retir of arregloVenta" class="retiro-card">
+      <ion-card-header>
+        <ion-card-subtitle>Monto Total: {{ retir.total_venta | currency }}</ion-card-subtitle>
+        <p>Fecha: {{ retir.f_venta | date: 'mediumDate' }}</p>
+        <p [ngStyle]="{ color: retir.estado_retiro === 0 ? 'green' : 'red', 'font-weight': 'bold' }">
+          {{ retir.estado_retiro === 0 ? 'Listo para retirar' : 'Producto retirado' }}
+        </p>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img [src]="retir.foto_prod" alt="Imagen del producto" />
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ retir.nombre_prod }}</h2>
+            <p>Precio: {{ retir.precio_prod | currency }}</p>
+            <p>Cantidad: {{ retir.cantidad }}</p>
+            <p>Subtotal: {{ retir.subtotal | currency }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #noPedidos>
+    <ion-card class="reseña-card">
+      <ion-card-content class="no-resenas-content">
+        <p>No has realizado ningún pedido aún.</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
+
