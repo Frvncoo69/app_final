@@ -1120,59 +1120,47 @@ async vaciarCarrito(idVenta: number): Promise<void> {
 
 //////////////////////////////CRUD RETIROS////////////////////////////////////////
 
-async consultarRetiros(idU: any) {
+async consultarRetiros(idUsuario: number): Promise<any[]> {
   const query = `
-    SELECT 
-      v.id_venta,
-      v.f_venta AS f_venta,
-      v.total_venta AS total_venta,
-      v.estado_retiro,
-      d.cantidad_d AS cantidad,  -- Alias para cantidad de productos en detalle
-      d.subtotal,
-      p.nombre_prod,
-      p.precio_prod,
-      p.foto_prod
-    FROM 
-      venta v
-    INNER JOIN 
-      detalle d ON d.id_venta = v.id_venta
-    INNER JOIN 
-      producto p ON d.id_producto = p.id_producto
-    WHERE 
-      v.id_estado = 2 AND v.id_usu = ?;
+    SELECT v.id_venta, v.f_venta, v.total_venta, v.estado_retiro, d.id_producto, d.cantidad_d, d.subtotal,
+           p.nombre_prod, p.precio_prod, p.foto_prod
+    FROM venta v
+    JOIN detalle d ON v.id_venta = d.id_venta
+    JOIN producto p ON d.id_producto = p.id_producto
+    WHERE v.id_usu = ?
   `;
-
-  try {
-    const res = await this.database.executeSql(query, [idU]);
-    let itemsV: any[] = [];
-
-    if (res.rows.length > 0) {
-      for (let i = 0; i < res.rows.length; i++) {
-        itemsV.push({
-          id_venta: res.rows.item(i).id_venta,
-          f_venta: res.rows.item(i).f_venta,
-          total_venta: res.rows.item(i).total_venta,
-          estado_retiro: res.rows.item(i).estado_retiro,
-          cantidad: res.rows.item(i).cantidad,
-          subtotal: res.rows.item(i).subtotal,
-          nombre_prod: res.rows.item(i).nombre_prod,
-          precio_prod: res.rows.item(i).precio_prod,
-          foto_prod: res.rows.item(i).foto_prod,
-        });
-      }
-    }
-
-    return itemsV;
-  } catch (error) {
-    console.error('Error al consultar retiros:', error);
-    throw error;
+  const result = await this.database.executeSql(query, [idUsuario]);
+  const retiros = [];
+  for (let i = 0; i < result.rows.length; i++) {
+    retiros.push(result.rows.item(i));
   }
+  return retiros;
 }
-
 
 
 ///////////////////////////////////////////////////
 
+
+
+// Registrar una nueva venta en la tabla `venta`
+async registrarVenta(idUsuario: number, totalVenta: number): Promise<number> {
+  const query = `
+    INSERT INTO venta (f_venta, total_venta, estado_retiro, id_usu, id_estado)
+    VALUES (date('now'), ?, 0, ?, ?)
+  `;
+  const idEstado = 1; // Cambia según el estado inicial que desees
+  const result = await this.database.executeSql(query, [totalVenta, idUsuario, idEstado]);
+  return result.insertId; // Retorna el ID de la venta recién creada
+}
+
+// Registrar un detalle de producto en la tabla `detalle`
+async registrarDetalle(idVenta: number, idProducto: number, cantidad: number, subtotal: number) {
+  const query = `
+    INSERT INTO detalle (id_venta, id_producto, cantidad_d, subtotal)
+    VALUES (?, ?, ?, ?)
+  `;
+  await this.database.executeSql(query, [idVenta, idProducto, cantidad, subtotal]);
+}
 
 
 

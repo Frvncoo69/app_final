@@ -8,20 +8,10 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
 })
 export class RetiroPage implements OnInit {
 
-  idUserLoggeao!: any;
+  idUserLoggeao!: number;
+  arregloVenta: any[] = [];
 
-  arregloVenta: any = [
-    {
-      id_venta: '',
-      f_venta: '',
-      total_venta: '',
-      estado_retiro: '',
-      id_usu: '',
-      id_estado: '',
-    }
-  ]
-
-  constructor(private bdService: ServiceBDService) { } // Inyección del servicio de alertas
+  constructor(private bdService: ServiceBDService) { }
 
   async ionViewWillEnter() {
     await this.cargarRetiros();
@@ -29,7 +19,7 @@ export class RetiroPage implements OnInit {
 
   async ngOnInit() {}
 
-  async cargarRetiros(){
+  async cargarRetiros() {
     this.idUserLoggeao = await this.bdService.obtenerIdUsuarioLogueado();
     this.arregloVenta = await this.bdService.consultarRetiros(this.idUserLoggeao);
   }

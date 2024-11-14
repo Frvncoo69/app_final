@@ -191,28 +191,33 @@ export class CarritoPage implements OnInit {
 
 
   async COMPRAAAAR() {
-    // Muestra el mensaje de confirmación usando AlertasService
     await this.alertasService.presentAlert('Compra realizada', 'La compra está realizada, ya puedes retirar en tienda.');
-
-    if (this.idVentaActiva) {
-        // Obtener los productos en el carrito
-        const productosEnCarrito = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
-
-        // Llama a restarStock para cada producto en el carrito
-        for (let producto of productosEnCarrito) {
-            await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
-        }
-
-        // Vacía el carrito después de reducir el stock
-        await this.bd.vaciarCarrito(this.idVentaActiva);
+  
+    const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
+    const totalVenta = this.totalVENTA;
+  
+    // Inserta una nueva venta en la tabla `venta`
+    const idVenta = await this.bd.registrarVenta(idUsuario, totalVenta);
+  
+    // Registrar el detalle de cada producto en la tabla `detalle`
+    for (const producto of this.productosDisponibles) {
+      await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
+      await this.bd.registrarDetalle(idVenta, producto.id_producto, producto.cantidad_d, producto.subtotal);
     }
-
-    // Redirige al usuario al inicio después de mostrar la alerta
+  
+    // Verificar que `idVentaActiva` no sea null antes de usarla
+    if (this.idVentaActiva !== null) {
+      // Vacía el carrito después de registrar los productos
+      await this.bd.vaciarCarrito(this.idVentaActiva);
+    } else {
+      console.error('Error: idVentaActiva es null y no se puede usar en vaciarCarrito.');
+    }
+  
+    // Redirige al usuario al inicio después de la compra
     this.router.navigate(['/home']);
-}
-
-
-
+  }
+  
+  
 
 
 
