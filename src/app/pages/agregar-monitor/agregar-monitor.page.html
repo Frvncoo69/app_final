@@ -1,39 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Agregar Monitor</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Agregar Monitor</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <form (submit)="agregarMonitor()">
-    <ion-item>
-      <ion-label position="floating">Nombre del Monitor</ion-label>
-      <ion-input [(ngModel)]="monitor.nombre" name="nombre" required></ion-input>
-    </ion-item>
+    <ion-card>
+      <ion-card-content>
+        
+        <ion-item class="input-item">
+          <ion-label position="floating">Nombre del Monitor</ion-label>
+          <ion-input [(ngModel)]="monitor.nombre" name="nombre" required></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Precio</ion-label>
-      <ion-input [(ngModel)]="monitor.precio" type="number" name="precio" required></ion-input>
-    </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Precio</ion-label>
+          <ion-input [(ngModel)]="monitor.precio" type="number" name="precio" required></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Stock</ion-label>
-      <ion-input [(ngModel)]="monitor.stock" type="number" name="stock" required></ion-input>
-    </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Stock</ion-label>
+          <ion-input [(ngModel)]="monitor.stock" type="number" name="stock" required></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-textarea [(ngModel)]="monitor.descripcion" name="descripcion" required></ion-textarea>
-    </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="monitor.descripcion" name="descripcion" required></ion-textarea>
+        </ion-item>
 
-    <ion-button expand="block" (click)="capturarFoto()">Capturar Foto</ion-button>
-    <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+        <div class="button-group">
+          <ion-button expand="block" color="secondary" (click)="capturarFoto()">Capturar Foto</ion-button>
+          <ion-button expand="block" color="tertiary" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+        </div>
 
-    <!-- Vista previa de la imagen capturada o seleccionada -->
-    <ion-item *ngIf="imagenVistaPrevia">
-      <img [src]="imagenVistaPrevia" alt="Vista previa de la imagen" style="width: 100%; max-height: 300px; object-fit: contain;"/>
-    </ion-item>
+        <!-- Vista previa de la imagen capturada o seleccionada -->
+        <ion-card *ngIf="imagenVistaPrevia" class="imagen-preview-card">
+          <ion-img [src]="imagenVistaPrevia" alt="Vista previa de la imagen"></ion-img>
+        </ion-card>
 
-    <ion-button type="submit" expand="block">Agregar Monitor</ion-button>
+        <ion-button type="submit" expand="block" color="primary" class="submit-button">Agregar Monitor</ion-button>
+      </ion-card-content>
+    </ion-card>
   </form>
 </ion-content>
