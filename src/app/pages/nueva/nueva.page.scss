@@ -1,8 +1,9 @@
+/* Fondo del ion-content */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
-/* Centrar el contenido */
+/* Centrando el contenido */
 .content-center {
   display: flex;
   justify-content: center;
@@ -11,35 +12,50 @@ ion-content {
   padding: 16px;
 }
 
+/* Centrar el título TECNO STORE en el toolbar */
+.centered-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+}
+
 /* Estilos personalizados para la tarjeta */
 .custom-card {
-  background-color: #1e1e1e; /* Fondo negro sólido */
-  color: white; /* Texto blanco */
+  background-color: white; /* Fondo blanco */
+  color: black; /* Texto negro */
   padding: 20px; /* Espaciado interno */
-  border-radius: 10px; /* Borde redondeado */
+  border-radius: 0; /* Esquinas cuadradas */
   width: 100%; /* Ajuste del ancho */
   max-width: 400px; /* Limitar el ancho máximo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad */
-  margin: auto; /* Asegura que esté centrado */
-}
-
-/* Estilo general para los botones personalizados */
-.custom-button {
-  --background: #5fbded; /* Color celeste para el fondo del botón */
-  --color: #ffffff; /* Color blanco para el texto del botón */
-  --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
-  padding: 12px 20px; /* Ajusta el tamaño del botón para hacerlo más rectangular */
-  margin: 10px 0; /* Añade márgenes verticales */
-}
-
-/* Ajustes para que el label esté centrado y bien posicionado */
-.custom-label {
-  color: white; /* Texto blanco */
-  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  margin: auto; /* Centra la tarjeta */
   text-align: center;
-  margin-bottom: 12px;
+}
+
+/* Estilo general para el botón sin fondo y texto blanco */
+.custom-button {
+  background: none; /* Sin fondo */
+  color: white; /* Texto en color blanco */
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px;
+  margin: 10px 0; /* Márgenes verticales */
+  border: none; /* Sin bordes */
+  box-shadow: none; /* Elimina cualquier sombra */
+  text-align: center;
 }
 
 .custom-button:focus, .custom-button:hover {
-  --background: #5fbded; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
+  background: none; /* Sin fondo al hacer hover o foco */
+  color: white; /* Asegura que el texto permanezca blanco */
+}
+
+/* Ajustes para el label centrado y bien posicionado */
+.custom-label {
+  color: black; /* Texto negro */
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1rem;
 }

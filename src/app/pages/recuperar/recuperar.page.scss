@@ -2,92 +2,125 @@
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  justify-content: center;
+  padding: 16px;
 }
 
-/* Estilo de la tarjeta principal */
-.content-center {
-  background: rgba(255, 255, 255, 0.95); /* Fondo casi opaco para legibilidad */
-  border-radius: 15px;
-  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;
-  padding: 25px 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Título de la tarjeta */
-ion-card-title {
-  color: #004d74;
-  font-size: 1.8em;
+/* Centrando el título en el ion-toolbar */
+.title-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
-/* Estilo de texto de instrucciones */
-ion-label.ion-text-center {
-  font-size: 1.1em;
-  color: #333; /* Color negro para igualar al título */
-  margin-bottom: 20px;
-  display: block;
+/* Contenedor para centrar el ion-card */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-/* Estilo de los campos de entrada */
+/* Estilo del ion-card */
+ion-card {
+  max-width: 400px;
+  width: 100%;
+  background: white; /* Fondo blanco */
+  border-radius: 0; /* Esquinas cuadradas */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  text-align: center;
+  margin: 0 auto; /* Centra el ion-card horizontalmente */
+}
+
+/* Título del ion-card */
+ion-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000; /* Texto negro */
+  margin-bottom: 8px;
+}
+
+/* Etiqueta de texto */
+.label-negro {
+  color: #000; /* Texto negro */
+  display: block; /* Asegura que se muestre correctamente */
+  text-align: center;
+  font-size: 1rem; /* Ajusta el tamaño de la fuente */
+  margin-bottom: 12px;
+}
+
+/* Estilo de los ion-item */
 ion-item {
   --background: transparent;
-  --inner-padding-end: 0;
-  border-radius: 8px;
-  margin: 10px 0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: none;
+  margin: 8px 0;
 }
 
+/* Campo de entrada */
 ion-input {
-  color: #333;
-  padding: 8px 10px;
-  font-size: 1em;
+  --background: rgba(240, 240, 240, 1); /* Fondo claro */
+  --placeholder-color: #aaa;
+  border-radius: 4px; /* Esquinas ligeramente redondeadas */
+  padding: 8px 12px;
+  font-size: 0.95rem;
 }
 
-/* Estilo del botón personalizado */
+/* Botón sin fondo ni bordes, texto en blanco */
 .custom-button {
-  --background: #007bff; /* Azul moderno */
-  --color: #ffffff;
-  font-size: 1.1em;
+  background: none; /* Sin fondo */
+  color: white; /* Texto en color blanco */
+  font-size: 1rem;
   font-weight: bold;
-  border-radius: 8px;
   padding: 12px;
-  margin-top: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.3);
-  transition: background 0.3s ease;
-}
-
-.custom-button:focus,
-.custom-button:hover {
-  --background: #0056b3; /* Azul más oscuro en hover o focus */
-}
-
-/* Estilo del encabezado */
-ion-header {
-  --background: #004d74; /* Fondo azul oscuro */
-  color: #ffffff;
-}
-
-ion-title {
-  font-weight: bold;
-  font-size: 1.4em;
-}
-
-/* Alineación central del contenido */
-.content-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 8px 0;
+  border: none; /* Sin bordes */
+  box-shadow: none; /* Elimina cualquier sombra */
   text-align: center;
+}
+
+.custom-button:hover {
+  background: none; /* Sin efecto de hover */
+}
+
+/* Pregunta de seguridad y campo de respuesta alineados */
+.pregunta-seguridad {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.pregunta-seguridad ion-label {
+  display: block;
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.pregunta-seguridad ion-item {
+  --background: rgba(240, 240, 240, 1);
+  border-radius: 4px;
+}
+
+/* Adaptabilidad a dispositivos móviles */
+@media (max-width: 768px) {
+  ion-card {
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  ion-card-title {
+    font-size: 1.25rem;
+  }
+
+  .label-negro,
+  ion-input {
+    font-size: 0.85rem;
+  }
+
+  .custom-button {
+    font-size: 0.9rem;
+  }
 }

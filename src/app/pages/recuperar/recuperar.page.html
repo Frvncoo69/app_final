@@ -1,41 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-title class="title-center">TECNO STORE</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
-    <ion-title>TECNO STORE</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card class="content-center">
-    <ion-card-header>
-      <ion-card-title class="ion-text-center">Recuperar Cuenta</ion-card-title>
-    </ion-card-header>
+  <div class="card-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Recuperar Cuenta</ion-card-title>
+      </ion-card-header>
 
-    <ion-card-content>
-      <ion-label class="ion-text-center" style="color: white;">
-        Ingrese su correo para proceder con la recuperación de su contraseña
-      </ion-label>
+      <ion-card-content>
+        <ion-label class="ion-text-center label-negro">
+          Ingrese su correo para proceder con la recuperación de su contraseña
+        </ion-label>
 
-      <!-- Campo de correo y botón de verificación -->
-      <ion-item *ngIf="!mostrarPregunta">
-        <ion-input placeholder="Ingrese su correo" [(ngModel)]="correo"></ion-input>
-      </ion-item>
+        <!-- Campo de correo y botón de verificación -->
+        <ion-item *ngIf="!mostrarPregunta">
+          <ion-input placeholder="Ingrese su correo" [(ngModel)]="correo"></ion-input>
+        </ion-item>
 
-      <ion-button expand="block" class="custom-button" *ngIf="!mostrarPregunta" (click)="verificarCorreo()">
-        Verificar Correo
-      </ion-button>
+        <ion-button expand="block" class="custom-button" *ngIf="!mostrarPregunta" (click)="verificarCorreo()">
+          Verificar Correo
+        </ion-button>
 
-      <!-- Mostrar la pregunta de seguridad si el correo es válido -->
-      <ion-item *ngIf="mostrarPregunta">
-        <ion-label>{{ preguntaSeguridad }}</ion-label>
-        <ion-input placeholder="Respuesta" [(ngModel)]="respuesta"></ion-input>
-      </ion-item>
+        <!-- Mostrar la pregunta de seguridad de manera horizontal y campo de respuesta debajo -->
+        <div *ngIf="mostrarPregunta" class="pregunta-seguridad">
+          <ion-label>{{ preguntaSeguridad }}</ion-label>
+          <ion-item>
+            <ion-input placeholder="Respuesta" [(ngModel)]="respuesta"></ion-input>
+          </ion-item>
+        </div>
 
-      <ion-button expand="block" class="custom-button" *ngIf="mostrarPregunta" (click)="verificarRespuesta()">
-        Verificar Respuesta
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+        <ion-button expand="block" class="custom-button" *ngIf="mostrarPregunta" (click)="verificarRespuesta()">
+          Verificar Respuesta
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
