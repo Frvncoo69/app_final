@@ -16,18 +16,27 @@ export class SignupPage implements OnInit {
   correo: string = '';
   contrasena: string = '';
   validarContrasena: string = '';
+  preguntaSeguridad: string = '';
+  respuestaSeguridad: string = '';
+  
+  preguntasPredefinidas: string[] = [
+    '¿Cuál es el nombre de tu primera mascota?',
+    '¿Cuál es tu comida favorita?',
+    '¿Cuál fue tu primer trabajo?',
+    '¿Cuál es el nombre de tu ciudad natal?'
+  ];
 
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private dbService: ServiceBDService  // Inyectar el servicio ServiceBDService
+    private dbService: ServiceBDService
   ) { }
 
   ngOnInit() { }
 
   async crearCuenta() {
     // Validación de campos vacíos
-    if (!this.rut || !this.nombre || !this.apellido || !this.nombreUsuario || !this.correo || !this.contrasena || !this.validarContrasena) {
+    if (!this.rut || !this.nombre || !this.apellido || !this.nombreUsuario || !this.correo || !this.contrasena || !this.validarContrasena || !this.preguntaSeguridad || !this.respuestaSeguridad) {
       await this.presentAlert('Error', 'Todos los campos son obligatorios.');
       return;
     }
@@ -38,7 +47,6 @@ export class SignupPage implements OnInit {
       await this.presentAlert('Error', 'La contraseña debe tener un mínimo de 6 caracteres, una mayúscula, un número y un carácter especial.');
       return;
     }
-
 
     // Validación de coincidencia de contraseñas
     if (this.contrasena !== this.validarContrasena) {
@@ -53,17 +61,19 @@ export class SignupPage implements OnInit {
       return;
     }
 
-    // Insertar el usuario en la base de datos
+    // Insertar el usuario en la base de datos con la pregunta y respuesta de seguridad
     try {
-      await this.dbService.insertarUsuario(
+      await this.dbService.insertarUsuarioConSeguridad(
         this.rut,
         this.nombre,
         this.apellido,
         this.nombreUsuario,
         this.contrasena,
         this.correo,
-        'activo',
-        2
+        true, // Estado inicial activo
+        2, // Rol de usuario por defecto
+        this.preguntaSeguridad,
+        this.respuestaSeguridad
       );
 
       await this.presentAlert('Éxito', 'Cuenta creada con éxito.');

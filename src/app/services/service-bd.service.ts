@@ -15,7 +15,7 @@ export class ServiceBDService {
   public database!: SQLiteObject;
 
   // Variables de creación de Tablas
-  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu TEXT , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario (id_usu INTEGER PRIMARY KEY AUTOINCREMENT, rut_usu VARCHAR(15) NOT NULL, nombre_usu VARCHAR(50) NOT NULL, apellido_usu VARCHAR(50) NOT NULL, nombre_usuario VARCHAR(50) NOT NULL, clave_usu VARCHAR(20) NOT NULL, correo_usu VARCHAR(50) NOT NULL, token BOOLEAN NOT NULL, foto_usu TEXT , estado_usu BOOLEAN NOT NULL, loggeo BOOLEAN, id_rol INTEGER NOT NULL, pregunta_seguridad VARCHAR(100), respuesta_seguridad VARCHAR(100), FOREIGN KEY (id_rol) REFERENCES rol(id_rol));";
 
   tablaRol: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER PRIMARY KEY AUTOINCREMENT, nombre_rol VARCHAR(50) NOT NULL);";
 
@@ -109,7 +109,7 @@ export class ServiceBDService {
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore65.db',
+        name: 'tecnostore71.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -354,24 +354,28 @@ export class ServiceBDService {
 
 
 
-  // Método para obtener un usuario por su correo
-  async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
-    const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
-
-    try {
-      const result = await this.database.executeSql(query, [correo]);
-
-      if (result.rows.length > 0) {
-        const usuario = result.rows.item(0);  // Obtenemos el primer registro
-        return usuario;  // Retorna el registro completo
-      } else {
-        return null;  // Si no se encuentra el usuario, retorna null
-      }
-    } catch (error) {
-      console.error('Error al obtener el usuario por correo:', error);
-      throw new Error('No se pudo obtener el usuario.');
+// Método para obtener un usuario por su correo, incluyendo pregunta y respuesta de seguridad
+async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
+  const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
+  try {
+    const result = await this.database.executeSql(query, [correo]);
+    if (result.rows.length > 0) {
+      const usuario = result.rows.item(0);
+      return {
+        id_usu: usuario.id_usu,
+        correo_usu: usuario.correo_usu,
+        clave_usu: usuario.clave_usu,
+        pregunta_seguridad: usuario.pregunta_seguridad,
+        respuesta_seguridad: usuario.respuesta_seguridad // Asegúrate de incluir esto
+      };
+    } else {
+      return null;
     }
+  } catch (error) {
+    console.error('Error al obtener el usuario por correo:', error);
+    throw new Error('No se pudo obtener el usuario.');
   }
+}
 
 
   async actualizarContrasena(id: number, nuevaContrasena: string): Promise<void> {
@@ -1162,6 +1166,43 @@ async registrarDetalle(idVenta: number, idProducto: number, cantidad: number, su
   await this.database.executeSql(query, [idVenta, idProducto, cantidad, subtotal]);
 }
 
+///////////////////////////////////////
+
+async insertarUsuarioConSeguridad(
+  rut: string,
+  nombre: string,
+  apellido: string,
+  username: string,
+  clave: string,
+  correo: string,
+  estado: boolean,
+  id_rol: number,
+  preguntaSeguridad: string,
+  respuestaSeguridad: string
+): Promise<void> {
+  const query = `
+    INSERT INTO usuario (
+      rut_usu, nombre_usu, apellido_usu, nombre_usuario, clave_usu, 
+      correo_usu, token, foto_usu, estado_usu, loggeo, id_rol, 
+      pregunta_seguridad, respuesta_seguridad
+    ) 
+    VALUES (?, ?, ?, ?, ?, ?, 0, NULL, ?, 0, ?, ?, ?)
+  `;
+  await this.database.executeSql(query, [
+    rut,
+    nombre,
+    apellido,
+    username,
+    clave,
+    correo,
+    estado,
+    id_rol,
+    preguntaSeguridad,
+    respuestaSeguridad
+  ]);
+}
+
+///////////////////////////////
 
 
 

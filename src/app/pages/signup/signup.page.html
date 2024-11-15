@@ -47,6 +47,21 @@
         </ion-input>
       </ion-item>
 
+      <!-- Selector de Pregunta de Seguridad -->
+      <ion-item>
+        <ion-label>Pregunta de seguridad</ion-label>
+        <ion-select [(ngModel)]="preguntaSeguridad" placeholder="Seleccione una pregunta">
+          <ion-select-option *ngFor="let pregunta of preguntasPredefinidas" [value]="pregunta">
+            {{ pregunta }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Campo para Respuesta de Seguridad -->
+      <ion-item>
+        <ion-input placeholder="Respuesta de seguridad" [(ngModel)]="respuestaSeguridad"></ion-input>
+      </ion-item>
+
       <ion-button expand="block" class="create-account-button" (click)="crearCuenta()">Crear Cuenta</ion-button>
     </ion-card-content>
   </ion-card>
