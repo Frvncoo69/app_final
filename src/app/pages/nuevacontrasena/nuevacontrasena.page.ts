@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
 
@@ -9,41 +9,43 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
   styleUrls: ['./nuevacontrasena.page.scss'],
 })
 export class NuevacontrasenaPage implements OnInit {
-
-  nuevaContrasena: string = '';  // Almacena la nueva contraseña
-  confirmarContrasena: string = '';  // Almacena la contraseña de confirmación
-  correo: string = '';  // Almacena el correo del usuario
+  nuevaContrasena: string = '';
+  confirmarContrasena: string = '';
+  correo: string = '';
 
   constructor(
     private alertController: AlertController,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private dbService: ServiceBDService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    // Aquí podrías obtener el correo del usuario actual si está almacenado en localStorage o sesión
-    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    this.correo = userData.correo;
+    // Obtener el correo del usuario desde los parámetros de la ruta o desde el servicio
+    this.correo = this.activatedRoute.snapshot.paramMap.get('correo') || '';
+
+    if (!this.correo) {
+      // Si no hay un correo disponible, redirigir o mostrar un mensaje de error
+      this.presentAlert('Error', 'No se encontró información del usuario.');
+      this.router.navigate(['/login']); // Ajusta la ruta según corresponda
+    }
   }
 
   async cambiarContrasena() {
     if (this.nuevaContrasena !== this.confirmarContrasena) {
-      // Si las contraseñas no coinciden, mostrar una alerta
       await this.presentAlert('Error', 'Las contraseñas no coinciden. Intente nuevamente.');
       return;
     }
 
     try {
-      // Actualizar la contraseña en la base de datos
-      const usuario = await this.dbService.obtenerUsuarioPorCorreo(this.correo);
+      // Validar y actualizar contraseña en la base de datos
+      const usuario = await this.dbService.obtenerUsuarioPorCorreo2(this.correo);
       if (usuario) {
-        await this.dbService.actualizarContrasena(usuario.id, this.nuevaContrasena);
-        
-        // Redirigir al perfil
+        await this.dbService.actualizarContrasena(usuario.id_usu, this.nuevaContrasena);
+
+        // Redirigir después de éxito
         this.router.navigate(['/perfil']);
-        
-        // Mostrar mensaje de éxito
-        await this.presentAlert('Éxito', 'La contraseña ha sido actualizada.');
+        await this.presentAlert('Éxito', 'La contraseña ha sido actualizada correctamente.');
       } else {
         await this.presentAlert('Error', 'Usuario no encontrado.');
       }

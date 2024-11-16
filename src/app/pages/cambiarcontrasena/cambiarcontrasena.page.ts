@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ServiceBDService } from 'src/app/services/service-bd.service';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-cambiarcontrasena',
@@ -9,27 +10,34 @@ import { ServiceBDService } from 'src/app/services/service-bd.service';
   styleUrls: ['./cambiarcontrasena.page.scss'],
 })
 export class CambiarcontrasenaPage implements OnInit {
-  correo: string = '';  // Almacena el correo del usuario logueado
-  contrasenaIngresada: string = '';  // Almacena la contraseña ingresada
+  correo: Usuario | null = null; // Cambiado a un único objeto o null
+  contrasenaIngresada: string = '';
 
   constructor(
     private alertController: AlertController,
     private router: Router,
     private dbService: ServiceBDService
-  ) { }
+  ) {}
 
-  ngOnInit() { 
-    // Aquí podrías obtener el correo del usuario actual si está almacenado en localStorage o sesión
-    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    this.correo = userData.correo;
+  async ngOnInit() {
+    const usuarios = await this.dbService.consultarUsuariosPorEstadoConectado();
+    if (usuarios.length > 0) {
+      this.correo = usuarios[0]; // Asigna el primer usuario del arreglo
+    }
   }
 
   async verificarContrasena() {
     try {
-      const usuario = await this.dbService.obtenerUsuarioPorCorreo(this.correo);
-      
+      if (!this.correo) {
+        await this.presentAlert('Error', 'No se encontró un usuario conectado.');
+        return;
+      }
+
+      const usuario = await this.dbService.obtenerUsuarioPorCorreo(this.correo.correo_usu);
       if (usuario && usuario.clave_usu === this.contrasenaIngresada) {
-        this.router.navigate(['/nuevacontrasena']); // Redirige si la contraseña es correcta
+        this.correo = null; // Limpia los datos al verificar
+        this.contrasenaIngresada = '';
+        this.router.navigate(['/nuevacontrasena', { correo: usuario.correo_usu }]); // Redirige si la contraseña es correcta
       } else {
         await this.presentAlert('Error', 'Contraseña incorrecta. Por favor, intente de nuevo.');
       }

@@ -377,17 +377,22 @@ async obtenerUsuarioPorCorreo(correo: string): Promise<any> {
   }
 }
 
+async obtenerUsuarioPorCorreo2(correo: string): Promise<Usuario | null> {
+  const query = 'SELECT * FROM usuario WHERE correo_usu = ?';
+  const result = await this.database.executeSql(query, [correo]);
 
-  async actualizarContrasena(id: number, nuevaContrasena: string): Promise<void> {
-    const query = 'UPDATE usuario SET clave_usu = ? WHERE id_usu = ?';
-
-    try {
-      await this.database.executeSql(query, [nuevaContrasena, id]);
-    } catch (error) {
-      console.error('Error al actualizar la contraseña:', error);
-      throw new Error('No se pudo actualizar la contraseña.');
-    }
+  if (result.rows.length > 0) {
+    return result.rows.item(0) as Usuario;
   }
+  return null;
+}
+
+
+
+async actualizarContrasena(idUsuario: number, nuevaContrasena: string): Promise<void> {
+  const query = 'UPDATE usuario SET clave_usu = ? WHERE id_usu = ?';
+  await this.database.executeSql(query, [nuevaContrasena, idUsuario]);
+}
 
 
 

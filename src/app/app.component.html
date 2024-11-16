@@ -37,9 +37,9 @@
             <ion-label>Contacto</ion-label>
           </ion-item>
 
-          <ion-item class="custom-category-item" button routerLink="/crud">
+          <ion-item *ngIf="idRol !== 2 && idRol !== null" class="custom-category-item" button routerLink="/crud">
             <ion-label>Administrar</ion-label>
-          </ion-item>
+          </ion-item>          
 
         </ion-list>
         <img style="border-radius: 15px;" class="banner-image" alt="amd" src="/assets/icon/logo.jpeg"/>

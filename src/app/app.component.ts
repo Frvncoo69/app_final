@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { ServiceBDService } from 'src/app/services/service-bd.service';
 
 @Component({
   selector: 'app-root',
@@ -8,28 +9,53 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private menuCtrl: MenuController, private router: Router) {
+  idRol: number | null = null;
+  usuarioConectado: any[] = [];
+
+  constructor(
+    private serviceBD: ServiceBDService,
+    private menuCtrl: MenuController,
+    private router: Router
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.toggleMenuVisibility(event.url);
+        this.handleRouteChange(event.url);
       }
     });
   }
 
-  toggleMenuVisibility(url: string) {
-    const hiddenRoutes = ['/login', '/signup', '/recuperar', '/codigo', '/nueva'];
-    if (hiddenRoutes.includes(url)) {
-      this.menuCtrl.enable(false);
+  async ngOnInit() {
+    await this.obtenerRolUsuarioConectado();
+  }
+
+  async obtenerRolUsuarioConectado() {
+    const usuarios = await this.serviceBD.consultarUsuariosPorEstadoConectado();
+    if (usuarios.length > 0) {
+      this.idRol = usuarios[0].id_rol;
     } else {
-      this.menuCtrl.enable(true);
+      this.idRol = null; // No hay usuario conectado
     }
   }
-  irCategoria(id:number){
-    let NavigationExtras: NavigationExtras = {
-      state:{
-        idCategoriaSeleccionada: id
-      }
+
+  // Método para manejar cambios de ruta
+  async handleRouteChange(url: string) {
+    const loginRoutes = ['/login', '/signup', '/recuperar', '/codigo', '/nueva'];
+    if (loginRoutes.includes(url)) {
+      this.idRol = null; // Establecer idRol en null en páginas de login
+      this.usuarioConectado = []; // Limpiar el usuario conectado
+      this.menuCtrl.enable(false); // Deshabilitar el menú
+    } else {
+      this.menuCtrl.enable(true); // Habilitar el menú
+      await this.obtenerRolUsuarioConectado(); // Buscar usuario conectado en otras páginas
     }
-    this.router.navigate(['/productos-por-categoria'],NavigationExtras)
+  }
+
+  irCategoria(id: number) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        idCategoriaSeleccionada: id,
+      },
+    };
+    this.router.navigate(['/productos-por-categoria'], navigationExtras);
   }
 }

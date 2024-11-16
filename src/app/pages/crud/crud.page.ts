@@ -20,6 +20,17 @@ export class CrudPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    /*const usuarios = await this.serviceBD.consultarUsuariosPorEstadoConectado();
+    if (usuarios.length > 0) {
+      const usuarioLogueado = usuarios[0];
+      if (usuarioLogueado.id_rol === 2) {
+        // Redirige al usuario no autorizado
+        this.router.navigate(['/home']);
+      }
+    } else {
+      // Si no hay usuario conectado, redirige a login
+      this.router.navigate(['/login']);
+    }*/
     this.cargarProductos(); // Cargar productos al inicializar
   }
 
