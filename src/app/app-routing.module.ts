@@ -216,9 +216,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/retiro/retiro.module').then( m => m.RetiroPageModule)
   },
   {
+    path: 'detalle-usuario',
+    loadChildren: () => import('./pages/detalle-usuario/detalle-usuario.module').then( m => m.DetalleUsuarioPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+
 
 
   

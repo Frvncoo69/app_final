@@ -21,17 +21,18 @@ export class LoginPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.vaciarCampos();
     await this.dbService.actualizarEstadoUsuario3();
   }
 
   async onLogin() {
     // Validación del correo y contraseña
-    if (!this.validarCorreo(this.email)) {
+    if (!this.validarCorreo(this.email.trim())) {
       await this.presentAlert('El correo debe contener un único @.');
       return;
     }
 
-    if (!this.validarContrasena(this.password)) {
+    if (!this.validarContrasena(this.password.trim())) {
       await this.presentAlert('La contraseña debe tener al menos 6 caracteres, una mayúscula, un número y un carácter especial.');
       return;
     }
@@ -42,14 +43,22 @@ export class LoginPage implements OnInit {
       if (usuario) {
         await this.dbService.actualizarEstadoUsuario(this.email);
         this.router.navigate(['/perfil']); 
+        this.vaciarCampos();
         await this.presentToast('Inicio de sesión exitoso');
       } else {
+        this.vaciarCampos();
         await this.presentAlert('Usuario o contraseña incorrectas');
       }
     } catch (error) {
+      this.vaciarCampos();
       console.error('Error al iniciar sesión:', error);
       await this.presentAlert('Error al verificar las credenciales.');
     }
+  }
+
+  vaciarCampos(){
+  this.email = ''; 
+  this.password = '';
   }
 
   validarCorreo(email: string): boolean {
