@@ -1,20 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/login"></ion-back-button>
-    </ion-buttons>
-    <ion-title>TECNO STORE</ion-title>
+    <ion-title class="header-title">TECNO STORE</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-card class="content-center">
     <ion-card-header>
       <ion-card-title style="text-align: center;">Crear Cuenta</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-
       <ion-item>
         <ion-input placeholder="Rut" [(ngModel)]="rut"></ion-input>
       </ion-item>
@@ -47,9 +43,11 @@
         </ion-input>
       </ion-item>
 
+      <!-- Título de Pregunta de Seguridad -->
+      <h3 class="security-title">Pregunta de seguridad</h3>
+
       <!-- Selector de Pregunta de Seguridad -->
       <ion-item>
-        <ion-label>Pregunta de seguridad</ion-label>
         <ion-select [(ngModel)]="preguntaSeguridad" placeholder="Seleccione una pregunta">
           <ion-select-option *ngFor="let pregunta of preguntasPredefinidas" [value]="pregunta">
             {{ pregunta }}

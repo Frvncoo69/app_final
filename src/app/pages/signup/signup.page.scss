@@ -1,52 +1,125 @@
+/* Fondo del ion-content */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
-/* Estilos para el ion-content */
-ion-content {
-  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+
+/* Centrar título TECNO STORE */
+.header-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: white; /* Texto blanco */
+  margin: 0;
 }
 
-/* Estilos para centrar el contenido y ajustar el tamaño del botón */
-ion-card.content-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+/* Estilo de la tarjeta (fondo negro) */
+.content-center {
+  background-color: #000; /* Fondo negro */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1); /* Sombra clara */
+  margin: 20px; /* Separación de los bordes */
+  padding: 15px; /* Espaciado interno */
 }
 
-/* Estilos para el botón de Crear Cuenta */
-ion-button.create-account-button {
-  --background: #5fbded; /* Color celeste para el botón */
-  --color: #ffffff; /* Color del texto blanco */
-  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
-  --padding-start: 24px; /* Espaciado interior del botón */
-  --padding-end: 24px; /* Espaciado interior del botón */
-  --padding-top: 12px; /* Espaciado interior del botón */
-  --padding-bottom: 12px; /* Espaciado interior del botón */
-  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+/* Título centrado */
+ion-card-title {
+  font-size: 24px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrar texto */
+  color: white; /* Color blanco */
 }
 
-/* Estilos para el botón de Ingresar */
-ion-button[expand="block"].login-button {
-  --background: #5fbded; /* Color celeste para el botón */
-  --color: #ffffff; /* Color del texto blanco */
-  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
-  --padding-start: 24px; /* Espaciado interior del botón */
-  --padding-end: 24px; /* Espaciado interior del botón */
-  --padding-top: 12px; /* Espaciado interior del botón */
-  --padding-bottom: 12px; /* Espaciado interior del botón */
-  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+/* Estilo de los inputs */
+ion-item {
+  --background: transparent; /* Fondo transparente */
+  --border-radius: 10px; /* Bordes ligeramente redondeados */
+  margin-bottom: 15px; /* Espaciado entre los campos */
+  --color: white; /* Texto blanco */
 }
 
-/* Estilos para el botón de Recuperar Contraseña */
-ion-button[expand="block"].recover-button {
-  --background: #5fbded; /* Color celeste para el botón */
-  --color: #ffffff; /* Color del texto blanco */
-  --border-radius: 4px; /* Bordes menos redondeados para un diseño más rectangular */
-  --padding-start: 24px; /* Espaciado interior del botón */
-  --padding-end: 24px; /* Espaciado interior del botón */
-  --padding-top: 12px; /* Espaciado interior del botón */
-  --padding-bottom: 12px; /* Espaciado interior del botón */
-  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+ion-input {
+  --padding-start: 10px; /* Espaciado interno del texto */
+  font-size: 16px; /* Tamaño de texto */
+  color: white; /* Color del texto */
+}
+
+ion-input::placeholder {
+  color: #aaa; /* Placeholder en gris claro */
+  font-style: italic; /* Placeholder en cursiva */
+}
+
+/* Título de Pregunta de Seguridad */
+.security-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white; /* Texto blanco */
+}
+
+/* Selector de Pregunta de Seguridad */
+ion-select {
+  --placeholder-color: white; /* Placeholder en blanco */
+  --color: white; /* Texto seleccionado en blanco */
+  margin-bottom: 20px;
+}
+
+ion-select-option {
+  color: white; /* Opciones del menú desplegable en blanco */
+  background-color: #333; /* Fondo de opciones en gris oscuro */
+}
+
+/* Respuesta de seguridad */
+ion-input[placeholder="Respuesta de seguridad"] {
+  font-style: italic; /* Placeholder en cursiva */
+}
+
+/* Botón principal */
+.create-account-button {
+  margin-top: 20px; /* Espaciado superior */
+  --background: #007bff; /* Color azul del botón */
+  --background-hover: #0056b3; /* Azul más oscuro al pasar el mouse */
+  color: white; /* Texto blanco */
+  font-size: 16px; /* Tamaño del texto */
+  font-weight: bold; /* Negrita */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra del botón */
+}
+
+/* Botón al pasar el cursor */
+.create-account-button:hover {
+  filter: brightness(0.9); /* Suavizado al pasar el mouse */
+}
+
+/* Estilo responsivo */
+@media (max-width: 768px) {
+  .content-center {
+    margin: 10px; /* Reducir margen en pantallas pequeñas */
+    padding: 10px; /* Reducir espaciado interno */
+  }
+
+  ion-card-title {
+    font-size: 20px; /* Reducir tamaño del título */
+  }
+
+  ion-input {
+    font-size: 14px; /* Reducir tamaño de los inputs */
+  }
+
+  .create-account-button {
+    font-size: 14px; /* Reducir tamaño del texto del botón */
+  }
+
+  .security-title {
+    font-size: 14px; /* Reducir tamaño del título */
+  }
+
+  ion-select {
+    --placeholder-color: white; /* Asegura que el placeholder siga siendo visible */
+    --color: white; /* Asegura visibilidad del texto */
+  }
+
+  ion-select-option {
+    font-size: 14px; /* Ajusta el tamaño de las opciones */
+  }
 }
