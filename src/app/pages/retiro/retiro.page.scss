@@ -1,66 +1,55 @@
+/* Fondo del ion-content */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro traslúcido */
 }
 
+/* Estilo para las tarjetas de retiro */
 .retiro-card {
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 15px;
-  background: rgba(255, 255, 255, 0.8); /* Fondo traslúcido */
-  padding: 10px;
-  color: #000; /* Todas las letras en negro */
-  display: flex;
-  flex-direction: column;
+  background-color: #ffffff !important; /* Fondo blanco */
+  border-radius: 12px; /* Bordes redondeados */
+  margin: 20px; /* Margen para separar las tarjetas */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
-ion-card-subtitle, .retiro-card p, ion-label h2, ion-label p {
-  color: #000; /* Texto en negro */
-  font-size: 0.85em; /* Tamaño de fuente ligeramente reducido */
-}
-
-.estado-retiro {
-  font-weight: bold;
+/* Estilo para el item de producto */
+.product-item {
+  --background: #ffffff !important; /* Fondo blanco */
+  color: #000000 !important; /* Texto negro */
   display: flex;
   align-items: center;
-  font-size: 0.9em;
-  color: green; /* Mantener "Listo para retirar" en verde */
 }
 
-.estado-retiro ion-icon {
-  margin-right: 5px;
-  font-size: 1.1em;
-}
-
-/* Ajuste del título para que sea más pequeño */
-ion-label h2 {
-  font-size: 0.9em; /* Reducir tamaño de fuente para el nombre del producto */
-  font-weight: bold;
-  white-space: normal;
-  word-wrap: break-word;
-  line-height: 1.2em;
-  margin: 5px 0;
-  text-align: left;
-}
-
-/* Aumentar el tamaño del contenedor de la imagen */
-ion-thumbnail {
-  width: 130px; /* Tamaño mayor para el contenedor */
-  height: 130px;
-  flex-shrink: 0; /* Evitar que el contenedor de imagen se reduzca */
-  margin-right: 10px;
-}
-
-/* Aumentar el tamaño de la imagen dentro del contenedor */
+/* Estilo para la imagen del producto */
 ion-thumbnail img {
-  border-radius: 5px;
-  width: 100%; /* Ajuste para que ocupe todo el contenedor */
-  height: 100%;
-  object-fit: cover; /* Asegura que la imagen se recorte para llenar el contenedor sin deformarse */
-  border: 2px solid #ccc;
-  padding: 3px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  max-width: 200px; /* Imagen más grande */
+  height: auto; /* Mantén las proporciones */
+  margin-right: 15px; /* Espaciado entre la imagen y el texto */
 }
 
-ion-item {
-  align-items: flex-start; /* Alineación superior para evitar deformación de la tarjeta */
+/* Título del producto */
+.product-title {
+  font-size: 1rem; /* Reduce ligeramente el tamaño del texto */
+  font-weight: bold;
+  color: #000000 !important; /* Texto negro */
+}
+
+/* Detalles del producto (precio, cantidad) */
+.product-detail {
+  font-size: 0.9rem; /* Ajusta el tamaño de los detalles */
+  color: #000000 !important; /* Texto negro */
+  margin: 4px 0;
+}
+
+/* Estilo para "No pedidos" */
+.reseña-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 8px;
+  text-align: center;
+}
+
+.no-resenas-content {
+  font-size: 1rem;
+  color: #000000;
 }

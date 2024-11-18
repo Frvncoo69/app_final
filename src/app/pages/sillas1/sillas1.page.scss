@@ -9,6 +9,16 @@ ion-content {
   border-radius: 12px; /* Bordes redondeados */
   margin: 20px; /* Margen para separar la tarjeta */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  color: #000000; /* Texto negro por defecto en toda la tarjeta */
+}
+
+/* Título del producto */
+.product-card ion-card-title {
+  color: #000000 !important; /* Texto negro forzado */
+  font-weight: bold; /* Negrita para destacar el título */
+  font-size: 1.2rem; /* Tamaño ajustado */
+  margin-bottom: 10px; /* Separación del título con el contenido */
+  text-align: center; /* Centrar el título */
 }
 
 /* Contenedor para la imagen del producto */

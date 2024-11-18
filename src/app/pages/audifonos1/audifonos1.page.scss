@@ -9,6 +9,16 @@ ion-content {
   border-radius: 12px; /* Bordes redondeados */
   margin: 20px; /* Margen para separar la tarjeta */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  color: #000000; /* Texto negro por defecto en toda la tarjeta */
+}
+
+/* Título del producto */
+.product-card ion-card-title {
+  color: #000000 !important; /* Forzar el texto negro */
+  font-weight: bold; /* Negrita para destacar el título */
+  font-size: 1.2rem; /* Tamaño ajustado */
+  margin-bottom: 10px; /* Separación del título con el contenido */
+  text-align: center; /* Centrar el título */
 }
 
 /* Contenedor para la imagen del producto */
@@ -45,37 +55,37 @@ ion-content {
 
 /* Estilo general para los botones personalizados */
 .custom-button {
-  --background: #5fbded;
-  --color: #ffffff;
-  --border-radius: 4px;
-  padding: 12px 20px;
-  margin: 10px 0;
+  --background: #5fbded; /* Color celeste */
+  --color: #ffffff; /* Texto blanco */
+  --border-radius: 4px; /* Diseño rectangular */
+  padding: 12px 20px; /* Ajusta el tamaño del botón */
+  margin: 10px 0; /* Añade separación entre botones */
 }
 
 .custom-button:focus, .custom-button:hover {
-  --background: #5fbded;
+  --background: #3d8fb5; /* Color celeste más oscuro en hover o focus */
 }
 
 /* Centrar el botón dentro de la columna */
 .center-button-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
 /* Estilo para el encabezado */
 ion-header {
-  --background: #004d74;
-  color: #ffffff;
+  --background: #004d74; /* Fondo azul oscuro */
+  color: #ffffff; /* Color del texto */
 }
 
 /* Estilo para los botones del encabezado */
 ion-button {
-  --background: #004d74;
-  --color: #ffffff;
+  --background: #004d74; /* Fondo azul oscuro */
+  --color: #ffffff; /* Texto blanco */
 }
 
 /* Estilo para los íconos dentro de los botones */
 ion-icon {
-  color: #ffffff;
+  color: #ffffff; /* Íconos blancos */
 }

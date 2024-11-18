@@ -1,23 +1,56 @@
+/* Fondo del ion-content */
 ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
+/* Estilo para la tarjeta */
+.login-card {
+  background-color: #ffffff !important; /* Fondo blanco */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  padding: 20px;
+}
 
-/* Estilo general para los botones personalizados */
+/* Estilo para el título */
+.login-title {
+  color: #000000 !important; /* Texto negro */
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Estilo para los campos de entrada */
+ion-item {
+  --background: #f1f1f1; /* Fondo gris claro */
+  --border-color: #d1d1d1; /* Borde gris claro */
+  --ion-text-color: #000000; /* Texto negro */
+  border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 10px; /* Separación entre campos */
+}
+
+/* Estilo para el icono de ojo en el campo de contraseña */
+ion-input-password-toggle {
+  --color: #007bff; /* Color azul para el icono */
+}
+
+/* Imagen del logo */
 .banner-image {
   margin-left: 30px;
   width: 80%; /* Ajusta al ancho del contenedor */
-  height: auto; /* Ajusta el margen según tus necesidades (16px es un ejemplo) */
+  height: auto; /* Ajusta el margen según tus necesidades */
+  display: block;
+  margin: 20px auto 0; /* Centra la imagen */
 }
 
-
+/* Estilo general para los botones personalizados */
 .custom-button {
   --background: #5fbded; /* Color celeste para el fondo del botón */
   --color: #ffffff; /* Color blanco para el texto del botón */
   --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
-  padding: 12px 20px; /* Ajusta el tamaño del botón para hacerlo más rectangular */
+  padding: 12px 20px; /* Ajusta el tamaño del botón */
   margin: 10px 0; /* Añade márgenes verticales si es necesario */
 }
+
 .custom-button:focus, .custom-button:hover {
-  --background: #5fbded; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
+  --background: #3d8fb5; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
 }

@@ -2,13 +2,23 @@ ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
+/* Tarjeta de producto con fondo completamente blanco */
 .producto-card {
   margin-bottom: 15px;
   border-radius: 10px;
+  background-color: #ffffff; /* Fondo completamente blanco */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
   overflow: hidden;
+  color: #000000; /* Texto negro por defecto dentro de la tarjeta */
 }
 
+/* Estilo específico para el ion-item dentro de la tarjeta */
+.producto-card ion-item {
+  --background: transparent; /* Fondo transparente para evitar el negro predeterminado */
+  color: #000000; /* Texto negro */
+}
+
+/* Ajustes para el contenedor de imágenes */
 .producto-card ion-thumbnail {
   height: 120px;  /* Altura ajustada */
   width: 120px;   /* Ancho ajustado */
@@ -21,20 +31,24 @@ ion-content {
   border-radius: 10px; /* Mantén las esquinas redondeadas */
 }
 
+/* Estilo para el título del producto */
 .titulo-producto {
   font-size: 1rem;
   margin: 0;
+  color: #000000; /* Texto negro */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Estilo para el precio del producto */
 .precio {
   margin: 5px 0;
   font-weight: bold;
-  color: black;
+  color: #000000; /* Texto negro */
 }
 
+/* Botones de cantidad */
 .botones-cantidad {
   display: flex;
   align-items: center; /* Alinea los botones verticalmente al centro */
@@ -42,36 +56,33 @@ ion-content {
   padding: 10px;
 }
 
-.input-cantidad {
-  width: 60px;
-  text-align: center;
-  font-size: 1rem;
-  margin: 0 10px; /* Espacio entre el botón y el input */
-}
-
+/* Contenedor del total */
 .total-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
   padding: 8px 12px;
-  background: #f1f1f1;
+  background: #ffffff; /* Fondo blanco */
   border-radius: 8px;
   font-size: 0.9rem;
-  color: black;
+  color: #000000; /* Texto negro */
 }
 
+/* Precio total */
 .total-precio {
   font-weight: bold;
-  color: #007bff;
+  color: #000000; /* Texto negro */
 }
 
+/* Contenedor del botón de comprar */
 .boton-comprar-container {
   display: flex;
   justify-content: center;
   margin-top: 15px;
 }
 
+/* Botón de comprar */
 .btncompra {
   width: 70%; 
   border-radius: 30px;
@@ -80,4 +91,6 @@ ion-content {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #007bff; /* Color azul del botón */
+  color: #ffffff; /* Texto blanco */
 }
