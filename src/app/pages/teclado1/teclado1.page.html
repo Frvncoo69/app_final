@@ -20,30 +20,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngIf="productoSolo">
+  <!-- Tarjeta de producto -->
+  <ion-card *ngIf="productoSolo" class="product-card">
     <ion-card-header>
       <ion-card-title>{{ productoSolo.nombre_prod }}</ion-card-title>
-      <ion-card-subtitle>Precio: {{ productoSolo.precio_prod }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-thumbnail>
-        <img [src]="productoSolo.foto_prod" alt="Foto del producto">
-      </ion-thumbnail>
-      <p>Stock: {{ productoSolo.stock_prod }}</p>
+      <div class="image-container">
+        <img [src]="productoSolo.foto_prod" alt="Foto del producto" class="product-image" />
+      </div>
+      <p class="product-stock">Stock: {{ productoSolo.stock_prod }}</p>
+      <p class="product-price">Precio: {{ productoSolo.precio_prod }}</p>
       <p>{{ productoSolo.descripcion_prod }}</p>
       
-      <ion-col size="6">
+      <div class="center-button-container">
         <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()" *ngIf="productoSolo.stock_prod >= 1">
           <ion-icon slot="start" name="cart"></ion-icon>
           Añadir al carrito
         </ion-button>
-      </ion-col>
+      </div>
     </ion-card-content>
   </ion-card>
 
+  <!-- Mensaje si no se encuentra el producto -->
   <ion-item *ngIf="!productoSolo">
     <ion-label>No se encontraron detalles del producto.</ion-label>
   </ion-item>
- 
-  
 </ion-content>

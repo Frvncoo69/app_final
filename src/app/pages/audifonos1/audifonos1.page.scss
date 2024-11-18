@@ -3,6 +3,46 @@ ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
+/* Estilo para la tarjeta de producto */
+.product-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 12px; /* Bordes redondeados */
+  margin: 20px; /* Margen para separar la tarjeta */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Contenedor para la imagen del producto */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Imagen del producto: tamaño ajustado */
+.product-image {
+  width: 100%; /* Ajusta el ancho al 100% del contenedor */
+  max-width: 300px; /* Limita el tamaño máximo */
+  height: auto; /* Mantén la proporción */
+  border-radius: 8px; /* Redondear bordes */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la imagen */
+}
+
+/* Estilo para el stock */
+.product-stock {
+  font-size: 16px; /* Tamaño de texto para el stock */
+  color: #555555; /* Color gris para el texto del stock */
+  margin-bottom: 5px; /* Separación con el precio */
+}
+
+/* Estilo para el precio */
+.product-price {
+  font-size: 18px; /* Tamaño de texto más grande para el precio */
+  font-weight: bold; /* Negrita para destacar el precio */
+  color: #000000; /* Color negro para el precio */
+  margin-bottom: 15px; /* Separación con el resto del contenido */
+}
+
 /* Estilo general para los botones personalizados */
 .custom-button {
   --background: #5fbded;
@@ -14,24 +54,6 @@ ion-content {
 
 .custom-button:focus, .custom-button:hover {
   --background: #5fbded;
-}
-
-/* Estilo para la descripción del producto */
-.product-description {
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-}
-
-/* Ajustar tamaño del texto h6 en la descripción del producto */
-.product-description h6 {
-  font-size: 14px !important;
-  color: #000000;
-}
-
-/* Estilo para el texto y el precio en la descripción del producto */
-.product-description h2, .product-description p, .product-description h3 {
-  color: #000000;
 }
 
 /* Centrar el botón dentro de la columna */

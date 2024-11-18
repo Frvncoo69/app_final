@@ -3,57 +3,79 @@ ion-content {
   --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
 }
 
+/* Estilo para la tarjeta de producto */
+.product-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 12px; /* Bordes redondeados */
+  margin: 20px; /* Margen para separar la tarjeta */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Contenedor para la imagen del producto */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Imagen del producto: tamaño ajustado */
+.product-image {
+  width: 100%; /* Ajusta el ancho al 100% del contenedor */
+  max-width: 300px; /* Limita el tamaño máximo */
+  height: auto; /* Mantén la proporción */
+  border-radius: 8px; /* Redondear bordes */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la imagen */
+}
+
+/* Estilo para el stock */
+.product-stock {
+  font-size: 16px; /* Tamaño de texto para el stock */
+  color: #555555; /* Color gris para el texto del stock */
+  margin-bottom: 5px; /* Separación con el precio */
+}
+
+/* Estilo para el precio */
+.product-price {
+  font-size: 18px; /* Tamaño de texto más grande para el precio */
+  font-weight: bold; /* Negrita para destacar el precio */
+  color: #000000; /* Color negro para el precio */
+  margin-bottom: 15px; /* Separación con el resto del contenido */
+}
+
 /* Estilo general para los botones personalizados */
 .custom-button {
-  --background: #5fbded; /* Color celeste para el fondo del botón */
-  --color: #ffffff; /* Color blanco para el texto del botón */
-  --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
-  padding: 12px 20px; /* Ajusta el tamaño del botón para hacerlo más rectangular */
-  margin: 10px 0; /* Añade márgenes verticales si es necesario */
+  --background: #5fbded; /* Color celeste */
+  --color: #ffffff; /* Texto blanco */
+  --border-radius: 4px; /* Diseño rectangular */
+  padding: 12px 20px; /* Ajusta el tamaño del botón */
+  margin: 10px 0; /* Añade separación entre botones */
 }
 
 .custom-button:focus, .custom-button:hover {
-  --background: #5fbded; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
-}
-
-/* Estilo para la descripción del producto */
-.product-description {
-  background-color: #ffffff; /* Fondo blanco para la descripción */
-  padding: 16px; /* Añade un poco de relleno alrededor del contenido */
-  border-radius: 8px; /* Opcional: Añade bordes redondeados */
-}
-
-/* Ajustar tamaño del texto h6 en la descripción del producto */
-.product-description h6 {
-  font-size: 14px !important; /* Ajusta el tamaño de la fuente y usa !important */
-  color: #000000; /* Texto negro */
-}
-
-/* Estilo para el texto y el precio en la descripción del producto */
-.product-description h2, .product-description p, .product-description h3 {
-  color: #000000; /* Texto negro */
+  --background: #3d8fb5; /* Color celeste más oscuro en hover o focus */
 }
 
 /* Centrar el botón dentro de la columna */
 .center-button-container {
   display: flex;
   justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
 /* Estilo para el encabezado */
 ion-header {
-  --background: #004d74; /* Fondo del encabezado */
-  color: #ffffff; /* Color del texto en el encabezado */
+  --background: #004d74; /* Fondo azul oscuro */
+  color: #ffffff; /* Color del texto */
 }
 
 /* Estilo para los botones del encabezado */
 ion-button {
-  --background: #004d74; /* Fondo del botón */
-  --color: #ffffff; /* Color del texto en el botón */
+  --background: #004d74; /* Fondo azul oscuro */
+  --color: #ffffff; /* Texto blanco */
 }
 
 /* Estilo para los íconos dentro de los botones */
 ion-icon {
-  color: #ffffff; /* Color de los íconos */
+  color: #ffffff; /* Íconos blancos */
 }

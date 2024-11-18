@@ -51,25 +51,25 @@
     </ion-item>
   </ion-list>
 
-  <!-- Botones para acciones del perfil -->
+  <!-- Grupo de botones organizados verticalmente -->
   <div class="button-group">
-    <ion-button expand="full" class="custom-button" [routerLink]="'/editar'">
+    <ion-button expand="block" class="custom-button" [routerLink]="'/editar'">
       Editar Perfil
     </ion-button>
-    <ion-button expand="full" class="custom-button" [routerLink]="'/cambiarcontrasena'">
+    <ion-button expand="block" class="custom-button" [routerLink]="'/cambiarcontrasena'">
       Cambiar Contraseña
     </ion-button>
-    <ion-button expand="full" class="custom-button" [routerLink]="'/listarusuarios'">
+    <ion-button expand="block" class="custom-button" [routerLink]="'/listarusuarios'">
       Listar Usuarios
     </ion-button>
-    <ion-button expand="full" class="custom-button" [routerLink]="'/retiro'">
+    <ion-button expand="block" class="custom-button" [routerLink]="'/retiro'">
       Boleta/Retiro
     </ion-button>
-    <ion-button expand="full" class="custom-button" color="danger" (click)="eliminarPerfil()">
+    <ion-button expand="block" class="custom-button" color="danger" (click)="eliminarPerfil()">
       Eliminar Perfil
       <ion-icon name="trash-outline"></ion-icon>
     </ion-button>
-    <ion-button expand="full" class="custom-button" (click)="cerrarSesion()">
+    <ion-button expand="block" class="custom-button" (click)="cerrarSesion()">
       Cerrar Sesión
       <ion-icon name="log-out-outline"></ion-icon>
     </ion-button>
