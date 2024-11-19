@@ -1,50 +1,83 @@
 /* Fondo del ion-content */
 ion-content {
-    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
-  }
-  
-  ion-header {
-    --background: #3880ff;
-  }
-  
-  ion-title {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  ion-card {
-    --ion-background-color: #f4f5f8;
-    border-radius: 15px;
-    padding: 15px;
-  }
-  
-  .input-item {
-    --border-color: #ccc;
-    --padding-start: 8px;
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .submit-button {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  
-  .imagen-preview-card {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  ion-img {
-    width: 100%;
-    max-height: 300px;
-    object-fit: contain;
-    border-radius: 10px;
-  }
-  
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  background-blend-mode: darken;
+}
+
+/* Tarjeta del formulario */
+.form-card {
+  background-color: #ffffff !important; /* Fondo blanco */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  padding: 20px;
+  margin: 20px;
+}
+
+/* Campos de entrada */
+.input-item {
+  --background: #ffffff; /* Fondo blanco de los campos */
+  --border-color: #ccc; /* Borde gris claro */
+  --ion-text-color: #000000; /* Texto negro */
+  --placeholder-color: #888888; /* Placeholder gris claro */
+  border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 15px; /* Separación entre campos */
+}
+
+/* Grupo de botones */
+.button-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones se ajusten si son muchos */
+  gap: 10px; /* Separación entre botones */
+  margin-top: 20px;
+  justify-content: center; /* Centra los botones */
+}
+
+/* Botones personalizados */
+.custom-button {
+  --background: #5fbded; /* Fondo celeste */
+  --color: #ffffff; /* Texto blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 12px 20px;
+  flex: 1 1 calc(50% - 10px); /* Permite que los botones ocupen el 50% del espacio con el gap */
+  max-width: 200px; /* Ancho máximo para evitar que sean demasiado grandes */
+  text-align: center;
+}
+
+.custom-button.secondary {
+  --background: #007bff; /* Fondo azul secundario */
+}
+
+.custom-button:focus, .custom-button:hover {
+  --background: #3d8fb5; /* Fondo más oscuro al hacer hover */
+}
+
+/* Botón de envío */
+.submit-button {
+  margin-top: 20px;
+  font-weight: bold;
+  --background: #004d74; /* Fondo azul oscuro */
+  --color: #ffffff; /* Texto blanco */
+  width: 100%; /* Botón ancho completo */
+  max-width: 300px; /* Ancho máximo */
+  align-self: center; /* Centrado horizontal */
+}
+
+/* Vista previa de la imagen */
+.imagen-preview-card {
+  margin-top: 20px;
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+/* Imagen más grande y centrada */
+ion-img {
+  width: 100%;
+  max-height: 400px; /* Altura máxima */
+  object-fit: contain; /* Asegura que la imagen mantenga sus proporciones */
+  border-radius: 10px;
+}

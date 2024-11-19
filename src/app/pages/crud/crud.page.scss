@@ -64,6 +64,29 @@ ion-content {
   padding: 16px;
 }
 
+/* Imagen dentro de la tarjeta: Más grande y centrada */
+.product-card ion-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: 300px; /* Define una altura fija para la imagen */
+}
+
+.product-card ion-thumbnail img {
+  max-width: 100%; /* Ajusta el ancho máximo */
+  max-height: 100%; /* Ajusta la altura máxima */
+  object-fit: contain; /* Asegura que la imagen mantenga sus proporciones */
+  border-radius: 8px; /* Bordes redondeados para que coincidan con la tarjeta */
+}
+
+/* Texto dentro de la tarjeta: Color negro */
+.product-card ion-card-title,
+.product-card ion-card-subtitle,
+.product-card p {
+  color: #000 !important; /* Texto negro */
+}
+
 /* Grupo de botones en las tarjetas */
 .button-group {
   display: flex;

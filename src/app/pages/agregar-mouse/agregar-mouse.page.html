@@ -6,9 +6,10 @@
 
 <ion-content class="ion-padding">
   <form (submit)="agregarMouse()">
-    <ion-card>
+    <ion-card class="form-card">
       <ion-card-content>
         
+        <!-- Campos de entrada -->
         <ion-item class="input-item">
           <ion-label position="floating">Nombre del Mouse</ion-label>
           <ion-input [(ngModel)]="mouse.nombre" name="nombre" required></ion-input>
@@ -29,9 +30,10 @@
           <ion-textarea [(ngModel)]="mouse.descripcion" name="descripcion" required></ion-textarea>
         </ion-item>
 
+        <!-- Botones para capturar o seleccionar imagen -->
         <div class="button-group">
-          <ion-button expand="block" color="secondary" (click)="capturarFoto()">Capturar Foto</ion-button>
-          <ion-button expand="block" color="tertiary" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+          <ion-button class="custom-button" (click)="capturarFoto()">Capturar Foto</ion-button>
+          <ion-button class="custom-button secondary" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
         </div>
 
         <!-- Vista previa de la imagen capturada o seleccionada -->
@@ -39,7 +41,10 @@
           <ion-img [src]="imagenVistaPrevia" alt="Vista previa de la imagen"></ion-img>
         </ion-card>
 
-        <ion-button type="submit" expand="block" color="primary" class="submit-button">Agregar Mouse</ion-button>
+        <!-- Botón para agregar mouse -->
+        <div class="button-group">
+          <ion-button type="submit" class="custom-button submit-button">Agregar Mouse</ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </form>
