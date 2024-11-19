@@ -50,5 +50,22 @@ describe('NuevacontrasenaPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debería mostrar una alerta si las contraseñas no coinciden', async () => {
+    // Configuramos las contraseñas para que no coincidan
+    component.nuevaContrasena = 'Password123!';
+    component.confirmarContrasena = 'Password456!';
+  
+    spyOn(component, 'presentAlert'); // Espiar el método `presentAlert`
+  
+    await component.cambiarContrasena();
+  
+    // Verificar que se llama a `presentAlert` con el mensaje correcto
+    expect(component.presentAlert).toHaveBeenCalledWith(
+      'Error',
+      'Las contraseñas no coinciden. Intente nuevamente.'
+    );
+  });
+  
 });
 

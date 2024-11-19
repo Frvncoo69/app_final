@@ -42,5 +42,19 @@ describe('LoginPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('debe validar el formato de contraseña durante el inicio de sesión', async () => {
+    // Caso: Contraseña inválida
+    component.email = 'valid@example.com'; // Email válido
+    component.password = 'short'; // Contraseña corta y sin requisitos
+    spyOn(component, 'presentAlert'); // Espía para verificar que se muestra la alerta
+  
+    await component.onLogin();
+  
+    expect(component.presentAlert).toHaveBeenCalledWith(
+      'La contraseña debe tener al menos 6 caracteres, una mayúscula, un número y un carácter especial.'
+    );
+  });
+  
+  
 });
 

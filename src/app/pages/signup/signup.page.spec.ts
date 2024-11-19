@@ -37,5 +37,25 @@ describe('SignupPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('debería mostrar una alerta si los campos obligatorios están vacíos', async () => {
+    // Dejamos todos los campos vacíos para simular el caso
+    component.rut = '';
+    component.nombre = '';
+    component.apellido = '';
+    component.nombreUsuario = '';
+    component.correo = '';
+    component.contrasena = '';
+    component.validarContrasena = '';
+    component.preguntaSeguridad = '';
+    component.respuestaSeguridad = '';
+  
+    spyOn(component, 'presentAlert'); // Espiar el método para verificar su llamada
+  
+    await component.crearCuenta();
+  
+    // Verificar que se llamó a `presentAlert` con el mensaje esperado
+    expect(component.presentAlert).toHaveBeenCalledWith('Error', 'Todos los campos son obligatorios.');
+  });
+  
 
 });

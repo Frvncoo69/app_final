@@ -49,5 +49,23 @@ describe('EditarPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
+  it('debería mostrar una alerta si los campos obligatorios están vacíos', async () => {
+    // Dejamos los campos obligatorios vacíos
+    component.nombre = '';
+    component.apellido = '';
+    component.nombreUsuario = '';
+    component.correo = '';
+  
+    const alertSpy = TestBed.inject(AlertController).create; // Espiamos `create` del AlertController
+  
+    await component.guardarCambios();
+  
+    // Verificamos que se llame a `create` del AlertController con los parámetros esperados
+    expect(alertSpy).toHaveBeenCalledWith({
+      header: 'Campos Vacíos',
+      message: 'Por favor, complete todos los campos.',
+      buttons: ['OK'],
+    });
+  });
+  
 });

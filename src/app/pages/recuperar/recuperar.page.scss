@@ -63,7 +63,8 @@ ion-item {
 /* Campo de entrada */
 ion-input {
   --background: rgba(240, 240, 240, 1); /* Fondo claro */
-  --placeholder-color: #aaa;
+  --placeholder-color: #aaa; /* Color del texto de marcador */
+  --color: #000; /* Color del texto ingresado */
   border-radius: 4px; /* Esquinas ligeramente redondeadas */
   padding: 8px 12px;
   font-size: 0.95rem;

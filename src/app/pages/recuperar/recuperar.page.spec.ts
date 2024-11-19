@@ -41,5 +41,21 @@ describe('RecuperarPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debería mostrar una alerta si el correo electrónico no contiene "@"', async () => {
+    component.correo = 'invalidemail.com'; // Correo sin el carácter '@'
+  
+    const alertSpy = TestBed.inject(AlertController).create; // Espiar `create` de `AlertController`
+  
+    await component.verificarCorreo();
+  
+    // Verificar que `create` del AlertController fue llamado
+    expect(alertSpy).toHaveBeenCalledWith({
+      header: 'Error',
+      message: 'Ingrese un correo electrónico válido.',
+      buttons: ['OK'],
+    });
+  });
+  
 });
 
