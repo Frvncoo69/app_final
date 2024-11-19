@@ -101,5 +101,5 @@ export class Sillas1Page implements OnInit {
       console.error('Error al verificar si el producto está en el carrito:', error);
     }
   }
-  ///CARRITO SECCION
+
 }
