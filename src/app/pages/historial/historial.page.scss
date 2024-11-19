@@ -1,0 +1,56 @@
+/* Fondo del ion-content */
+ion-content {
+    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  }
+  
+  /* Estilo para las tarjetas de retiro */
+  .retiro-card {
+    background-color: #ffffff !important; /* Fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    margin: 20px; /* Margen para separar las tarjetas */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  }
+  
+  /* Estilo para el item de producto */
+  .product-item {
+    --background: #ffffff !important; /* Fondo blanco */
+    color: #000000 !important; /* Texto negro */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Estilo para la imagen del producto */
+  ion-thumbnail img {
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    max-width: 200px; /* Imagen más grande */
+    height: auto; /* Mantén las proporciones */
+    margin-right: 15px; /* Espaciado entre la imagen y el texto */
+  }
+  
+  /* Título del producto */
+  .product-title {
+    font-size: 1rem; /* Reduce ligeramente el tamaño del texto */
+    font-weight: bold;
+    color: #000000 !important; /* Texto negro */
+  }
+  
+  /* Detalles del producto (precio, cantidad) */
+  .product-detail {
+    font-size: 0.9rem; /* Ajusta el tamaño de los detalles */
+    color: #000000 !important; /* Texto negro */
+    margin: 4px 0;
+  }
+  
+  /* Estilo para "No pedidos" */
+  .reseña-card {
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .no-resenas-content {
+    font-size: 1rem;
+    color: #000000;
+  }
+  

@@ -20,18 +20,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list  *ngFor="let usuario of usuarios">
-    <ion-card>
-      <ion-thumbnail>
-        <img [src]="usuario.foto_usu" alt="Foto del usuario">
-      </ion-thumbnail>
+  <ion-list>
+    <ion-card *ngFor="let usuario of usuarios" class="user-card">
       <ion-card-header>
-        <ion-card-title>Rut: {{usuario.rut_usu}}</ion-card-title>
-        <ion-card-subtitle>Nombre: {{usuario.nombre_usu}}{{usuario.apellido_usu}}</ion-card-subtitle>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img alt="Perfil" [src]="usuario.foto_usu" />
+          </ion-thumbnail>          
+          <ion-label>
+            <h2>{{ usuario.nombre_usu }} {{ usuario.apellido_usu }}</h2>
+            <p>RUT: {{ usuario.rut_usu }}</p>
+          </ion-label>
+        </ion-item>
       </ion-card-header>
       <ion-card-content>
-        <p>Correo: {{usuario.correo_usu}}</p>
+        <p><strong>Correo:</strong> {{ usuario.correo_usu }}</p>
       </ion-card-content>
+      <ion-row class="ion-justify-content-around">
+        <ion-button (click)="eliminarUsuario(usuario)" color="danger" expand="block">Eliminar Usuario</ion-button>
+      </ion-row>
     </ion-card>
   </ion-list>
 </ion-content>

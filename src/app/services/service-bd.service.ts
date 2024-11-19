@@ -109,7 +109,7 @@ export class ServiceBDService {
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore72.db',
+        name: 'tecnostore74.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
@@ -192,8 +192,7 @@ export class ServiceBDService {
   }
 
 
-  /////////////////////////////////////////////////////////7
-  //d mi para ustedes jaja
+  /////////////////////////////////////////////////////////
 
 
   //traer a un usuario en base a su estado logeado (revisen mi repo y la tabla usuario)
@@ -267,6 +266,22 @@ export class ServiceBDService {
     return null;
   }
 
+  async obtenerUsuario2() { {
+      const query = 'SELECT * FROM usuario WHERE id_usu = ?';
+      const res = await this.database.executeSql(query, []);
+      if (res.rows.length > 0) {
+        return {
+          id_usu: res.rows.item(0).id_usu,
+          rut_usu: res.rows.item(0).rut_usu,
+          nombre_usu: res.rows.item(0).nombre_usu,
+          apellido_usu: res.rows.item(0).apellido_usu,
+          correo_usu: res.rows.item(0).correo_usu,
+          estado_usu: res.rows.item(0).estado_usu // Asegúrate de que este campo está incluido
+        };
+      }
+      return null;
+    }
+  }
 
 
   // Insertar un usuario
@@ -300,7 +315,7 @@ export class ServiceBDService {
         return null; // Manejo de errores
       });
   }
-
+  
 
   //valida el uusario loggeado
   async actualizarEstadoUsuario(correo_usu: any): Promise<void> {
@@ -1146,6 +1161,24 @@ async consultarRetiros(idUsuario: number): Promise<any[]> {
   return retiros;
 }
 
+async consultarRetiros2(): Promise<any[]> {
+  const query = `
+    SELECT v.id_venta, v.f_venta, v.total_venta, v.estado_retiro, d.id_producto, d.cantidad_d, d.subtotal,
+           p.nombre_prod, p.precio_prod, p.foto_prod, u.nombre_usuario
+    FROM venta v
+    JOIN detalle d ON v.id_venta = d.id_venta
+    JOIN producto p ON d.id_producto = p.id_producto
+    JOIN usuario u ON v.id_usu = u.id_usu
+  `;
+  const result = await this.database.executeSql(query, []);
+  const retiros = [];
+  for (let i = 0; i < result.rows.length; i++) {
+    retiros.push(result.rows.item(i));
+  }
+  return retiros;
+}
+
+
 
 ///////////////////////////////////////////////////
 
@@ -1208,39 +1241,6 @@ async insertarUsuarioConSeguridad(
 }
 
 ///////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

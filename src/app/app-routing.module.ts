@@ -220,9 +220,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detalle-usuario/detalle-usuario.module').then( m => m.DetalleUsuarioPageModule)
   },
   {
+    path: 'historial',
+    loadChildren: () => import('./pages/historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+
 
 
 

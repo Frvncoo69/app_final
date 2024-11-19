@@ -59,7 +59,7 @@
     <ion-button expand="block" class="custom-button" [routerLink]="'/cambiarcontrasena'">
       Cambiar Contraseña
     </ion-button>
-    <ion-button expand="block" class="custom-button" [routerLink]="'/listarusuarios'">
+    <ion-button  *ngIf="rolA !== 2" expand="block" class="custom-button" [routerLink]="'/listarusuarios'">
       Listar Usuarios
     </ion-button>
     <ion-button expand="block" class="custom-button" [routerLink]="'/retiro'">

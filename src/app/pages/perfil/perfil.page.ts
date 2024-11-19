@@ -17,6 +17,7 @@ export class PerfilPage implements OnInit {
   nombreUsuario: string = '';
   photoUrl: string = '/assets/icon/perfil.jpg';
   idUsuario: number = 0;
+  rolA : number = 0;
 
   usuario: any = {
     id_usu: '',
@@ -67,6 +68,7 @@ export class PerfilPage implements OnInit {
         this.email = usuarioActual.correo_usu;
         this.nombreUsuario = usuarioActual.nombre_usuario;
         this.idUsuario = usuarioActual.id_usu;
+        this.rolA = usuarioActual.id_rol;
   
         // Manejar foto de perfil: verificar si es Blob o string
         if (usuarioActual.foto_usu) {
