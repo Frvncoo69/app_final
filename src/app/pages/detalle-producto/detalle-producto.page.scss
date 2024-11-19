@@ -1,67 +1,58 @@
 /* Fondo del ion-content */
 ion-content {
-    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
-  }
-  /* Estilo general para los botones personalizados */
-.custom-button {
-    --background: #5fbded; /* Color celeste para el fondo del botón */
-    --color: #ffffff; /* Color blanco para el texto del botón */
-    --border-radius: 4px; /* Radio de borde más pequeño para un diseño rectangular */
-    padding: 12px 20px; /* Ajusta el tamaño del botón para hacerlo más rectangular */
-    margin: 10px 0; /* Añade márgenes verticales si es necesario */
-  }
-  
-  .custom-button:focus, .custom-button:hover {
-    --background: #5fbded; /* Color celeste más oscuro al hacer hover o al enfocar el botón */
-  }
-  
-  /* Mantener los estilos actuales */
-  ion-content {
-    --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
-  }
-  
-  ion-content {
-    ion-list, ion-item {
-      background: transparent;
-    }
-  
-    ion-item {
-      --background: transparent;
-      --ion-item-background: transparent;
-    }
-  }
-  
-  /* Estilo para la descripción del producto */
-  .product-description {
-    background-color: #ffffff; /* Fondo blanco para la descripción */
-    padding: 16px; /* Añade un poco de relleno alrededor del contenido */
-    border-radius: 8px; /* Opcional: Añade bordes redondeados */
-  }
-  
-  .product-description h2, .product-description p, .product-description h3 {
-    color: #000000; /* Texto negro */
-  }
-  
-  /* Centrar el botón dentro de la columna */
-  .center-button-container {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-  }
-  
-  /* Estilo para el encabezado */
-ion-header {
-  --background: #004d74; /* Fondo del encabezado */
-  color: #ffffff; /* Color del texto en el encabezado */
+  --background: url('/assets/icon/home.jpg') no-repeat center center / cover;
+  background-blend-mode: darken;
 }
 
-/* Estilo para los botones del encabezado */
-ion-button {
-  --background: #004d74; /* Fondo del botón */
-  --color: #ffffff; /* Color del texto en el botón */
+/* Tarjeta del producto */
+.product-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  padding: 20px;
+  margin: 20px;
+  color: #000000;
+  text-align: center; /* Centra todo el contenido dentro de la tarjeta */
 }
 
-/* Estilo para los íconos dentro de los botones */
-ion-icon {
-  color: #ffffff; /* Color de los íconos */
+/* Contenedor de la imagen */
+.product-image-container {
+  margin-bottom: 20px; /* Espacio entre la imagen y los demás elementos */
+}
+
+/* Imagen del producto */
+.product-image {
+  max-width: 90%; /* La imagen ocupa el 90% del ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  object-fit: cover; /* Ajusta el contenido sin deformar */
+  border-radius: 10px; /* Bordes redondeados */
+  display: block;
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+/* Título del producto */
+.product-title {
+  font-size: 1.8rem; /* Tamaño grande para el título */
+  font-weight: bold;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 20px; /* Espacio inferior */
+  text-align: center; /* Centra el texto */
+}
+
+/* Detalles del producto (precio y stock) */
+.product-details {
+  font-size: 1.2rem;
+  color: #555555; /* Color gris para contraste */
+  margin: 10px 0;
+  text-align: left; /* Alineado a la izquierda */
+}
+
+/* Descripción del producto */
+.product-description {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.5;
+  margin-top: 10px;
+  text-align: left; /* Alineado a la izquierda */
 }

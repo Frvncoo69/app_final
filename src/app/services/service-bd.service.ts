@@ -109,7 +109,7 @@ export class ServiceBDService {
   createBD() {
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'tecnostore72.db',
+        name: 'tecnostore73.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;

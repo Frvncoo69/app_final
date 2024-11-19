@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start"> 
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title style="text-align: center;">
@@ -8,7 +8,7 @@
         TECNO STORE
       </ion-button>
     </ion-title>
-    <ion-buttons slot="end"> 
+    <ion-buttons slot="end">
       <ion-button [routerLink]="'/perfil'">
         <ion-icon slot="icon-only" name="person-outline"></ion-icon>
       </ion-button>
@@ -19,30 +19,28 @@
   </ion-toolbar>
 </ion-header>
 
-
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="productoSolo" class="product-card">
+    <ion-card-content>
+      <!-- Contenedor exclusivo para la imagen -->
+      <div class="product-image-container">
+        <img class="product-image" [src]="productoSolo.foto_prod" alt="Foto del producto">
+      </div>
+      
+      <!-- Título del producto -->
+      <h2 class="product-title">{{ productoSolo.nombre_prod }}</h2>
+      
+      <!-- Detalles del producto -->
+      <p class="product-details">Precio: {{ productoSolo.precio_prod }}</p>
+      <p class="product-details">Stock: {{ productoSolo.stock_prod }}</p>
+      
+      <!-- Descripción del producto -->
+      <p class="product-description">{{ productoSolo.descripcion_prod }}</p>
+    </ion-card-content>
+  </ion-card>
   
-  <ion-content [fullscreen]="true">
-    <ion-card *ngIf="productoSolo">
-      <ion-card-header>
-        <ion-card-title>{{ productoSolo.nombre_prod }}</ion-card-title>
-        <ion-card-subtitle>Precio: {{ productoSolo.precio_prod }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-thumbnail>
-          <img [src]="productoSolo.foto_prod" alt="Foto del producto">
-        </ion-thumbnail>
-        <p>Stock: {{ productoSolo.stock_prod }}</p>
-        <p>{{ productoSolo.descripcion_prod }}</p>
-        
-        <!--<ion-button (click)="agregarCarrito()">Agregar al Carrito</ion-button>-->
-      </ion-card-content>
-    </ion-card>
+  <ion-item *ngIf="!productoSolo">
+    <ion-label>No se encontraron detalles del producto.</ion-label>
+  </ion-item>
   
-    <ion-item *ngIf="!productoSolo">
-      <ion-label>No se encontraron detalles del producto.</ion-label>
-    </ion-item>
-   
-    
-  </ion-content>
-
-
+</ion-content>
