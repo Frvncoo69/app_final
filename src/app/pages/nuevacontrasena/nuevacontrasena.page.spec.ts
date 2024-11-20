@@ -63,7 +63,7 @@ describe('NuevacontrasenaPage', () => {
     // Verificar que se llama a `presentAlert` con el mensaje correcto
     expect(component.presentAlert).toHaveBeenCalledWith(
       'Error',
-      'Las contraseñas no coinciden. Intente nuevamente.'
+      'Las contraseñas no coinciden. Intente nuevamente.'  // Asegúrate que esta cadena sea correcta
     );
   });
   
