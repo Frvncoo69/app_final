@@ -22,9 +22,21 @@ export class ConsolaDetallePage implements OnInit {
   }
 
   async cargarConsola(id: number) {
+    // Verificar si la consola está almacenada en localStorage
+    const consolasGuardadas = localStorage.getItem('consolas');
+    if (consolasGuardadas) {
+      const consolas = JSON.parse(consolasGuardadas);
+      this.consola = consolas.find((consola: any) => consola.id === id); // Buscar la consola por ID en el localStorage
+      if (this.consola) {
+        console.log('Consola cargada desde localStorage:', this.consola);
+        return;
+      }
+    }
+
+    // Si no está en localStorage, hacer la consulta a la API
     try {
       this.consola = await firstValueFrom(this.consolasService.getConsolaById(id));
-      console.log('Consola cargada:', this.consola); // Verificación en consola
+      console.log('Consola cargada desde la API:', this.consola);
     } catch (error) {
       console.error('Error al cargar consola:', error);
     }

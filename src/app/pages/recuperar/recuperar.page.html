@@ -28,15 +28,25 @@
           Verificar Correo
         </ion-button>
 
-        <!-- Mostrar la pregunta de seguridad de manera horizontal y campo de respuesta debajo -->
-        <div *ngIf="mostrarPregunta" class="pregunta-seguridad">
+        <!-- Si el correo está verificado, mostrar la selección de pregunta de seguridad -->
+        <div *ngIf="mostrarPregunta && !respuestaSeleccionada">
+          <ion-label>Seleccione una pregunta de seguridad</ion-label>
+          <ion-select [(ngModel)]="preguntaSeguridad" (ionChange)="seleccionarPregunta()" placeholder="Seleccione una pregunta">
+            <ion-select-option *ngFor="let pregunta of preguntasPredefinidas" [value]="pregunta">
+              {{ pregunta }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+
+        <!-- Campo para respuesta de seguridad -->
+        <div *ngIf="mostrarPregunta && respuestaSeleccionada" class="pregunta-seguridad">
           <ion-label>{{ preguntaSeguridad }}</ion-label>
           <ion-item>
             <ion-input placeholder="Respuesta" [(ngModel)]="respuesta"></ion-input>
           </ion-item>
         </div>
 
-        <ion-button expand="block" class="custom-button" *ngIf="mostrarPregunta" (click)="verificarRespuesta()">
+        <ion-button expand="block" class="custom-button" *ngIf="mostrarPregunta && respuestaSeleccionada" (click)="verificarRespuesta()">
           Verificar Respuesta
         </ion-button>
       </ion-card-content>

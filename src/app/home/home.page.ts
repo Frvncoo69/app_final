@@ -5,7 +5,6 @@ import { ConsolasService } from 'src/app/services/consolas.service';
 import { firstValueFrom } from 'rxjs';  // Importa firstValueFrom
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -22,7 +21,6 @@ export class HomePage implements OnInit {
     private consolasService: ConsolasService,
     private apiNativaService: ApiNativaService,
     private router: Router
-
   ) { }
 
   async ngOnInit() {
@@ -30,23 +28,49 @@ export class HomePage implements OnInit {
     await this.cargarConsolas();
   }
 
+  // Cargar productos desde localStorage o API
   async cargarProductos() {
-    try {
-      this.productos = await this.bdService.obtenerTodosLosProductos();
+    // Verificar si los productos están guardados en localStorage
+    const productosGuardados = localStorage.getItem('productos');
+    if (productosGuardados) {
+      // Si los productos están en localStorage, cargarlos
+      this.productos = JSON.parse(productosGuardados);
       this.productosFiltrados = [...this.productos];
-    } catch (error) {
-      console.error('Error al cargar productos:', error);
+      console.log('Productos cargados desde localStorage');
+    } else {
+      // Si no están, hacer la solicitud a la API
+      try {
+        this.productos = await this.bdService.obtenerTodosLosProductos();
+        this.productosFiltrados = [...this.productos];
+        // Guardar los productos en localStorage para futuras consultas
+        localStorage.setItem('productos', JSON.stringify(this.productos));
+        console.log('Productos cargados desde la API');
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      }
     }
   }
 
+  // Cargar consolas desde localStorage o API
   async cargarConsolas() {
-    try {
-      const consolas = await firstValueFrom(this.consolasService.getConsolas());
-      this.consolasFiltradas = consolas || [];
-      console.log('Consolas cargadas:', this.consolasFiltradas); // Verificación en consola
-    } catch (error) {
-      console.error('Error al cargar consolas:', error);
-      this.consolasFiltradas = [];
+    // Verificar si las consolas están guardadas en localStorage
+    const consolasGuardadas = localStorage.getItem('consolas');
+    if (consolasGuardadas) {
+      // Si las consolas están en localStorage, cargarlas
+      this.consolasFiltradas = JSON.parse(consolasGuardadas);
+      console.log('Consolas cargadas desde localStorage');
+    } else {
+      // Si no están, hacer la solicitud a la API
+      try {
+        const consolas = await firstValueFrom(this.consolasService.getConsolas());
+        this.consolasFiltradas = consolas || [];
+        // Guardar las consolas en localStorage para futuras consultas
+        localStorage.setItem('consolas', JSON.stringify(this.consolasFiltradas));
+        console.log('Consolas cargadas desde la API');
+      } catch (error) {
+        console.error('Error al cargar consolas:', error);
+        this.consolasFiltradas = [];
+      }
     }
   }
 
@@ -54,7 +78,6 @@ export class HomePage implements OnInit {
   verDetalleConsola(id: number) {
     this.router.navigate(['/consola-detalle', id]);
   }
-
 
   buscarProducto(event: any) {
     const texto = event.target.value;

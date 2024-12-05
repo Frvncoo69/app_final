@@ -52,10 +52,8 @@ describe('RecuperarPage', () => {
     // Verificar que `create` del AlertController fue llamado
     expect(alertSpy).toHaveBeenCalledWith({
       header: 'Error',
-      message: 'Ingrese un correo electrónico válido.',
+      message: 'Ingrese un correo electrónico válido.',  // Asegúrate de que el mensaje esté con el acento correcto
       buttons: ['OK'],
     });
   });
-  
 });
-
